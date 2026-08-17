@@ -1,0 +1,23 @@
+name: awesome_design_system_molecules
+description: Molecular components for the Awesome Design System
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: "^3.9.0"
+  flutter: ">=3.22.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  awesome_design_system_tokens:
+    path: ../tokens
+  awesome_design_system_atoms:
+    path: ../atoms
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0

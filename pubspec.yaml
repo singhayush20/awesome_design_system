@@ -1,0 +1,25 @@
+name: awesome_design_system
+description: A comprehensive Flutter design system with atomic architecture
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: "^3.9.0"
+  flutter: ">=3.22.0"
+
+workspace:
+  - packages/tokens
+  - packages/atoms
+  - packages/molecules
+  - packages/organisms
+  - widgetbook
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  melos: ^6.0.0

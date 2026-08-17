@@ -1,0 +1,35 @@
+name: awesome_design_system
+packages:
+  - packages/tokens
+  - packages/atoms
+  - packages/molecules
+  - packages/organisms
+  - widgetbook
+
+command:
+  bootstrap:
+    description: Get dependencies for all packages
+    run: flutter pub get
+  analyze:
+    description: Run static analysis on all packages
+    run: flutter analyze
+  format:
+    description: Format all packages
+    run: dart format .
+  test:
+    description: Run tests for all packages
+    run: flutter test
+  publish:
+    description: Dry-run publish for all packages
+    run: flutter pub publish --dry-run
+    select-package:
+      dir-exists: true
+      no-select: true
+      include-root: false
+
+scripts:
+  gen:widgetbook:
+    description: Generate widgetbook directories
+    run: dart run widgetbook_generator:build
+    select-package:
+      dir-exists: widgetbook

@@ -1,0 +1,19 @@
+name: awesome_design_system_tokens
+description: Design tokens for the Awesome Design System
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: "^3.9.0"
+  flutter: ">=3.22.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
