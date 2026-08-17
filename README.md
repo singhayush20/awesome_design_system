@@ -14,32 +14,24 @@ Flutter design system monorepo (pub workspace). Layer hierarchy: **tokens → at
 
 ## Consuming from a Flutter app
 
-Add the packages via git (private repo pattern). `atoms` depends on `tokens` by version, so pin `tokens` to the same repo via `dependency_overrides`:
+The repo root is a single umbrella package (`awesome_design_system`) that re-exports all layers. Add one git dependency and import one library:
 
 ```yaml
 # consumer_app/pubspec.yaml
 dependencies:
   flutter:
     sdk: flutter
-  awesome_design_system_atoms:
+  awesome_design_system:
     git:
       url: https://github.com/<you>/awesome_design_system.git
-      path: packages/atoms
-      ref: main
-
-dependency_overrides:
-  awesome_design_system_tokens:
-    git:
-      url: https://github.com/<you>/awesome_design_system.git
-      path: packages/tokens
       ref: main
 ```
 
 Then initialize the theme and use the widgets:
 
 ```dart
-import 'package:awesome_design_system_tokens/tokens.dart';
-import 'package:awesome_design_system_atoms/atoms.dart';
+import 'package:awesome_design_system/design_system.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
@@ -54,8 +46,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: DSButton(
-            label: 'Hello',
             onPressed: () {},
+            child: Text('Hello'),
           ),
         ),
       ),
