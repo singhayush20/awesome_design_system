@@ -1,5 +1,6 @@
 // Badge atom with variants
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 
@@ -12,8 +13,8 @@ enum BadgeSize { small, medium, large }
 /// A versatile badge/component label
 class DSBadge extends StatelessWidget {
   const DSBadge({
-    super.key,
     required this.label,
+    super.key,
     this.variant = BadgeVariant.filled,
     this.size = BadgeSize.medium,
     this.leadingIcon,
@@ -44,29 +45,44 @@ class DSBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SpacingScale spacing =
+        tokens?.spacing.scale ?? SpacingScale.defaultScale;
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final effectiveOnTap = isDisabled ? null : onTap;
-    final effectiveOnDeleted = isDisabled ? null : onDeleted;
+    final VoidCallback? effectiveOnTap = isDisabled ? null : onTap;
+    final VoidCallback? effectiveOnDeleted = isDisabled ? null : onDeleted;
 
-    final backgroundColor = _resolveBackgroundColor(variant, color, colors);
-    final foregroundColor = textColor ?? _resolveForegroundColor(variant, backgroundColor, colors);
-    final borderColor = _resolveBorderColor(variant, color, colors);
-    final effectiveBorderRadius = borderRadius ?? _resolveBorderRadius(size, radius);
-    final effectivePadding = padding ?? _resolvePadding(size, spacing);
-    final textStyle = _resolveTextStyle(size, typography, foregroundColor);
-    final iconSize = _resolveIconSize(size, sizing);
-    final gap = _resolveGap(size, spacing);
+    final Color backgroundColor = _resolveBackgroundColor(
+      variant,
+      color,
+      colors,
+    );
+    final Color foregroundColor =
+        textColor ?? _resolveForegroundColor(variant, backgroundColor, colors);
+    final Color borderColor = _resolveBorderColor(variant, color, colors);
+    final BorderRadius effectiveBorderRadius =
+        borderRadius ?? _resolveBorderRadius(size, radius);
+    final EdgeInsetsGeometry effectivePadding =
+        padding ?? _resolvePadding(size, spacing);
+    final TextStyle textStyle = _resolveTextStyle(
+      size,
+      typography,
+      foregroundColor,
+    );
+    final double iconSize = _resolveIconSize(size, sizing);
+    final double gap = _resolveGap(size, spacing);
 
-    final children = <Widget>[];
+    final List<Widget> children = <Widget>[];
 
     if (leadingIcon != null) {
-      children.add(SizedBox(width: iconSize, height: iconSize, child: leadingIcon!));
+      children.add(
+        SizedBox(width: iconSize, height: iconSize, child: leadingIcon!),
+      );
       children.add(SizedBox(width: gap));
     }
 
@@ -90,7 +106,9 @@ class DSBadge extends StatelessWidget {
       );
     } else if (trailingIcon != null) {
       children.add(SizedBox(width: gap));
-      children.add(SizedBox(width: iconSize, height: iconSize, child: trailingIcon!));
+      children.add(
+        SizedBox(width: iconSize, height: iconSize, child: trailingIcon!),
+      );
     }
 
     Widget badge = Container(
@@ -98,7 +116,10 @@ class DSBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: effectiveBorderRadius,
-        border: Border.all(color: borderColor, width: variant == BadgeVariant.outlined ? 1 : 0),
+        border: Border.all(
+          color: borderColor,
+          width: variant == BadgeVariant.outlined ? 1 : 0,
+        ),
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: children),
     );
@@ -127,7 +148,11 @@ class DSBadge extends StatelessWidget {
     return badge;
   }
 
-  Color _resolveBackgroundColor(BadgeVariant variant, Color? override, ColorScheme colors) {
+  Color _resolveBackgroundColor(
+    BadgeVariant variant,
+    Color? override,
+    ColorScheme colors,
+  ) {
     if (override != null) return override;
     return switch (variant) {
       BadgeVariant.filled => colors.primaryContainer,
@@ -137,15 +162,24 @@ class DSBadge extends StatelessWidget {
     };
   }
 
-  Color _resolveForegroundColor(BadgeVariant variant, Color backgroundColor, ColorScheme colors) {
+  Color _resolveForegroundColor(
+    BadgeVariant variant,
+    Color backgroundColor,
+    ColorScheme colors,
+  ) {
     if (variant == BadgeVariant.outlined) return colors.primary;
     // Calculate contrast
-    return ThemeData.estimateBrightnessForColor(backgroundColor) == Brightness.light
+    return ThemeData.estimateBrightnessForColor(backgroundColor) ==
+            Brightness.light
         ? colors.onPrimaryContainer
         : colors.onPrimaryContainer;
   }
 
-  Color _resolveBorderColor(BadgeVariant variant, Color? override, ColorScheme colors) {
+  Color _resolveBorderColor(
+    BadgeVariant variant,
+    Color? override,
+    ColorScheme colors,
+  ) {
     if (override != null) return override;
     return switch (variant) {
       BadgeVariant.filled => Colors.transparent,
@@ -165,13 +199,26 @@ class DSBadge extends StatelessWidget {
 
   EdgeInsetsGeometry _resolvePadding(BadgeSize size, SpacingScale spacing) {
     return switch (size) {
-      BadgeSize.small => EdgeInsets.symmetric(horizontal: spacing.xs, vertical: spacing.xxs),
-      BadgeSize.medium => EdgeInsets.symmetric(horizontal: spacing.sm, vertical: spacing.xxs),
-      BadgeSize.large => EdgeInsets.symmetric(horizontal: spacing.md, vertical: spacing.xs),
+      BadgeSize.small => EdgeInsets.symmetric(
+        horizontal: spacing.xs,
+        vertical: spacing.xxs,
+      ),
+      BadgeSize.medium => EdgeInsets.symmetric(
+        horizontal: spacing.sm,
+        vertical: spacing.xxs,
+      ),
+      BadgeSize.large => EdgeInsets.symmetric(
+        horizontal: spacing.md,
+        vertical: spacing.xs,
+      ),
     };
   }
 
-  TextStyle _resolveTextStyle(BadgeSize size, TypographyScale typography, Color color) {
+  TextStyle _resolveTextStyle(
+    BadgeSize size,
+    TypographyScale typography,
+    Color color,
+  ) {
     return switch (size) {
       BadgeSize.small => typography.labelSmall.copyWith(color: color),
       BadgeSize.medium => typography.labelMedium.copyWith(color: color),
@@ -194,13 +241,35 @@ class DSBadge extends StatelessWidget {
       BadgeSize.large => spacing.xs,
     };
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('label', label));
+    properties.add(EnumProperty<BadgeVariant>('variant', variant));
+    properties.add(EnumProperty<BadgeSize>('size', size));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onDeleted', onDeleted),
+    );
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(ColorProperty('color', color));
+    properties.add(ColorProperty('textColor', textColor));
+    properties.add(
+      DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius),
+    );
+    properties.add(
+      DiagnosticsProperty<EdgeInsetsGeometry?>('padding', padding),
+    );
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+  }
 }
 
 /// Status badge variant with semantic colors
 class DSStatusBadge extends StatelessWidget {
   const DSStatusBadge({
-    super.key,
     required this.status,
+    super.key,
     this.size = BadgeSize.medium,
     this.showIcon = true,
     this.label,
@@ -217,18 +286,14 @@ class DSStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final colors = Theme.of(context).colorScheme;
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final config = _getStatusConfig(status, colors);
-    final effectiveLabel = label ?? config.defaultLabel;
-    final icon = showIcon ? config.icon : null;
+    final _StatusConfig config = _getStatusConfig(status, colors);
+    final String effectiveLabel = label ?? config.defaultLabel;
+    final Widget? icon = showIcon ? config.icon : null;
 
     return DSBadge(
       label: effectiveLabel,
-      variant: BadgeVariant.filled,
       size: size,
       leadingIcon: icon,
       color: config.backgroundColor,
@@ -241,42 +306,53 @@ class DSStatusBadge extends StatelessWidget {
   _StatusConfig _getStatusConfig(BadgeStatus status, ColorScheme colors) {
     return switch (status) {
       BadgeStatus.success => _StatusConfig(
-          backgroundColor: colors.tertiaryContainer,
-          foregroundColor: colors.onTertiaryContainer,
-          icon: const Icon(Icons.check_circle, size: 16),
-          defaultLabel: 'Success',
-        ),
+        backgroundColor: colors.tertiaryContainer,
+        foregroundColor: colors.onTertiaryContainer,
+        icon: const Icon(Icons.check_circle, size: 16),
+        defaultLabel: 'Success',
+      ),
       BadgeStatus.warning => _StatusConfig(
-          backgroundColor: colors.errorContainer,
-          foregroundColor: colors.onErrorContainer,
-          icon: const Icon(Icons.warning, size: 16),
-          defaultLabel: 'Warning',
-        ),
+        backgroundColor: colors.errorContainer,
+        foregroundColor: colors.onErrorContainer,
+        icon: const Icon(Icons.warning, size: 16),
+        defaultLabel: 'Warning',
+      ),
       BadgeStatus.error => _StatusConfig(
-          backgroundColor: colors.errorContainer,
-          foregroundColor: colors.onErrorContainer,
-          icon: const Icon(Icons.error, size: 16),
-          defaultLabel: 'Error',
-        ),
+        backgroundColor: colors.errorContainer,
+        foregroundColor: colors.onErrorContainer,
+        icon: const Icon(Icons.error, size: 16),
+        defaultLabel: 'Error',
+      ),
       BadgeStatus.info => _StatusConfig(
-          backgroundColor: colors.primaryContainer,
-          foregroundColor: colors.onPrimaryContainer,
-          icon: const Icon(Icons.info, size: 16),
-          defaultLabel: 'Info',
-        ),
+        backgroundColor: colors.primaryContainer,
+        foregroundColor: colors.onPrimaryContainer,
+        icon: const Icon(Icons.info, size: 16),
+        defaultLabel: 'Info',
+      ),
       BadgeStatus.pending => _StatusConfig(
-          backgroundColor: colors.secondaryContainer,
-          foregroundColor: colors.onSecondaryContainer,
-          icon: const Icon(Icons.hourglass_empty, size: 16),
-          defaultLabel: 'Pending',
-        ),
+        backgroundColor: colors.secondaryContainer,
+        foregroundColor: colors.onSecondaryContainer,
+        icon: const Icon(Icons.hourglass_empty, size: 16),
+        defaultLabel: 'Pending',
+      ),
       BadgeStatus.neutral => _StatusConfig(
-          backgroundColor: colors.surfaceContainerHighest,
-          foregroundColor: colors.onSurfaceVariant,
-          icon: const Icon(Icons.remove, size: 16),
-          defaultLabel: 'Neutral',
-        ),
+        backgroundColor: colors.surfaceContainerHighest,
+        foregroundColor: colors.onSurfaceVariant,
+        icon: const Icon(Icons.remove, size: 16),
+        defaultLabel: 'Neutral',
+      ),
     };
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<BadgeStatus>('status', status));
+    properties.add(EnumProperty<BadgeSize>('size', size));
+    properties.add(DiagnosticsProperty<bool>('showIcon', showIcon));
+    properties.add(StringProperty('label', label));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
   }
 }
 

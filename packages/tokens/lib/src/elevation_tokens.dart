@@ -23,152 +23,72 @@ class ElevationLevel {
 
   static const ElevationLevel level0 = ElevationLevel(
     level: 0,
-    lightShadow: [],
-    darkShadow: [],
+    lightShadow: <BoxShadow>[],
+    darkShadow: <BoxShadow>[],
     surfaceTint: Colors.transparent,
   );
 
   static const ElevationLevel level1 = ElevationLevel(
     level: 1,
-    lightShadow: [
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 1,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x1F000000),
-        blurRadius: 2,
-        offset: Offset(0, 1),
-      ),
+    lightShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x33000000), blurRadius: 1, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x1F000000), blurRadius: 2, offset: Offset(0, 1)),
     ],
-    darkShadow: [
-      BoxShadow(
-        color: Color(0x4D000000),
-        blurRadius: 1,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 2,
-        offset: Offset(0, 1),
-      ),
+    darkShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x4D000000), blurRadius: 1, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x33000000), blurRadius: 2, offset: Offset(0, 1)),
     ],
     surfaceTint: Color(0x0D000000),
   );
 
   static const ElevationLevel level2 = ElevationLevel(
     level: 2,
-    lightShadow: [
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 3,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x1F000000),
-        blurRadius: 4,
-        offset: Offset(0, 2),
-      ),
+    lightShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x33000000), blurRadius: 3, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x1F000000), blurRadius: 4, offset: Offset(0, 2)),
     ],
-    darkShadow: [
-      BoxShadow(
-        color: Color(0x4D000000),
-        blurRadius: 3,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 4,
-        offset: Offset(0, 2),
-      ),
+    darkShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x4D000000), blurRadius: 3, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x33000000), blurRadius: 4, offset: Offset(0, 2)),
     ],
     surfaceTint: Color(0x14000000),
   );
 
   static const ElevationLevel level3 = ElevationLevel(
     level: 3,
-    lightShadow: [
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 6,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x1F000000),
-        blurRadius: 8,
-        offset: Offset(0, 3),
-      ),
+    lightShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x33000000), blurRadius: 6, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x1F000000), blurRadius: 8, offset: Offset(0, 3)),
     ],
-    darkShadow: [
-      BoxShadow(
-        color: Color(0x4D000000),
-        blurRadius: 6,
-        offset: Offset(0, 1),
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 8,
-        offset: Offset(0, 3),
-      ),
+    darkShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x4D000000), blurRadius: 6, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x33000000), blurRadius: 8, offset: Offset(0, 3)),
     ],
     surfaceTint: Color(0x1A000000),
   );
 
   static const ElevationLevel level4 = ElevationLevel(
     level: 4,
-    lightShadow: [
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 10,
-        offset: Offset(0, 2),
-      ),
-      BoxShadow(
-        color: Color(0x1F000000),
-        blurRadius: 12,
-        offset: Offset(0, 4),
-      ),
+    lightShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x33000000), blurRadius: 10, offset: Offset(0, 2)),
+      BoxShadow(color: Color(0x1F000000), blurRadius: 12, offset: Offset(0, 4)),
     ],
-    darkShadow: [
-      BoxShadow(
-        color: Color(0x4D000000),
-        blurRadius: 10,
-        offset: Offset(0, 2),
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 12,
-        offset: Offset(0, 4),
-      ),
+    darkShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x4D000000), blurRadius: 10, offset: Offset(0, 2)),
+      BoxShadow(color: Color(0x33000000), blurRadius: 12, offset: Offset(0, 4)),
     ],
     surfaceTint: Color(0x1F000000),
   );
 
   static const ElevationLevel level5 = ElevationLevel(
     level: 5,
-    lightShadow: [
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 14,
-        offset: Offset(0, 4),
-      ),
-      BoxShadow(
-        color: Color(0x1F000000),
-        blurRadius: 16,
-        offset: Offset(0, 6),
-      ),
+    lightShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x33000000), blurRadius: 14, offset: Offset(0, 4)),
+      BoxShadow(color: Color(0x1F000000), blurRadius: 16, offset: Offset(0, 6)),
     ],
-    darkShadow: [
-      BoxShadow(
-        color: Color(0x4D000000),
-        blurRadius: 14,
-        offset: Offset(0, 4),
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        blurRadius: 16,
-        offset: Offset(0, 6),
-      ),
+    darkShadow: <BoxShadow>[
+      BoxShadow(color: Color(0x4D000000), blurRadius: 14, offset: Offset(0, 4)),
+      BoxShadow(color: Color(0x33000000), blurRadius: 16, offset: Offset(0, 6)),
     ],
     surfaceTint: Color(0x26000000),
   );
@@ -177,13 +97,11 @@ class ElevationLevel {
 /// Unified elevation tokens implementing ThemeExtension
 @immutable
 class ElevationTokens extends ThemeExtension<ElevationTokens> {
-  final Map<int, ElevationLevel> levels;
-
   const ElevationTokens({required this.levels});
 
   factory ElevationTokens.defaultTokens() {
-    return ElevationTokens(
-      levels: {
+    return const ElevationTokens(
+      levels: <int, ElevationLevel>{
         0: ElevationLevel.level0,
         1: ElevationLevel.level1,
         2: ElevationLevel.level2,
@@ -193,6 +111,7 @@ class ElevationTokens extends ThemeExtension<ElevationTokens> {
       },
     );
   }
+  final Map<int, ElevationLevel> levels;
 
   ElevationLevel getLevel(int level) => levels[level] ?? ElevationLevel.level0;
 

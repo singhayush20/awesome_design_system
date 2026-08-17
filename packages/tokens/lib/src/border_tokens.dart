@@ -52,13 +52,12 @@ class BorderScale {
 /// Unified border tokens implementing ThemeExtension
 @immutable
 class BorderTokens extends ThemeExtension<BorderTokens> {
-  final BorderScale scale;
-
   const BorderTokens({required this.scale});
 
   factory BorderTokens.defaultTokens() {
     return const BorderTokens(scale: BorderScale.defaultScale);
   }
+  final BorderScale scale;
 
   BorderTokens copyWith({BorderScale? scale}) {
     return BorderTokens(scale: scale ?? this.scale);

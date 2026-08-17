@@ -33,7 +33,8 @@ Widget textVariants(BuildContext context) {
 
 @widgetbook.UseCase(name: 'Colors', type: DSText)
 Widget textColors(BuildContext context) {
-  Widget colored(TextColorRole role, String label) => DSText(label, colorRole: role);
+  Widget colored(TextColorRole role, String label) =>
+      DSText(label, colorRole: role);
 
   return StoryScaffold(
     children: [
@@ -53,8 +54,16 @@ Widget textOverrides(BuildContext context) {
   return const StoryScaffold(
     children: [
       SectionLabel('Weight / Align / MaxLines'),
-      DSText('Bold body', variant: TextVariant.bodyLarge, fontWeight: FontWeight.w800),
-      DSText('Centered title', variant: TextVariant.titleMedium, textAlign: TextAlign.center),
+      DSText(
+        'Bold body',
+        variant: TextVariant.bodyLarge,
+        fontWeight: FontWeight.w800,
+      ),
+      DSText(
+        'Centered title',
+        variant: TextVariant.titleMedium,
+        textAlign: TextAlign.center,
+      ),
       DSText(
         'This text is truncated to a single line with an ellipsis because it is quite long.',
         variant: TextVariant.bodySmall,
@@ -89,19 +98,13 @@ Widget richTextUseCase(BuildContext context) {
       const SectionLabel('Rich text spans'),
       const DSRichText(
         spans: [
-          DSTextSpan(
-            text: 'Lorem ',
-            variant: TextVariant.bodyLarge,
-          ),
+          DSTextSpan(text: 'Lorem ', variant: TextVariant.bodyLarge),
           DSTextSpan(
             text: 'ipsum',
             variant: TextVariant.bodyLarge,
             fontWeight: FontWeight.w700,
           ),
-          DSTextSpan(
-            text: ' dolor sit amet, ',
-            variant: TextVariant.bodyLarge,
-          ),
+          DSTextSpan(text: ' dolor sit amet, ', variant: TextVariant.bodyLarge),
           DSTextSpan(
             text: 'consectetur',
             variant: TextVariant.bodyLarge,
@@ -112,10 +115,7 @@ Widget richTextUseCase(BuildContext context) {
       const SectionLabel('Tappable span'),
       DSRichText(
         spans: [
-          const DSTextSpan(
-            text: 'Tap ',
-            variant: TextVariant.bodyMedium,
-          ),
+          const DSTextSpan(text: 'Tap ', variant: TextVariant.bodyMedium),
           DSTextSpan(
             text: 'this link',
             variant: TextVariant.bodyMedium,

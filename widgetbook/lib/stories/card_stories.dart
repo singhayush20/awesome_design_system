@@ -7,12 +7,12 @@ import 'common.dart';
 @widgetbook.UseCase(name: 'Variants', type: DSCard)
 Widget cardVariants(BuildContext context) {
   Widget variant(CardVariant v, String label) => SizedBox(
-        width: 300,
-        child: DSCard(
-          variant: v,
-          child: DSText(label, variant: TextVariant.titleMedium),
-        ),
-      );
+    width: 300,
+    child: DSCard(
+      variant: v,
+      child: DSText(label, variant: TextVariant.titleMedium),
+    ),
+  );
 
   return StoryScaffold(
     children: [
@@ -68,7 +68,11 @@ Widget cardWithHeader(BuildContext context) {
           const SizedBox(height: 12),
           DSCardActions(
             actions: [
-              DSButton(variant: ButtonVariant.text, onPressed: () {}, child: const Text('Share')),
+              DSButton(
+                variant: ButtonVariant.text,
+                onPressed: () {},
+                child: const Text('Share'),
+              ),
               DSButton(onPressed: () {}, child: const Text('Open')),
             ],
           ),

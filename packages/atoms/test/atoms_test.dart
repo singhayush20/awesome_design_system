@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 
 void main() {
   group('DSButton', () {
-    testWidgets('renders filled button by default', (tester) async {
+    testWidgets('renders filled button by default', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSButton(onPressed: () {}, child: const Text('Test')),
@@ -21,11 +25,15 @@ void main() {
       expect(find.text('Test'), findsOneWidget);
     });
 
-    testWidgets('renders outlined button when variant is outlined', (tester) async {
+    testWidgets('renders outlined button when variant is outlined', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSButton(
@@ -40,11 +48,15 @@ void main() {
       expect(find.byType(OutlinedButton), findsOneWidget);
     });
 
-    testWidgets('shows loading indicator when isLoading', (tester) async {
+    testWidgets('shows loading indicator when isLoading', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSButton(
@@ -59,12 +71,16 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('disabled button does not call onPressed', (tester) async {
+    testWidgets('disabled button does not call onPressed', (
+      WidgetTester tester,
+    ) async {
       bool pressed = false;
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSButton(
@@ -82,13 +98,15 @@ void main() {
   });
 
   group('DSText', () {
-    testWidgets('renders text with variant', (tester) async {
+    testWidgets('renders text with variant', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSText('Hello', variant: TextVariant.headlineLarge),
           ),
         ),
@@ -97,34 +115,36 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('applies color role', (tester) async {
+    testWidgets('applies color role', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSText('Error', colorRole: TextColorRole.error),
           ),
         ),
       );
 
-      final text = tester.widget<Text>(find.byType(Text));
+      final Text text = tester.widget<Text>(find.byType(Text));
       expect(text.style?.color, isNotNull);
       expect(text.style?.color, isA<Color>());
     });
   });
 
   group('DSCard', () {
-    testWidgets('renders card with child', (tester) async {
+    testWidgets('renders card with child', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSCard(child: const Text('Card Content')),
-          ),
+          home: const Scaffold(body: DSCard(child: Text('Card Content'))),
         ),
       );
 
@@ -132,49 +152,53 @@ void main() {
       expect(find.text('Card Content'), findsOneWidget);
     });
 
-    testWidgets('elevated variant has elevation', (tester) async {
+    testWidgets('elevated variant has elevation', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSCard(variant: CardVariant.elevated, child: const Text('Test')),
-          ),
+          home: const Scaffold(body: DSCard(child: Text('Test'))),
         ),
       );
 
-      final card = tester.widget<Card>(find.byType(Card));
+      final Card card = tester.widget<Card>(find.byType(Card));
       expect(card.elevation, greaterThan(0));
     });
 
-    testWidgets('outlined variant has border', (tester) async {
+    testWidgets('outlined variant has border', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSCard(variant: CardVariant.outlined, child: const Text('Test')),
+          home: const Scaffold(
+            body: DSCard(variant: CardVariant.outlined, child: Text('Test')),
           ),
         ),
       );
 
-      final card = tester.widget<Card>(find.byType(Card));
+      final Card card = tester.widget<Card>(find.byType(Card));
       expect(card.shape, isA<RoundedRectangleBorder>());
-      final border = (card.shape as RoundedRectangleBorder).side;
+      final BorderSide border = (card.shape as RoundedRectangleBorder).side;
       expect(border.color, isNot(equals(Colors.transparent)));
     });
   });
 
   group('DSInput', () {
-    testWidgets('renders input with label', (tester) async {
+    testWidgets('renders input with label', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSInput(label: 'Email', hint: 'Enter email'),
           ),
         ),
@@ -184,28 +208,32 @@ void main() {
       expect(find.text('Enter email'), findsOneWidget);
     });
 
-    testWidgets('shows error text', (tester) async {
+    testWidgets('shows error text', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSInput(errorText: 'Invalid email'),
-          ),
+          home: const Scaffold(body: DSInput(errorText: 'Invalid email')),
         ),
       );
 
       expect(find.text('Invalid email'), findsOneWidget);
     });
 
-    testWidgets('password type shows obscure toggle', (tester) async {
+    testWidgets('password type shows obscure toggle', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSInput(type: DSInputType.password, obscureText: true),
           ),
         ),
@@ -214,66 +242,76 @@ void main() {
       expect(find.byIcon(Icons.visibility_off), findsOneWidget);
     });
 
-    testWidgets('required indicator shows asterisk', (tester) async {
+    testWidgets('required indicator shows asterisk', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSInput(label: 'Name', isRequired: true),
-          ),
+          home: const Scaffold(body: DSInput(label: 'Name', isRequired: true)),
         ),
       );
 
-      final richTexts = find.byType(RichText);
+      final Finder richTexts = find.byType(RichText);
       expect(richTexts, findsWidgets);
-      final richText = tester.widget<RichText>(richTexts.first);
-      final textSpan = richText.text as TextSpan;
+      final RichText richText = tester.widget<RichText>(richTexts.first);
+      final TextSpan textSpan = richText.text as TextSpan;
       expect(textSpan.text, equals('Name'));
       expect((textSpan.children!.first as TextSpan).text, equals(' *'));
     });
   });
 
   group('DSBadge', () {
-    testWidgets('renders badge with label', (tester) async {
+    testWidgets('renders badge with label', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSBadge(label: 'New'),
-          ),
+          home: const Scaffold(body: DSBadge(label: 'New')),
         ),
       );
 
       expect(find.text('New'), findsOneWidget);
     });
 
-    testWidgets('outlined variant has border', (tester) async {
+    testWidgets('outlined variant has border', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSBadge(label: 'Test', variant: BadgeVariant.outlined),
           ),
         ),
       );
 
-      final container = tester.widget<Container>(find.byType(Container).first);
+      final Container container = tester.widget<Container>(
+        find.byType(Container).first,
+      );
       expect(container.decoration, isA<BoxDecoration>());
-      final decoration = container.decoration as BoxDecoration;
+      final BoxDecoration decoration = container.decoration as BoxDecoration;
       expect(decoration.border, isNotNull);
     });
 
-    testWidgets('shows delete icon when onDeleted provided', (tester) async {
+    testWidgets('shows delete icon when onDeleted provided', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSBadge(label: 'Test', onDeleted: () {}),
@@ -286,13 +324,17 @@ void main() {
   });
 
   group('DSStatusBadge', () {
-    testWidgets('success status has correct colors', (tester) async {
+    testWidgets('success status has correct colors', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSStatusBadge(status: BadgeStatus.success),
           ),
         ),
@@ -301,15 +343,15 @@ void main() {
       expect(find.text('Success'), findsOneWidget);
     });
 
-    testWidgets('error status has error colors', (tester) async {
+    testWidgets('error status has error colors', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSStatusBadge(status: BadgeStatus.error),
-          ),
+          home: const Scaffold(body: DSStatusBadge(status: BadgeStatus.error)),
         ),
       );
 
@@ -318,65 +360,73 @@ void main() {
   });
 
   group('DSAvatar', () {
-    testWidgets('renders initials when no image', (tester) async {
+    testWidgets('renders initials when no image', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSAvatar(initials: 'John Doe'),
-          ),
+          home: const Scaffold(body: DSAvatar(initials: 'John Doe')),
         ),
       );
 
       expect(find.text('JD'), findsOneWidget);
     });
 
-    testWidgets('renders default person icon when no initials', (tester) async {
+    testWidgets('renders default person icon when no initials', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSAvatar(),
-          ),
+          home: const Scaffold(body: DSAvatar()),
         ),
       );
 
       expect(find.byIcon(Icons.person), findsOneWidget);
     });
 
-    testWidgets('circle shape has circular border radius', (tester) async {
+    testWidgets('circle shape has circular border radius', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
-            body: DSAvatar(shape: AvatarShape.circle, initials: 'A'),
-          ),
+          home: const Scaffold(body: DSAvatar(initials: 'A')),
         ),
       );
 
-      final container = tester.widget<Container>(find.byType(Container).first);
+      final Container container = tester.widget<Container>(
+        find.byType(Container).first,
+      );
       expect(container.decoration, isA<BoxDecoration>());
-      final decoration = container.decoration as BoxDecoration;
+      final BoxDecoration decoration = container.decoration as BoxDecoration;
       expect(decoration.borderRadius, equals(BorderRadius.circular(9999)));
     });
   });
 
   group('DSAvatarGroup', () {
-    testWidgets('renders multiple avatars', (tester) async {
+    testWidgets('renders multiple avatars', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSAvatarGroup(
-              avatars: [
+              avatars: <DSAvatar>[
                 DSAvatar(initials: 'A'),
                 DSAvatar(initials: 'B'),
                 DSAvatar(initials: 'C'),
@@ -391,16 +441,20 @@ void main() {
       expect(find.text('C'), findsOneWidget);
     });
 
-    testWidgets('shows remaining count badge', (tester) async {
+    testWidgets('shows remaining count badge', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
           home: Scaffold(
             body: DSAvatarGroup(
-              avatars: List.generate(7, (i) => DSAvatar(initials: 'U$i')),
-              maxVisible: 5,
+              avatars: List<DSAvatar>.generate(
+                7,
+                (int i) => DSAvatar(initials: 'U$i'),
+              ),
             ),
           ),
         ),
@@ -411,13 +465,15 @@ void main() {
   });
 
   group('DSAvatarWithPresence', () {
-    testWidgets('shows online indicator', (tester) async {
+    testWidgets('shows online indicator', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(useMaterial3: true).copyWith(
-            extensions: [DesignTokens.light(brandPrimary: const Color(0xFF6750A4))],
+            extensions: <ThemeExtension<dynamic>>[
+              DesignTokens.light(brandPrimary: const Color(0xFF6750A4)),
+            ],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: DSAvatarWithPresence(
               avatar: DSAvatar(initials: 'A'),
               presence: UserPresence.online,
@@ -426,10 +482,14 @@ void main() {
         ),
       );
 
-      final container = tester.widget<Container>(
-        find.byWidgetPredicate((w) => w is Container && w.decoration != null).first,
+      final Container container = tester.widget<Container>(
+        find
+            .byWidgetPredicate(
+              (Widget w) => w is Container && w.decoration != null,
+            )
+            .first,
       );
-      final decoration = container.decoration as BoxDecoration?;
+      final BoxDecoration? decoration = container.decoration as BoxDecoration?;
       expect(decoration?.color, isNotNull);
     });
   });

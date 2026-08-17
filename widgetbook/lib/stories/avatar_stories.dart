@@ -73,7 +73,10 @@ Widget avatarGroupUseCase(BuildContext context) {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           for (final p in UserPresence.values)
-            DSAvatarWithPresence(avatar: const DSAvatar(initials: 'AB'), presence: p),
+            DSAvatarWithPresence(
+              avatar: const DSAvatar(initials: 'AB'),
+              presence: p,
+            ),
         ],
       ),
     ],

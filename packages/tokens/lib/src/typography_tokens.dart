@@ -229,13 +229,14 @@ class TypographyScale {
 /// Unified typography tokens implementing ThemeExtension
 @immutable
 class TypographyTokens extends ThemeExtension<TypographyTokens> {
-  final TypographyScale scale;
-
   const TypographyTokens({required this.scale});
 
   factory TypographyTokens.defaultTokens({String fontFamily = 'Inter'}) {
-    return TypographyTokens(scale: TypographyScale.defaultScale(fontFamily: fontFamily));
+    return TypographyTokens(
+      scale: TypographyScale.defaultScale(fontFamily: fontFamily),
+    );
   }
+  final TypographyScale scale;
 
   TypographyTokens copyWith({TypographyScale? scale}) {
     return TypographyTokens(scale: scale ?? this.scale);

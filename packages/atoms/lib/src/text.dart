@@ -1,5 +1,6 @@
 // Text atom with semantic variants
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
@@ -63,13 +64,14 @@ class DSText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
-    final brightness = Theme.of(context).brightness;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
+    final Brightness brightness = Theme.of(context).brightness;
 
-    final textStyle = _resolveStyle(typography, colors, brightness);
-    final effectiveStyle = style?.merge(textStyle) ?? textStyle;
+    final TextStyle textStyle = _resolveStyle(typography, colors, brightness);
+    final TextStyle effectiveStyle = style?.merge(textStyle) ?? textStyle;
 
     Widget text = Text(
       data,
@@ -96,7 +98,7 @@ class DSText extends StatelessWidget {
     Brightness brightness,
   ) {
     // Get base style from variant
-    TextStyle baseStyle = switch (variant) {
+    final TextStyle baseStyle = switch (variant) {
       TextVariant.displayLarge => typography.displayLarge,
       TextVariant.displayMedium => typography.displayMedium,
       TextVariant.displaySmall => typography.displaySmall,
@@ -115,11 +117,14 @@ class DSText extends StatelessWidget {
     };
 
     // Apply color role
-    Color textColor = switch (colorRole) {
+    final Color textColor = switch (colorRole) {
       TextColorRole.primary => colors.onSurface,
       TextColorRole.secondary => colors.onSurfaceVariant,
       TextColorRole.tertiary => colors.onSurfaceVariant.withValues(alpha: 0.6),
-      TextColorRole.inverse => brightness == Brightness.light ? colors.onInverseSurface : colors.onSurface,
+      TextColorRole.inverse =>
+        brightness == Brightness.light
+            ? colors.onInverseSurface
+            : colors.onSurface,
       TextColorRole.error => colors.error,
       TextColorRole.outline => colors.outline,
     };
@@ -131,13 +136,34 @@ class DSText extends StatelessWidget {
       fontStyle: fontStyle ?? baseStyle.fontStyle,
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('data', data));
+    properties.add(EnumProperty<TextVariant>('variant', variant));
+    properties.add(EnumProperty<TextColorRole>('colorRole', colorRole));
+    properties.add(DiagnosticsProperty<FontWeight?>('fontWeight', fontWeight));
+    properties.add(EnumProperty<FontStyle?>('fontStyle', fontStyle));
+    properties.add(EnumProperty<TextAlign?>('textAlign', textAlign));
+    properties.add(EnumProperty<TextOverflow?>('overflow', overflow));
+    properties.add(IntProperty('maxLines', maxLines));
+    properties.add(DiagnosticsProperty<bool?>('softWrap', softWrap));
+    properties.add(
+      EnumProperty<TextDirection?>('textDirection', textDirection),
+    );
+    properties.add(DiagnosticsProperty<Locale?>('locale', locale));
+    properties.add(StringProperty('semanticsLabel', semanticsLabel));
+    properties.add(DiagnosticsProperty<TextScaler?>('textScaler', textScaler));
+    properties.add(DiagnosticsProperty<TextStyle?>('style', style));
+  }
 }
 
 /// A rich text component supporting multiple styles
 class DSRichText extends StatelessWidget {
   const DSRichText({
-    super.key,
     required this.spans,
+    super.key,
     this.textAlign,
     this.overflow,
     this.maxLines,
@@ -158,12 +184,13 @@ class DSRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
-    final brightness = Theme.of(context).brightness;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
+    final Brightness brightness = Theme.of(context).brightness;
 
-    final baseStyle = style ?? typography.bodyMedium;
+    final TextStyle baseStyle = style ?? typography.bodyMedium;
 
     return RichText(
       textAlign: textAlign ?? TextAlign.start,
@@ -171,12 +198,32 @@ class DSRichText extends StatelessWidget {
       maxLines: maxLines,
       softWrap: softWrap ?? true,
       textDirection: textDirection,
-      textScaler: textScaler ?? TextScaler.linear(1.0),
+      textScaler: textScaler ?? const TextScaler.linear(1.0),
       text: TextSpan(
         style: baseStyle,
-        children: spans.map((span) => span.toTextSpan(typography, colors, brightness)).toList(),
+        children: spans
+            .map(
+              (DSTextSpan span) =>
+                  span.toTextSpan(typography, colors, brightness),
+            )
+            .toList(),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<DSTextSpan>('spans', spans));
+    properties.add(EnumProperty<TextAlign?>('textAlign', textAlign));
+    properties.add(EnumProperty<TextOverflow?>('overflow', overflow));
+    properties.add(IntProperty('maxLines', maxLines));
+    properties.add(DiagnosticsProperty<bool?>('softWrap', softWrap));
+    properties.add(
+      EnumProperty<TextDirection?>('textDirection', textDirection),
+    );
+    properties.add(DiagnosticsProperty<TextScaler?>('textScaler', textScaler));
+    properties.add(DiagnosticsProperty<TextStyle?>('style', style));
   }
 }
 
@@ -219,10 +266,10 @@ class DSTextSpan {
     ColorScheme colors,
     Brightness brightness,
   ) {
-    final baseVariant = variant ?? TextVariant.bodyMedium;
-    final baseColorRole = colorRole ?? TextColorRole.primary;
+    final TextVariant baseVariant = variant ?? TextVariant.bodyMedium;
+    final TextColorRole baseColorRole = colorRole ?? TextColorRole.primary;
 
-    TextStyle baseStyle = switch (baseVariant) {
+    final TextStyle baseStyle = switch (baseVariant) {
       TextVariant.displayLarge => typography.displayLarge,
       TextVariant.displayMedium => typography.displayMedium,
       TextVariant.displaySmall => typography.displaySmall,
@@ -240,24 +287,29 @@ class DSTextSpan {
       TextVariant.labelSmall => typography.labelSmall,
     };
 
-    Color textColor = switch (baseColorRole) {
+    final Color textColor = switch (baseColorRole) {
       TextColorRole.primary => colors.onSurface,
       TextColorRole.secondary => colors.onSurfaceVariant,
       TextColorRole.tertiary => colors.onSurfaceVariant.withValues(alpha: 0.6),
-      TextColorRole.inverse => brightness == Brightness.light ? colors.onInverseSurface : colors.onSurface,
+      TextColorRole.inverse =>
+        brightness == Brightness.light
+            ? colors.onInverseSurface
+            : colors.onSurface,
       TextColorRole.error => colors.error,
       TextColorRole.outline => colors.outline,
     };
 
-    final effectiveStyle = baseStyle.copyWith(
-      color: textColor,
-      fontWeight: fontWeight ?? baseStyle.fontWeight,
-      fontStyle: fontStyle ?? baseStyle.fontStyle,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationStyle: decorationStyle,
-      decorationThickness: decorationThickness,
-    ).merge(style);
+    final TextStyle effectiveStyle = baseStyle
+        .copyWith(
+          color: textColor,
+          fontWeight: fontWeight ?? baseStyle.fontWeight,
+          fontStyle: fontStyle ?? baseStyle.fontStyle,
+          decoration: decoration,
+          decorationColor: decorationColor,
+          decorationStyle: decorationStyle,
+          decorationThickness: decorationThickness,
+        )
+        .merge(style);
 
     return TextSpan(
       text: text,
@@ -276,9 +328,9 @@ class DSTextSpan {
 /// Link text variant
 class DSLink extends StatelessWidget {
   const DSLink({
-    super.key,
     required this.text,
     required this.onTap,
+    super.key,
     this.variant = TextVariant.bodyMedium,
     this.colorRole = TextColorRole.primary,
     this.isDisabled = false,
@@ -296,11 +348,12 @@ class DSLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final baseStyle = switch (variant) {
+    final TextStyle baseStyle = switch (variant) {
       TextVariant.displayLarge => typography.displayLarge,
       TextVariant.displayMedium => typography.displayMedium,
       TextVariant.displaySmall => typography.displaySmall,
@@ -318,17 +371,21 @@ class DSLink extends StatelessWidget {
       TextVariant.labelSmall => typography.labelSmall,
     };
 
-    final textColor = colorRole == TextColorRole.primary
+    final Color textColor = colorRole == TextColorRole.primary
         ? colors.primary
         : colorRole == TextColorRole.error
-            ? colors.error
-            : colors.onSurface;
+        ? colors.error
+        : colors.onSurface;
 
-    final effectiveStyle = baseStyle.copyWith(
-      color: isDisabled ? colors.onSurfaceVariant : textColor,
-      decoration: underline ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: isDisabled ? colors.onSurfaceVariant : textColor,
-    ).merge(style);
+    final TextStyle effectiveStyle = baseStyle
+        .copyWith(
+          color: isDisabled ? colors.onSurfaceVariant : textColor,
+          decoration: underline
+              ? TextDecoration.underline
+              : TextDecoration.none,
+          decorationColor: isDisabled ? colors.onSurfaceVariant : textColor,
+        )
+        .merge(style);
 
     return InkWell(
       onTap: isDisabled ? null : onTap,
@@ -338,5 +395,17 @@ class DSLink extends StatelessWidget {
         child: Text(text, style: effectiveStyle),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('text', text));
+    properties.add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap));
+    properties.add(EnumProperty<TextVariant>('variant', variant));
+    properties.add(EnumProperty<TextColorRole>('colorRole', colorRole));
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(DiagnosticsProperty<bool>('underline', underline));
+    properties.add(DiagnosticsProperty<TextStyle?>('style', style));
   }
 }

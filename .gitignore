@@ -1,0 +1,22 @@
+# Dart / Flutter
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/*.g.dart
+!widgetbook/lib/main.directories.g.dart
+!.fvm/fvm_config.json
+
+# FVM
+.fvm/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -6,7 +6,8 @@ import 'common.dart';
 
 @widgetbook.UseCase(name: 'Variants', type: DSBadge)
 Widget badgeVariants(BuildContext context) {
-  Widget variant(BadgeVariant v, String label) => DSBadge(label: label, variant: v);
+  Widget variant(BadgeVariant v, String label) =>
+      DSBadge(label: label, variant: v);
 
   return StoryScaffold(
     children: [

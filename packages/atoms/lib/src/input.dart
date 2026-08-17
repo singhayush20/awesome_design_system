@@ -1,11 +1,21 @@
 // Input atom with validation states
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 
 /// Input types
-enum DSInputType { text, email, password, number, phone, url, multiline, search }
+enum DSInputType {
+  text,
+  email,
+  password,
+  number,
+  phone,
+  url,
+  multiline,
+  search,
+}
 
 /// Input sizes
 enum DSInputSize { small, medium, large }
@@ -101,6 +111,96 @@ class DSInput extends StatefulWidget {
 
   @override
   State<DSInput> createState() => _DSInputState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+    properties.add(StringProperty('initialValue', initialValue));
+    properties.add(EnumProperty<DSInputType>('type', type));
+    properties.add(EnumProperty<DSInputSize>('size', size));
+    properties.add(StringProperty('label', label));
+    properties.add(StringProperty('hint', hint));
+    properties.add(StringProperty('helperText', helperText));
+    properties.add(StringProperty('errorText', errorText));
+    properties.add(StringProperty('counterText', counterText));
+    properties.add(StringProperty('prefixText', prefixText));
+    properties.add(StringProperty('suffixText', suffixText));
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(DiagnosticsProperty<bool>('isReadOnly', isReadOnly));
+    properties.add(DiagnosticsProperty<bool>('isRequired', isRequired));
+    properties.add(DiagnosticsProperty<bool>('autoFocus', autoFocus));
+    properties.add(
+      EnumProperty<TextInputAction?>('textInputAction', textInputAction),
+    );
+    properties.add(
+      DiagnosticsProperty<TextInputType?>('keyboardType', keyboardType),
+    );
+    properties.add(
+      EnumProperty<TextCapitalization>(
+        'textCapitalization',
+        textCapitalization,
+      ),
+    );
+    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
+    properties.add(StringProperty('obscuringCharacter', obscuringCharacter));
+    properties.add(IntProperty('maxLength', maxLength));
+    properties.add(IntProperty('maxLines', maxLines));
+    properties.add(IntProperty('minLines', minLines));
+    properties.add(DiagnosticsProperty<bool>('expands', expands));
+    properties.add(
+      ObjectFlagProperty<ValueChanged<String>?>.has('onChanged', onChanged),
+    );
+    properties.add(
+      ObjectFlagProperty<ValueChanged<String>?>.has('onSubmitted', onSubmitted),
+    );
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(
+      ObjectFlagProperty<FormFieldValidator<String>?>.has(
+        'validator',
+        validator,
+      ),
+    );
+    properties.add(
+      IterableProperty<TextInputFormatter>('inputFormatters', inputFormatters),
+    );
+    properties.add(EnumProperty<TextAlign>('textAlign', textAlign));
+    properties.add(
+      DiagnosticsProperty<TextAlignVertical?>(
+        'textAlignVertical',
+        textAlignVertical,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<EdgeInsets?>('scrollPadding', scrollPadding),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollPhysics?>('scrollPhysics', scrollPhysics),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollController?>(
+        'scrollController',
+        scrollController,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'enableInteractiveSelection',
+        enableInteractiveSelection,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextSelectionControls?>(
+        'selectionControls',
+        selectionControls,
+      ),
+    );
+    properties.add(DiagnosticsProperty<TextStyle?>('style', style));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+    properties.add(StringProperty('restorationId', restorationId));
+  }
 }
 
 class _DSInputState extends State<DSInput> {
@@ -112,7 +212,8 @@ class _DSInputState extends State<DSInput> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
     _obscureText = widget.type == DSInputType.password && widget.obscureText;
     _updateCounter();
     _controller.addListener(_onControllerChanged);
@@ -150,25 +251,33 @@ class _DSInputState extends State<DSInput> {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SpacingScale spacing =
+        tokens?.spacing.scale ?? SpacingScale.defaultScale;
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final hasError = widget.errorText != null || _errorText != null;
-    final effectiveErrorText = widget.errorText ?? _errorText;
-    final showCounter = widget.maxLength != null;
-    final counterText = widget.counterText ?? (_counter != null ? '$_counter/${widget.maxLength}' : null);
+    final bool hasError = widget.errorText != null || _errorText != null;
+    final String? effectiveErrorText = widget.errorText ?? _errorText;
+    final bool showCounter = widget.maxLength != null;
+    final String? counterText =
+        widget.counterText ??
+        (_counter != null ? '$_counter/${widget.maxLength}' : null);
 
     // Determine keyboard type
-    final keyboardType = widget.keyboardType ?? _resolveKeyboardType(widget.type);
-    final textInputAction = widget.textInputAction ?? _resolveTextInputAction(widget.type);
-    final obscureText = widget.type == DSInputType.password ? _obscureText : widget.obscureText;
+    final TextInputType keyboardType =
+        widget.keyboardType ?? _resolveKeyboardType(widget.type);
+    final TextInputAction textInputAction =
+        widget.textInputAction ?? _resolveTextInputAction(widget.type);
+    final bool obscureText = widget.type == DSInputType.password
+        ? _obscureText
+        : widget.obscureText;
 
     // Build input decoration
-    final decoration = InputDecoration(
+    final InputDecoration decoration = InputDecoration(
       labelText: widget.label,
       hintText: widget.hint,
       helperText: !hasError ? widget.helperText : null,
@@ -187,10 +296,16 @@ class _DSInputState extends State<DSInput> {
       fillColor: _resolveFillColor(widget.isDisabled, hasError, colors),
       contentPadding: _resolveContentPadding(widget.size, spacing),
       labelStyle: typography.bodyLarge.copyWith(color: colors.onSurfaceVariant),
-      hintStyle: typography.bodyLarge.copyWith(color: colors.onSurfaceVariant.withValues(alpha: 0.6)),
-      helperStyle: typography.bodySmall.copyWith(color: colors.onSurfaceVariant),
+      hintStyle: typography.bodyLarge.copyWith(
+        color: colors.onSurfaceVariant.withValues(alpha: 0.6),
+      ),
+      helperStyle: typography.bodySmall.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
       errorStyle: typography.bodySmall.copyWith(color: colors.error),
-      counterStyle: typography.bodySmall.copyWith(color: colors.onSurfaceVariant),
+      counterStyle: typography.bodySmall.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
       border: _buildBorder(radius, colors, hasError),
       enabledBorder: _buildBorder(radius, colors, hasError),
       focusedBorder: _buildFocusedBorder(radius, colors, hasError),
@@ -229,7 +344,7 @@ class _DSInputState extends State<DSInput> {
       enabled: !widget.isDisabled && !widget.isReadOnly,
       readOnly: widget.isReadOnly,
       autofocus: widget.autoFocus,
-      scrollPadding: widget.scrollPadding ?? EdgeInsets.all(20.0),
+      scrollPadding: widget.scrollPadding ?? const EdgeInsets.all(20.0),
       scrollPhysics: widget.scrollPhysics,
       scrollController: widget.scrollController,
       enableInteractiveSelection: widget.enableInteractiveSelection,
@@ -257,7 +372,7 @@ class _DSInputState extends State<DSInput> {
   }
 
   Widget? _buildSuffixIcon(BuildContext context, SpacingScale spacing) {
-    final icons = <Widget>[];
+    final List<Widget> icons = <Widget>[];
 
     // Password toggle
     if (widget.type == DSInputType.password && widget.obscureText) {
@@ -279,20 +394,14 @@ class _DSInputState extends State<DSInput> {
     // Custom suffix icon
     if (widget.suffixIcon != null) {
       icons.add(
-        Padding(
-          padding: EdgeInsets.all(spacing.sm),
-          child: widget.suffixIcon!,
-        ),
+        Padding(padding: EdgeInsets.all(spacing.sm), child: widget.suffixIcon!),
       );
     }
 
     if (icons.isEmpty) return null;
     if (icons.length == 1) return icons.first;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: icons,
-    );
+    return Row(mainAxisSize: MainAxisSize.min, children: icons);
   }
 
   TextInputType _resolveKeyboardType(DSInputType type) {
@@ -322,16 +431,29 @@ class _DSInputState extends State<DSInput> {
   }
 
   Color _resolveFillColor(bool isDisabled, bool hasError, ColorScheme colors) {
-    if (isDisabled) return colors.surfaceContainerHighest.withValues(alpha: 0.5);
-    if (hasError) return colors.errorContainer.withValues(alpha: 0.1);
+    if (isDisabled) {
+      return colors.surfaceContainerHighest.withValues(alpha: 0.5);
+    }
+    if (hasError) {
+      return colors.errorContainer.withValues(alpha: 0.1);
+    }
     return colors.surfaceContainerHighest.withValues(alpha: 0.5);
   }
 
   EdgeInsets _resolveContentPadding(DSInputSize size, SpacingScale spacing) {
     return switch (size) {
-      DSInputSize.small => EdgeInsets.symmetric(horizontal: spacing.sm, vertical: spacing.xxs),
-      DSInputSize.medium => EdgeInsets.symmetric(horizontal: spacing.md, vertical: spacing.xs),
-      DSInputSize.large => EdgeInsets.symmetric(horizontal: spacing.md, vertical: spacing.sm),
+      DSInputSize.small => EdgeInsets.symmetric(
+        horizontal: spacing.sm,
+        vertical: spacing.xxs,
+      ),
+      DSInputSize.medium => EdgeInsets.symmetric(
+        horizontal: spacing.md,
+        vertical: spacing.xs,
+      ),
+      DSInputSize.large => EdgeInsets.symmetric(
+        horizontal: spacing.md,
+        vertical: spacing.sm,
+      ),
     };
   }
 
@@ -343,17 +465,22 @@ class _DSInputState extends State<DSInput> {
     };
   }
 
-  InputBorder _buildBorder(RadiusScale radius, ColorScheme colors, bool hasError) {
+  InputBorder _buildBorder(
+    RadiusScale radius,
+    ColorScheme colors,
+    bool hasError,
+  ) {
     return OutlineInputBorder(
       borderRadius: radius.mdRadius,
-      borderSide: BorderSide(
-        color: hasError ? colors.error : colors.outline,
-        width: 1,
-      ),
+      borderSide: BorderSide(color: hasError ? colors.error : colors.outline),
     );
   }
 
-  InputBorder _buildFocusedBorder(RadiusScale radius, ColorScheme colors, bool hasError) {
+  InputBorder _buildFocusedBorder(
+    RadiusScale radius,
+    ColorScheme colors,
+    bool hasError,
+  ) {
     return OutlineInputBorder(
       borderRadius: radius.mdRadius,
       borderSide: BorderSide(
@@ -366,7 +493,7 @@ class _DSInputState extends State<DSInput> {
   InputBorder _buildErrorBorder(RadiusScale radius, ColorScheme colors) {
     return OutlineInputBorder(
       borderRadius: radius.mdRadius,
-      borderSide: BorderSide(color: colors.error, width: 1),
+      borderSide: BorderSide(color: colors.error),
     );
   }
 
@@ -380,7 +507,7 @@ class _DSInputState extends State<DSInput> {
   InputBorder _buildDisabledBorder(RadiusScale radius, ColorScheme colors) {
     return OutlineInputBorder(
       borderRadius: radius.mdRadius,
-      borderSide: BorderSide(color: colors.outlineVariant, width: 1),
+      borderSide: BorderSide(color: colors.outlineVariant),
     );
   }
 }
@@ -393,16 +520,16 @@ class _RequiredIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final ColorScheme colors = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         RichText(
           text: TextSpan(
             text: label,
             style: DefaultTextStyle.of(context).style,
-            children: [
+            children: <InlineSpan>[
               TextSpan(
                 text: ' *',
                 style: TextStyle(color: colors.error),
@@ -414,6 +541,12 @@ class _RequiredIndicator extends StatelessWidget {
         child,
       ],
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('label', label));
   }
 }
 
@@ -498,5 +631,42 @@ class DSTextArea extends StatelessWidget {
       style: style,
       semanticLabel: semanticLabel,
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<TextEditingController?>('controller', controller),
+    );
+    properties.add(StringProperty('initialValue', initialValue));
+    properties.add(EnumProperty<DSInputSize>('size', size));
+    properties.add(StringProperty('label', label));
+    properties.add(StringProperty('hint', hint));
+    properties.add(StringProperty('helperText', helperText));
+    properties.add(StringProperty('errorText', errorText));
+    properties.add(StringProperty('counterText', counterText));
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(DiagnosticsProperty<bool>('isReadOnly', isReadOnly));
+    properties.add(DiagnosticsProperty<bool>('isRequired', isRequired));
+    properties.add(DiagnosticsProperty<bool>('autoFocus', autoFocus));
+    properties.add(IntProperty('maxLength', maxLength));
+    properties.add(IntProperty('maxLines', maxLines));
+    properties.add(IntProperty('minLines', minLines));
+    properties.add(
+      ObjectFlagProperty<ValueChanged<String>?>.has('onChanged', onChanged),
+    );
+    properties.add(
+      ObjectFlagProperty<ValueChanged<String>?>.has('onSubmitted', onSubmitted),
+    );
+    properties.add(
+      ObjectFlagProperty<FormFieldValidator<String>?>.has(
+        'validator',
+        validator,
+      ),
+    );
+    properties.add(EnumProperty<TextAlign>('textAlign', textAlign));
+    properties.add(DiagnosticsProperty<TextStyle?>('style', style));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
   }
 }

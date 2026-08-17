@@ -70,13 +70,12 @@ class RadiusScale {
 /// Unified radius tokens implementing ThemeExtension
 @immutable
 class RadiusTokens extends ThemeExtension<RadiusTokens> {
-  final RadiusScale scale;
-
   const RadiusTokens({required this.scale});
 
   factory RadiusTokens.defaultTokens() {
     return const RadiusTokens(scale: RadiusScale.defaultScale);
   }
+  final RadiusScale scale;
 
   RadiusTokens copyWith({RadiusScale? scale}) {
     return RadiusTokens(scale: scale ?? this.scale);

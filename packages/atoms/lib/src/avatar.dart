@@ -1,6 +1,6 @@
 // Avatar atom with multiple sources and variants
 
-import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 
@@ -93,20 +93,27 @@ class DSAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final dimension = _resolveDimension(size, sizing);
-    final borderRadius = _resolveBorderRadius(shape, radius);
-    final effectiveBorderColor = borderColor ?? colors.outlineVariant;
-    final effectiveBackgroundColor = backgroundColor ?? _generateBackgroundColor(initials, colors);
-    final effectiveForegroundColor = foregroundColor ?? _resolveForegroundColor(effectiveBackgroundColor, colors);
-    final textStyle = _resolveTextStyle(size, typography, effectiveForegroundColor);
-    final iconSize = _resolveIconSize(size, sizing);
+    final double dimension = _resolveDimension(size, sizing);
+    final BorderRadius borderRadius = _resolveBorderRadius(shape, radius);
+    final Color effectiveBorderColor = borderColor ?? colors.outlineVariant;
+    final Color effectiveBackgroundColor =
+        backgroundColor ?? _generateBackgroundColor(initials, colors);
+    final Color effectiveForegroundColor =
+        foregroundColor ??
+        _resolveForegroundColor(effectiveBackgroundColor, colors);
+    final TextStyle textStyle = _resolveTextStyle(
+      size,
+      typography,
+      effectiveForegroundColor,
+    );
+    final double iconSize = _resolveIconSize(size, sizing);
 
     Widget avatarContent;
 
@@ -145,7 +152,7 @@ class DSAvatar extends StatelessWidget {
             ? Border.all(color: effectiveBorderColor, width: borderWidth)
             : null,
         boxShadow: borderWidth > 0
-            ? [
+            ? <BoxShadow>[
                 BoxShadow(
                   color: colors.shadow.withValues(alpha: 0.1),
                   blurRadius: 4,
@@ -181,8 +188,14 @@ class DSAvatar extends StatelessWidget {
     return avatar;
   }
 
-  Widget _buildImage(BuildContext context, double dimension, BorderRadius borderRadius, BoxFit fit) {
-    final imageProvider = this.imageProvider ?? (image != null ? NetworkImage(image!) : null);
+  Widget _buildImage(
+    BuildContext context,
+    double dimension,
+    BorderRadius borderRadius,
+    BoxFit fit,
+  ) {
+    final ImageProvider<Object>? imageProvider =
+        this.imageProvider ?? (image != null ? NetworkImage(image!) : null);
 
     if (imageProvider == null) {
       return const SizedBox.shrink();
@@ -195,29 +208,39 @@ class DSAvatar extends StatelessWidget {
         width: dimension,
         height: dimension,
         fit: fit,
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded || frame != null) return child;
-          return loadingWidget ??
-              Container(
-                width: dimension,
-                height: dimension,
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: const Center(
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
+        frameBuilder:
+            (
+              BuildContext context,
+              Widget child,
+              int? frame,
+              bool wasSynchronouslyLoaded,
+            ) {
+              if (wasSynchronouslyLoaded || frame != null) return child;
+              return loadingWidget ??
+                  Container(
+                    width: dimension,
+                    height: dimension,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
+                    child: const Center(
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  );
+            },
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) =>
+                errorWidget ??
+                Container(
+                  width: dimension,
+                  height: dimension,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: const Icon(Icons.person, color: Colors.grey),
                 ),
-              );
-        },
-        errorBuilder: (context, error, stackTrace) => errorWidget ??
-            Container(
-              width: dimension,
-              height: dimension,
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: const Icon(Icons.person, color: Colors.grey),
-            ),
       ),
     );
   }
@@ -246,23 +269,45 @@ class DSAvatar extends StatelessWidget {
     }
 
     // Generate consistent color from initials
-    final hash = initials.codeUnits.fold(0, (a, b) => a + b);
-    final hue = (hash * 137.5) % 360; // Golden angle for good distribution
+    final int hash = initials.codeUnits.fold(0, (int a, int b) => a + b);
+    final double hue =
+        (hash * 137.5) % 360; // Golden angle for good distribution
     return HSVColor.fromAHSV(1, hue, 0.4, 0.9).toColor();
   }
 
   Color _resolveForegroundColor(Color backgroundColor, ColorScheme colors) {
-    final brightness = ThemeData.estimateBrightnessForColor(backgroundColor);
+    final Brightness brightness = ThemeData.estimateBrightnessForColor(
+      backgroundColor,
+    );
     return brightness == Brightness.light ? Colors.black87 : Colors.white;
   }
 
-  TextStyle _resolveTextStyle(AvatarSize size, TypographyScale typography, Color color) {
+  TextStyle _resolveTextStyle(
+    AvatarSize size,
+    TypographyScale typography,
+    Color color,
+  ) {
     return switch (size) {
-      AvatarSize.xsmall => typography.labelSmall.copyWith(color: color, fontWeight: FontWeight.w600),
-      AvatarSize.small => typography.labelMedium.copyWith(color: color, fontWeight: FontWeight.w600),
-      AvatarSize.medium => typography.titleSmall.copyWith(color: color, fontWeight: FontWeight.w600),
-      AvatarSize.large => typography.titleMedium.copyWith(color: color, fontWeight: FontWeight.w600),
-      AvatarSize.xlarge => typography.titleLarge.copyWith(color: color, fontWeight: FontWeight.w600),
+      AvatarSize.xsmall => typography.labelSmall.copyWith(
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
+      AvatarSize.small => typography.labelMedium.copyWith(
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
+      AvatarSize.medium => typography.titleSmall.copyWith(
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
+      AvatarSize.large => typography.titleMedium.copyWith(
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
+      AvatarSize.xlarge => typography.titleLarge.copyWith(
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
     };
   }
 
@@ -277,19 +322,45 @@ class DSAvatar extends StatelessWidget {
   }
 
   String _formatInitials(String initials) {
-    final parts = initials.trim().split(RegExp(r'\s+'));
+    final List<String> parts = initials.trim().split(RegExp(r'\s+'));
     if (parts.length >= 2) {
       return '${parts.first[0]}${parts.last[0]}'.toUpperCase();
     }
     return initials.substring(0, initials.length.clamp(0, 2)).toUpperCase();
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('image', image));
+    properties.add(
+      DiagnosticsProperty<ImageProvider<Object>?>(
+        'imageProvider',
+        imageProvider,
+      ),
+    );
+    properties.add(EnumProperty<AvatarSourceType>('sourceType', sourceType));
+    properties.add(StringProperty('initials', initials));
+    properties.add(EnumProperty<AvatarShape>('shape', shape));
+    properties.add(EnumProperty<AvatarSize>('size', size));
+    properties.add(ColorProperty('backgroundColor', backgroundColor));
+    properties.add(ColorProperty('foregroundColor', foregroundColor));
+    properties.add(ColorProperty('borderColor', borderColor));
+    properties.add(DoubleProperty('borderWidth', borderWidth));
+    properties.add(EnumProperty<BoxFit>('fit', fit));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onLongPress', onLongPress),
+    );
+    properties.add(StringProperty('semanticLabel', semanticLabel));
   }
 }
 
 /// Avatar group for overlapping avatars
 class DSAvatarGroup extends StatelessWidget {
   const DSAvatarGroup({
-    super.key,
     required this.avatars,
+    super.key,
     this.maxVisible = 5,
     this.size = AvatarSize.medium,
     this.shape = AvatarShape.circle,
@@ -308,25 +379,22 @@ class DSAvatarGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final dimension = _resolveDimension(size, sizing);
-    final offset = dimension * (1 - overlap);
+    final double dimension = _resolveDimension(size, sizing);
+    final double offset = dimension * (1 - overlap);
 
-    final visibleAvatars = avatars.take(maxVisible).toList();
-    final remainingCount = avatars.length - maxVisible;
+    final List<DSAvatar> visibleAvatars = avatars.take(maxVisible).toList();
+    final int remainingCount = avatars.length - maxVisible;
 
-    final children = <Widget>[];
+    final List<Widget> children = <Widget>[];
 
     for (int i = 0; i < visibleAvatars.length; i++) {
-      final avatar = visibleAvatars[i];
+      final DSAvatar avatar = visibleAvatars[i];
       children.add(
-        Positioned(
-          left: i * offset,
-          child: _wrapAvatar(avatar, dimension),
-        ),
+        Positioned(left: i * offset, child: _wrapAvatar(avatar, dimension)),
       );
     }
 
@@ -341,7 +409,8 @@ class DSAvatarGroup extends StatelessWidget {
     }
 
     Widget group = SizedBox(
-      width: visibleAvatars.length * offset + (remainingCount > 0 ? dimension : 0),
+      width:
+          visibleAvatars.length * offset + (remainingCount > 0 ? dimension : 0),
       height: dimension,
       child: Stack(children: children),
     );
@@ -358,11 +427,7 @@ class DSAvatarGroup extends StatelessWidget {
   }
 
   Widget _wrapAvatar(DSAvatar avatar, double dimension) {
-    return SizedBox(
-      width: dimension,
-      height: dimension,
-      child: avatar,
-    );
+    return SizedBox(width: dimension, height: dimension, child: avatar);
   }
 
   Widget _buildRemainingBadge(int count, double dimension, ColorScheme colors) {
@@ -395,13 +460,24 @@ class DSAvatarGroup extends StatelessWidget {
       AvatarSize.xlarge => sizing.avatarXl,
     };
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('maxVisible', maxVisible));
+    properties.add(EnumProperty<AvatarSize>('size', size));
+    properties.add(EnumProperty<AvatarShape>('shape', shape));
+    properties.add(DoubleProperty('overlap', overlap));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+  }
 }
 
 /// Avatar with presence indicator
 class DSAvatarWithPresence extends StatelessWidget {
   const DSAvatarWithPresence({
-    super.key,
     required this.avatar,
+    super.key,
     this.presence = UserPresence.offline,
     this.presenceSize,
     this.presencePosition = PresencePosition.bottomRight,
@@ -420,22 +496,22 @@ class DSAvatarWithPresence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final avatarSize = avatar.size;
-    final dimension = _resolveDimension(avatarSize, sizing);
-    final indicatorSize = presenceSize ?? dimension * 0.3;
+    final AvatarSize avatarSize = avatar.size;
+    final double dimension = _resolveDimension(avatarSize, sizing);
+    final double indicatorSize = presenceSize ?? dimension * 0.3;
 
-    Color presenceColor = switch (presence) {
+    final Color presenceColor = switch (presence) {
       UserPresence.online => colors.tertiary,
       UserPresence.busy => colors.error,
       UserPresence.away => colors.tertiaryContainer,
       UserPresence.offline => colors.outline,
     };
 
-    final indicator = Container(
+    final Container indicator = Container(
       width: indicatorSize,
       height: indicatorSize,
       decoration: BoxDecoration(
@@ -447,7 +523,7 @@ class DSAvatarWithPresence extends StatelessWidget {
                 width: borderWidth,
               )
             : null,
-        boxShadow: [
+        boxShadow: <BoxShadow>[
           BoxShadow(
             color: colors.shadow.withValues(alpha: 0.2),
             blurRadius: 2,
@@ -457,25 +533,26 @@ class DSAvatarWithPresence extends StatelessWidget {
       ),
     );
 
-    final positions = <Widget>[
-      Positioned.fill(child: avatar),
-    ];
+    final List<Widget> positions = <Widget>[Positioned.fill(child: avatar)];
 
     // Calculate indicator position
-    final offset = dimension * 0.7;
-    final right = presencePosition == PresencePosition.bottomRight ||
+    final double? right =
+        presencePosition == PresencePosition.bottomRight ||
             presencePosition == PresencePosition.topRight
         ? -indicatorSize * 0.3
         : null;
-    final left = presencePosition == PresencePosition.bottomLeft ||
+    final double? left =
+        presencePosition == PresencePosition.bottomLeft ||
             presencePosition == PresencePosition.topLeft
         ? -indicatorSize * 0.3
         : null;
-    final bottom = presencePosition == PresencePosition.bottomRight ||
+    final double? bottom =
+        presencePosition == PresencePosition.bottomRight ||
             presencePosition == PresencePosition.bottomLeft
         ? -indicatorSize * 0.3
         : null;
-    final top = presencePosition == PresencePosition.topRight ||
+    final double? top =
+        presencePosition == PresencePosition.topRight ||
             presencePosition == PresencePosition.topLeft
         ? -indicatorSize * 0.3
         : null;
@@ -505,6 +582,19 @@ class DSAvatarWithPresence extends StatelessWidget {
       AvatarSize.large => sizing.avatarLg,
       AvatarSize.xlarge => sizing.avatarXl,
     };
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<UserPresence>('presence', presence));
+    properties.add(DoubleProperty('presenceSize', presenceSize));
+    properties.add(
+      EnumProperty<PresencePosition>('presencePosition', presencePosition),
+    );
+    properties.add(DiagnosticsProperty<bool>('showBorder', showBorder));
+    properties.add(ColorProperty('borderColor', borderColor));
+    properties.add(DoubleProperty('borderWidth', borderWidth));
   }
 }
 

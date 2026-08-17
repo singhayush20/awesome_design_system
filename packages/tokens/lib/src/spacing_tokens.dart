@@ -77,6 +77,16 @@ class SpacingScale {
 /// Semantic padding tokens derived from spacing scale
 @immutable
 class PaddingTokens {
+  factory PaddingTokens.fromScale(SpacingScale scale) {
+    return PaddingTokens(
+      compact: EdgeInsets.all(scale.xs),
+      comfortable: EdgeInsets.all(scale.md),
+      spacious: EdgeInsets.all(scale.lg),
+      page: EdgeInsets.symmetric(horizontal: scale.lg, vertical: scale.md),
+      component: EdgeInsets.symmetric(horizontal: scale.md, vertical: scale.sm),
+      inline: EdgeInsets.symmetric(horizontal: scale.sm, vertical: scale.xs),
+    );
+  }
   const PaddingTokens({
     required this.compact,
     required this.comfortable,
@@ -92,17 +102,6 @@ class PaddingTokens {
   final EdgeInsetsGeometry page;
   final EdgeInsetsGeometry component;
   final EdgeInsetsGeometry inline;
-
-  factory PaddingTokens.fromScale(SpacingScale scale) {
-    return PaddingTokens(
-      compact: EdgeInsets.all(scale.xs),
-      comfortable: EdgeInsets.all(scale.md),
-      spacious: EdgeInsets.all(scale.lg),
-      page: EdgeInsets.symmetric(horizontal: scale.lg, vertical: scale.md),
-      component: EdgeInsets.symmetric(horizontal: scale.md, vertical: scale.sm),
-      inline: EdgeInsets.symmetric(horizontal: scale.sm, vertical: scale.xs),
-    );
-  }
 
   PaddingTokens copyWith({
     EdgeInsetsGeometry? compact,
@@ -137,23 +136,16 @@ class PaddingTokens {
 /// Unified spacing tokens implementing ThemeExtension
 @immutable
 class SpacingTokens extends ThemeExtension<SpacingTokens> {
-  final SpacingScale scale;
-  final PaddingTokens padding;
-
   const SpacingTokens({required this.scale, required this.padding});
 
   factory SpacingTokens.defaultTokens() {
-    const scale = SpacingScale.defaultScale;
-    return SpacingTokens(
-      scale: scale,
-      padding: PaddingTokens.fromScale(scale),
-    );
+    const SpacingScale scale = SpacingScale.defaultScale;
+    return SpacingTokens(scale: scale, padding: PaddingTokens.fromScale(scale));
   }
+  final SpacingScale scale;
+  final PaddingTokens padding;
 
-  SpacingTokens copyWith({
-    SpacingScale? scale,
-    PaddingTokens? padding,
-  }) {
+  SpacingTokens copyWith({SpacingScale? scale, PaddingTokens? padding}) {
     return SpacingTokens(
       scale: scale ?? this.scale,
       padding: padding ?? this.padding,

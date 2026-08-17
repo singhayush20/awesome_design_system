@@ -6,11 +6,8 @@ import 'common.dart';
 
 @widgetbook.UseCase(name: 'Variants', type: DSButton)
 Widget buttonVariants(BuildContext context) {
-  Widget variant(ButtonVariant v, String label) => DSButton(
-        onPressed: () {},
-        variant: v,
-        child: Text(label),
-      );
+  Widget variant(ButtonVariant v, String label) =>
+      DSButton(onPressed: () {}, variant: v, child: Text(label));
 
   return StoryScaffold(
     children: [
@@ -32,11 +29,8 @@ Widget buttonVariants(BuildContext context) {
 
 @widgetbook.UseCase(name: 'Sizes', type: DSButton)
 Widget buttonSizes(BuildContext context) {
-  Widget sized(ButtonSize s) => DSButton(
-        onPressed: () {},
-        size: s,
-        child: Text(s.name.toUpperCase()),
-      );
+  Widget sized(ButtonSize s) =>
+      DSButton(onPressed: () {}, size: s, child: Text(s.name.toUpperCase()));
 
   return StoryScaffold(
     children: [
@@ -45,7 +39,11 @@ Widget buttonSizes(BuildContext context) {
         spacing: 8,
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: [sized(ButtonSize.small), sized(ButtonSize.medium), sized(ButtonSize.large)],
+        children: [
+          sized(ButtonSize.small),
+          sized(ButtonSize.medium),
+          sized(ButtonSize.large),
+        ],
       ),
     ],
   );
@@ -61,8 +59,16 @@ Widget buttonStates(BuildContext context) {
         runSpacing: 8,
         children: [
           DSButton(onPressed: () {}, child: const Text('Enabled')),
-          DSButton(onPressed: () {}, isDisabled: true, child: const Text('Disabled')),
-          DSButton(onPressed: () {}, isLoading: true, child: const Text('Loading')),
+          DSButton(
+            onPressed: () {},
+            isDisabled: true,
+            child: const Text('Disabled'),
+          ),
+          DSButton(
+            onPressed: () {},
+            isLoading: true,
+            child: const Text('Loading'),
+          ),
         ],
       ),
     ],

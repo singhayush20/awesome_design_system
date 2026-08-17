@@ -1,5 +1,6 @@
 // Card atom with elevation variants
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'text.dart';
@@ -13,8 +14,8 @@ enum CardVariant { elevated, filled, outlined }
 /// A flexible card component with multiple variants and elevations
 class DSCard extends StatelessWidget {
   const DSCard({
-    super.key,
     required this.child,
+    super.key,
     this.variant = CardVariant.elevated,
     this.elevation = CardElevation.level1,
     this.padding,
@@ -74,31 +75,40 @@ class DSCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final colors = Theme.of(context).colorScheme;
-    final elevationTokens = tokens?.elevation ?? ElevationTokens.defaultTokens();
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
+    final SpacingScale spacing =
+        tokens?.spacing.scale ?? SpacingScale.defaultScale;
+    final ColorScheme colors = Theme.of(context).colorScheme;
+    final ElevationTokens elevationTokens =
+        tokens?.elevation ?? ElevationTokens.defaultTokens();
 
     // Resolve colors based on variant
-    final backgroundColor = _resolveBackgroundColor(variant, color, colors);
-    final effectiveBorder = _resolveBorder(variant, border, colors);
-    final effectiveShadowColor = shadowColor ?? colors.shadow;
-    final effectiveSurfaceTint = surfaceTintColor ?? colors.surfaceTint;
-    final effectiveElevation = _resolveElevation(elevation, elevationTokens, context);
-    final effectiveShape = shape ?? RoundedRectangleBorder(borderRadius: radius.lgRadius);
+    final Color backgroundColor = _resolveBackgroundColor(
+      variant,
+      color,
+      colors,
+    );
+    final BorderSide effectiveBorder = _resolveBorder(variant, border, colors);
+    final Color effectiveShadowColor = shadowColor ?? colors.shadow;
+    final Color effectiveSurfaceTint = surfaceTintColor ?? colors.surfaceTint;
+    final ElevationLevel effectiveElevation = _resolveElevation(
+      elevation,
+      elevationTokens,
+      context,
+    );
+    final ShapeBorder effectiveShape =
+        shape ?? RoundedRectangleBorder(borderRadius: radius.lgRadius);
 
     Widget card = Card(
       color: backgroundColor,
       surfaceTintColor: effectiveSurfaceTint,
       shadowColor: effectiveShadowColor,
       elevation: effectiveElevation.level.toDouble(),
-      shape: effectiveBorder != null
-          ? RoundedRectangleBorder(
-              borderRadius: (effectiveShape as RoundedRectangleBorder).borderRadius ?? BorderRadius.zero,
-              side: effectiveBorder,
-            )
-          : effectiveShape,
+      shape: RoundedRectangleBorder(
+        borderRadius: (effectiveShape as RoundedRectangleBorder).borderRadius,
+        side: effectiveBorder,
+      ),
       margin: margin ?? EdgeInsets.all(spacing.md),
       clipBehavior: clipBehavior,
       child: Padding(
@@ -112,24 +122,27 @@ class DSCard extends StatelessWidget {
       card = InkWell(
         onTap: onTap,
         onLongPress: onLongPress,
-        borderRadius: ((effectiveShape as RoundedRectangleBorder?)?.borderRadius as BorderRadius?) ?? BorderRadius.zero,
+        borderRadius:
+            ((effectiveShape as RoundedRectangleBorder?)?.borderRadius
+                as BorderRadius?) ??
+            BorderRadius.zero,
         child: card,
       );
     }
 
     // Add semantics
     if (semanticLabel != null) {
-      card = Semantics(
-        label: semanticLabel,
-        container: true,
-        child: card,
-      );
+      card = Semantics(label: semanticLabel, container: true, child: card);
     }
 
     return card;
   }
 
-  Color _resolveBackgroundColor(CardVariant variant, Color? override, ColorScheme colors) {
+  Color _resolveBackgroundColor(
+    CardVariant variant,
+    Color? override,
+    ColorScheme colors,
+  ) {
     if (override != null) return override;
     return switch (variant) {
       CardVariant.elevated => colors.surface,
@@ -138,12 +151,16 @@ class DSCard extends StatelessWidget {
     };
   }
 
-  BorderSide _resolveBorder(CardVariant variant, BorderSide? override, ColorScheme colors) {
+  BorderSide _resolveBorder(
+    CardVariant variant,
+    BorderSide? override,
+    ColorScheme colors,
+  ) {
     if (override != null) return override;
     return switch (variant) {
       CardVariant.elevated => BorderSide.none,
       CardVariant.filled => BorderSide.none,
-      CardVariant.outlined => BorderSide(color: colors.outlineVariant, width: 1),
+      CardVariant.outlined => BorderSide(color: colors.outlineVariant),
     };
   }
 
@@ -152,13 +169,35 @@ class DSCard extends StatelessWidget {
     ElevationTokens elevationTokens,
     BuildContext context,
   ) {
-    final level = switch (elevation) {
+    final int level = switch (elevation) {
       CardElevation.none => 0,
       CardElevation.level1 => 1,
       CardElevation.level2 => 2,
       CardElevation.level3 => 3,
     };
     return elevationTokens.getLevel(level);
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<CardVariant>('variant', variant));
+    properties.add(EnumProperty<CardElevation>('elevation', elevation));
+    properties.add(
+      DiagnosticsProperty<EdgeInsetsGeometry?>('padding', padding),
+    );
+    properties.add(DiagnosticsProperty<EdgeInsetsGeometry?>('margin', margin));
+    properties.add(DiagnosticsProperty<ShapeBorder?>('shape', shape));
+    properties.add(ColorProperty('color', color));
+    properties.add(ColorProperty('shadowColor', shadowColor));
+    properties.add(ColorProperty('surfaceTintColor', surfaceTintColor));
+    properties.add(DiagnosticsProperty<BorderSide?>('border', border));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onLongPress', onLongPress),
+    );
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+    properties.add(EnumProperty<Clip>('clipBehavior', clipBehavior));
   }
 }
 
@@ -185,10 +224,11 @@ class DSCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final spacingScale = tokens?.spacing.scale ?? SpacingScale.defaultScale;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SpacingScale spacingScale =
+        tokens?.spacing.scale ?? SpacingScale.defaultScale;
 
-    final children = <Widget>[];
+    final List<Widget> children = <Widget>[];
 
     if (leading != null) {
       children.add(leading!);
@@ -201,12 +241,15 @@ class DSCardHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [
-              if (title != null)
-                DSText(title!, variant: titleVariant, colorRole: TextColorRole.primary),
-              if (subtitle != null) ...[
+            children: <Widget>[
+              if (title != null) DSText(title!, variant: titleVariant),
+              if (subtitle != null) ...<Widget>[
                 SizedBox(height: spacing),
-                DSText(subtitle!, variant: subtitleVariant, colorRole: TextColorRole.secondary),
+                DSText(
+                  subtitle!,
+                  variant: subtitleVariant,
+                  colorRole: TextColorRole.secondary,
+                ),
               ],
             ],
           ),
@@ -219,18 +262,27 @@ class DSCardHeader extends StatelessWidget {
       children.add(trailing!);
     }
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: children,
+    return Row(children: children);
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('title', title));
+    properties.add(StringProperty('subtitle', subtitle));
+    properties.add(EnumProperty<TextVariant>('titleVariant', titleVariant));
+    properties.add(
+      EnumProperty<TextVariant>('subtitleVariant', subtitleVariant),
     );
+    properties.add(DoubleProperty('spacing', spacing));
   }
 }
 
 /// Card action area
 class DSCardActions extends StatelessWidget {
   const DSCardActions({
-    super.key,
     required this.actions,
+    super.key,
     this.alignment = MainAxisAlignment.end,
     this.spacing = 8.0,
     this.overflowDirection = VerticalDirection.down,
@@ -243,16 +295,23 @@ class DSCardActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final scale = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-
     return Row(
       mainAxisAlignment: alignment,
       mainAxisSize: MainAxisSize.min,
       children: actions
-          .expand((widget) => [widget, SizedBox(width: spacing)])
+          .expand((Widget widget) => <Widget>[widget, SizedBox(width: spacing)])
           .take(actions.length * 2 - 1)
           .toList(),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<MainAxisAlignment>('alignment', alignment));
+    properties.add(DoubleProperty('spacing', spacing));
+    properties.add(
+      EnumProperty<VerticalDirection>('overflowDirection', overflowDirection),
     );
   }
 }
@@ -260,8 +319,8 @@ class DSCardActions extends StatelessWidget {
 /// Card media (image) component
 class DSCardMedia extends StatelessWidget {
   const DSCardMedia({
-    super.key,
     required this.image,
+    super.key,
     this.height,
     this.width,
     this.fit = BoxFit.cover,
@@ -282,9 +341,6 @@ class DSCardMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.zero,
       child: Image(
@@ -293,27 +349,50 @@ class DSCardMedia extends StatelessWidget {
         width: width,
         fit: fit,
         alignment: alignment,
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded || frame != null) return child;
-          return placeholder ??
-              Container(
-                height: height,
-                width: width,
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: const Center(child: CircularProgressIndicator()),
-              );
-        },
-        errorBuilder: (context, error, stackTrace) => errorWidget ??
-            Container(
-              height: height,
-              width: width,
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: Icon(
-                Icons.broken_image,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
+        frameBuilder:
+            (
+              BuildContext context,
+              Widget child,
+              int? frame,
+              bool wasSynchronouslyLoaded,
+            ) {
+              if (wasSynchronouslyLoaded || frame != null) return child;
+              return placeholder ??
+                  Container(
+                    height: height,
+                    width: width,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
+                    child: const Center(child: CircularProgressIndicator()),
+                  );
+            },
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) =>
+                errorWidget ??
+                Container(
+                  height: height,
+                  width: width,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
       ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ImageProvider<Object>>('image', image));
+    properties.add(DoubleProperty('height', height));
+    properties.add(DoubleProperty('width', width));
+    properties.add(EnumProperty<BoxFit>('fit', fit));
+    properties.add(DiagnosticsProperty<Alignment>('alignment', alignment));
+    properties.add(
+      DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius),
     );
   }
 }

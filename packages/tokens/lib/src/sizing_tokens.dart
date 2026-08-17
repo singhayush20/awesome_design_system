@@ -161,9 +161,21 @@ class SizingScale {
       buttonHeightSm: lerpDouble(buttonHeightSm, other.buttonHeightSm, t)!,
       buttonHeightMd: lerpDouble(buttonHeightMd, other.buttonHeightMd, t)!,
       buttonHeightLg: lerpDouble(buttonHeightLg, other.buttonHeightLg, t)!,
-      textFieldHeightSm: lerpDouble(textFieldHeightSm, other.textFieldHeightSm, t)!,
-      textFieldHeightMd: lerpDouble(textFieldHeightMd, other.textFieldHeightMd, t)!,
-      textFieldHeightLg: lerpDouble(textFieldHeightLg, other.textFieldHeightLg, t)!,
+      textFieldHeightSm: lerpDouble(
+        textFieldHeightSm,
+        other.textFieldHeightSm,
+        t,
+      )!,
+      textFieldHeightMd: lerpDouble(
+        textFieldHeightMd,
+        other.textFieldHeightMd,
+        t,
+      )!,
+      textFieldHeightLg: lerpDouble(
+        textFieldHeightLg,
+        other.textFieldHeightLg,
+        t,
+      )!,
     );
   }
 
@@ -173,13 +185,12 @@ class SizingScale {
 /// Unified sizing tokens implementing ThemeExtension
 @immutable
 class SizingTokens extends ThemeExtension<SizingTokens> {
-  final SizingScale scale;
-
   const SizingTokens({required this.scale});
 
   factory SizingTokens.defaultTokens() {
     return const SizingTokens(scale: SizingScale.defaultScale);
   }
+  final SizingScale scale;
 
   SizingTokens copyWith({SizingScale? scale}) {
     return SizingTokens(scale: scale ?? this.scale);

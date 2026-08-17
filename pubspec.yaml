@@ -15,11 +15,19 @@ workspace:
   - widgetbook
 
 dependencies:
+  awesome_design_system_atoms:
+    path: packages/atoms
+  awesome_design_system_molecules:
+    path: packages/molecules
+  awesome_design_system_organisms:
+    path: packages/organisms
+  awesome_design_system_tokens:
+    path: packages/tokens
   flutter:
     sdk: flutter
 
 dev_dependencies:
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
   melos: ^6.0.0

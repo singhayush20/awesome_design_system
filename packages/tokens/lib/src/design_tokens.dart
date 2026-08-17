@@ -1,5 +1,6 @@
 // Main design tokens aggregate - combines all token types
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'color_tokens.dart';
 import 'spacing_tokens.dart';
@@ -14,15 +15,6 @@ import 'breakpoint_tokens.dart';
 /// This is the main entry point for consumers
 @immutable
 class DesignTokens extends ThemeExtension<DesignTokens> {
-  final ColorTokens colors;
-  final SpacingTokens spacing;
-  final RadiusTokens radius;
-  final TypographyTokens typography;
-  final ElevationTokens elevation;
-  final SizingTokens sizing;
-  final BorderTokens border;
-  final BreakpointTokens breakpoints;
-
   const DesignTokens({
     required this.colors,
     required this.spacing,
@@ -47,7 +39,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
     BorderScale? borderScale,
     BreakpointScale? breakpointScale,
   }) {
-    final colorTokens = ColorTokens.light(
+    final ColorTokens colorTokens = ColorTokens.light(
       brandPrimary: brandPrimary,
       brandSecondary: brandSecondary,
       brandTertiary: brandTertiary,
@@ -58,14 +50,20 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       colors: colorTokens,
       spacing: SpacingTokens(
         scale: spacingScale ?? SpacingScale.defaultScale,
-        padding: PaddingTokens.fromScale(spacingScale ?? SpacingScale.defaultScale),
+        padding: PaddingTokens.fromScale(
+          spacingScale ?? SpacingScale.defaultScale,
+        ),
       ),
       radius: RadiusTokens(scale: radiusScale ?? RadiusScale.defaultScale),
-      typography: TypographyTokens(scale: TypographyScale.defaultScale(fontFamily: fontFamily)),
+      typography: TypographyTokens(
+        scale: TypographyScale.defaultScale(fontFamily: fontFamily),
+      ),
       elevation: ElevationTokens.defaultTokens(),
       sizing: SizingTokens(scale: sizingScale ?? SizingScale.defaultScale),
       border: BorderTokens(scale: borderScale ?? BorderScale.defaultScale),
-      breakpoints: BreakpointTokens(scale: breakpointScale ?? BreakpointScale.defaultScale),
+      breakpoints: BreakpointTokens(
+        scale: breakpointScale ?? BreakpointScale.defaultScale,
+      ),
     );
   }
 
@@ -82,7 +80,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
     BorderScale? borderScale,
     BreakpointScale? breakpointScale,
   }) {
-    final colorTokens = ColorTokens.light(
+    final ColorTokens colorTokens = ColorTokens.light(
       brandPrimary: brandPrimary,
       brandSecondary: brandSecondary,
       brandTertiary: brandTertiary,
@@ -93,21 +91,35 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       colors: colorTokens,
       spacing: SpacingTokens(
         scale: spacingScale ?? SpacingScale.defaultScale,
-        padding: PaddingTokens.fromScale(spacingScale ?? SpacingScale.defaultScale),
+        padding: PaddingTokens.fromScale(
+          spacingScale ?? SpacingScale.defaultScale,
+        ),
       ),
       radius: RadiusTokens(scale: radiusScale ?? RadiusScale.defaultScale),
-      typography: TypographyTokens(scale: TypographyScale.defaultScale(fontFamily: fontFamily)),
+      typography: TypographyTokens(
+        scale: TypographyScale.defaultScale(fontFamily: fontFamily),
+      ),
       elevation: ElevationTokens.defaultTokens(),
       sizing: SizingTokens(scale: sizingScale ?? SizingScale.defaultScale),
       border: BorderTokens(scale: borderScale ?? BorderScale.defaultScale),
-      breakpoints: BreakpointTokens(scale: breakpointScale ?? BreakpointScale.defaultScale),
+      breakpoints: BreakpointTokens(
+        scale: breakpointScale ?? BreakpointScale.defaultScale,
+      ),
     );
   }
+  final ColorTokens colors;
+  final SpacingTokens spacing;
+  final RadiusTokens radius;
+  final TypographyTokens typography;
+  final ElevationTokens elevation;
+  final SizingTokens sizing;
+  final BorderTokens border;
+  final BreakpointTokens breakpoints;
 
   /// Build ThemeData for light theme
   ThemeData toLightThemeData() {
-    final lightColors = colors.light;
-    final typo = typography.scale;
+    final ColorScheme lightColors = colors.light;
+    final TypographyScale typo = typography.scale;
 
     return ThemeData(
       useMaterial3: true,
@@ -125,7 +137,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       hoverColor: lightColors.primary.withValues(alpha: 0.08),
       splashColor: lightColors.primary.withValues(alpha: 0.12),
       highlightColor: lightColors.primary.withValues(alpha: 0.12),
-      extensions: [
+      extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
         spacing,
@@ -155,8 +167,8 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
 
   /// Build ThemeData for dark theme
   ThemeData toDarkThemeData() {
-    final darkColors = colors.dark;
-    final typo = typography.scale;
+    final ColorScheme darkColors = colors.dark;
+    final TypographyScale typo = typography.scale;
 
     return ThemeData(
       useMaterial3: true,
@@ -174,7 +186,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       hoverColor: darkColors.primary.withValues(alpha: 0.08),
       splashColor: darkColors.primary.withValues(alpha: 0.12),
       highlightColor: darkColors.primary.withValues(alpha: 0.12),
-      extensions: [
+      extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
         spacing,
@@ -203,7 +215,10 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
   }
 
   // Component theme builders
-  ElevatedButtonThemeData _buildElevatedButtonTheme(ColorScheme colors, TypographyScale typo) {
+  ElevatedButtonThemeData _buildElevatedButtonTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: colors.primary,
@@ -213,67 +228,71 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
         surfaceTintColor: colors.surfaceTint,
         padding: spacing.padding.component,
         minimumSize: Size(64, sizing.scale.buttonHeightMd),
-        shape: RoundedRectangleBorder(
-          borderRadius: radius.scale.mdRadius,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
         textStyle: typo.labelLarge,
-        disabledBackgroundColor: colors.surfaceVariant,
+        disabledBackgroundColor: colors.surfaceContainerHighest,
         disabledForegroundColor: colors.onSurfaceVariant,
       ),
     );
   }
 
-  FilledButtonThemeData _buildFilledButtonTheme(ColorScheme colors, TypographyScale typo) {
+  FilledButtonThemeData _buildFilledButtonTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
     return FilledButtonThemeData(
       style: FilledButton.styleFrom(
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
         padding: spacing.padding.component,
         minimumSize: Size(64, sizing.scale.buttonHeightMd),
-        shape: RoundedRectangleBorder(
-          borderRadius: radius.scale.mdRadius,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
         textStyle: typo.labelLarge,
-        disabledBackgroundColor: colors.surfaceVariant,
+        disabledBackgroundColor: colors.surfaceContainerHighest,
         disabledForegroundColor: colors.onSurfaceVariant,
       ),
     );
   }
 
-  OutlinedButtonThemeData _buildOutlinedButtonTheme(ColorScheme colors, TypographyScale typo) {
+  OutlinedButtonThemeData _buildOutlinedButtonTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: colors.primary,
         side: BorderSide(color: colors.outline, width: border.scale.thin),
         padding: spacing.padding.component,
         minimumSize: Size(64, sizing.scale.buttonHeightMd),
-        shape: RoundedRectangleBorder(
-          borderRadius: radius.scale.mdRadius,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
         textStyle: typo.labelLarge,
         disabledForegroundColor: colors.onSurfaceVariant,
       ),
     );
   }
 
-  TextButtonThemeData _buildTextButtonTheme(ColorScheme colors, TypographyScale typo) {
+  TextButtonThemeData _buildTextButtonTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: colors.primary,
         padding: spacing.padding.inline,
         minimumSize: Size(48, sizing.scale.buttonHeightSm),
-        shape: RoundedRectangleBorder(
-          borderRadius: radius.scale.mdRadius,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
         textStyle: typo.labelLarge,
         disabledForegroundColor: colors.onSurfaceVariant,
       ),
     );
   }
 
-  InputDecorationTheme _buildInputDecorationTheme(ColorScheme colors, TypographyScale typo) {
-    final borderRadius = radius.scale.mdRadius;
-    final outlineBorder = OutlineInputBorder(
+  InputDecorationTheme _buildInputDecorationTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
+    final BorderRadius borderRadius = radius.scale.mdRadius;
+    final OutlineInputBorder outlineBorder = OutlineInputBorder(
       borderRadius: borderRadius,
       borderSide: BorderSide(color: colors.outline, width: border.scale.thin),
     );
@@ -283,13 +302,18 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       fillColor: colors.surfaceContainerHighest.withValues(alpha: 0.5),
       contentPadding: spacing.padding.component,
       labelStyle: typo.bodyLarge.copyWith(color: colors.onSurfaceVariant),
-      hintStyle: typo.bodyLarge.copyWith(color: colors.onSurfaceVariant.withValues(alpha: 0.6)),
+      hintStyle: typo.bodyLarge.copyWith(
+        color: colors.onSurfaceVariant.withValues(alpha: 0.6),
+      ),
       helperStyle: typo.bodySmall.copyWith(color: colors.onSurfaceVariant),
       errorStyle: typo.bodySmall.copyWith(color: colors.error),
       border: outlineBorder,
       enabledBorder: outlineBorder,
       focusedBorder: outlineBorder.copyWith(
-        borderSide: BorderSide(color: colors.primary, width: border.scale.medium),
+        borderSide: BorderSide(
+          color: colors.primary,
+          width: border.scale.medium,
+        ),
       ),
       errorBorder: outlineBorder.copyWith(
         borderSide: BorderSide(color: colors.error, width: border.scale.thin),
@@ -298,7 +322,10 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
         borderSide: BorderSide(color: colors.error, width: border.scale.medium),
       ),
       disabledBorder: outlineBorder.copyWith(
-        borderSide: BorderSide(color: colors.outlineVariant, width: border.scale.thin),
+        borderSide: BorderSide(
+          color: colors.outlineVariant,
+          width: border.scale.thin,
+        ),
       ),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       alignLabelWithHint: true,
@@ -313,7 +340,10 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: radius.scale.lgRadius,
-        side: BorderSide(color: colors.outlineVariant, width: border.scale.thin),
+        side: BorderSide(
+          color: colors.outlineVariant,
+          width: border.scale.thin,
+        ),
       ),
       margin: spacing.padding.compact,
       clipBehavior: Clip.antiAlias,
@@ -330,12 +360,21 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       shadowColor: colors.shadow,
       titleTextStyle: typo.titleLarge.copyWith(color: colors.onSurface),
       toolbarTextStyle: typo.bodyMedium.copyWith(color: colors.onSurface),
-      iconTheme: IconThemeData(color: colors.onSurface, size: sizing.scale.iconMd),
-      actionsIconTheme: IconThemeData(color: colors.onSurface, size: sizing.scale.iconMd),
+      iconTheme: IconThemeData(
+        color: colors.onSurface,
+        size: sizing.scale.iconMd,
+      ),
+      actionsIconTheme: IconThemeData(
+        color: colors.onSurface,
+        size: sizing.scale.iconMd,
+      ),
     );
   }
 
-  ListTileThemeData _buildListTileTheme(ColorScheme colors, TypographyScale typo) {
+  ListTileThemeData _buildListTileTheme(
+    ColorScheme colors,
+    TypographyScale typo,
+  ) {
     return ListTileThemeData(
       contentPadding: spacing.padding.component,
       minLeadingWidth: 40,
@@ -347,8 +386,12 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       iconColor: colors.onSurfaceVariant,
       textColor: colors.onSurface,
       titleTextStyle: typo.titleMedium,
-      subtitleTextStyle: typo.bodyMedium.copyWith(color: colors.onSurfaceVariant),
-      leadingAndTrailingTextStyle: typo.bodyMedium.copyWith(color: colors.onSurfaceVariant),
+      subtitleTextStyle: typo.bodyMedium.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
+      leadingAndTrailingTextStyle: typo.bodyMedium.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
       shape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
     );
   }
@@ -359,12 +402,17 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       selectedColor: colors.primaryContainer,
       disabledColor: colors.surfaceContainerHighest.withValues(alpha: 0.5),
       labelStyle: typo.labelMedium,
-      secondaryLabelStyle: typo.labelMedium.copyWith(color: colors.onSurfaceVariant),
+      secondaryLabelStyle: typo.labelMedium.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
       padding: spacing.padding.inline,
       labelPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: radius.scale.fullRadius,
-        side: BorderSide(color: colors.outlineVariant, width: border.scale.thin),
+        side: BorderSide(
+          color: colors.outlineVariant,
+          width: border.scale.thin,
+        ),
       ),
       side: BorderSide(color: colors.outlineVariant, width: border.scale.thin),
       brightness: colors.brightness,
@@ -395,7 +443,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       shadowColor: colors.shadow,
       elevation: 3,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(radius.scale.xl)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(radius.scale.xl),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       modalBackgroundColor: colors.surface,
@@ -412,18 +462,32 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       elevation: 3,
       height: sizing.scale.heightLg,
       indicatorColor: colors.primaryContainer,
-      indicatorShape: RoundedRectangleBorder(borderRadius: radius.scale.mdRadius),
-      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+      indicatorShape: RoundedRectangleBorder(
+        borderRadius: radius.scale.mdRadius,
+      ),
+      labelTextStyle: WidgetStateProperty.resolveWith((
+        Set<WidgetState> states,
+      ) {
         if (states.contains(WidgetState.selected)) {
-          return typography.scale.labelSmall.copyWith(color: colors.onPrimaryContainer);
+          return typography.scale.labelSmall.copyWith(
+            color: colors.onPrimaryContainer,
+          );
         }
-        return typography.scale.labelSmall.copyWith(color: colors.onSurfaceVariant);
+        return typography.scale.labelSmall.copyWith(
+          color: colors.onSurfaceVariant,
+        );
       }),
-      iconTheme: WidgetStateProperty.resolveWith((states) {
+      iconTheme: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
         if (states.contains(WidgetState.selected)) {
-          return IconThemeData(color: colors.onPrimaryContainer, size: sizing.scale.iconMd);
+          return IconThemeData(
+            color: colors.onPrimaryContainer,
+            size: sizing.scale.iconMd,
+          );
         }
-        return IconThemeData(color: colors.onSurfaceVariant, size: sizing.scale.iconMd);
+        return IconThemeData(
+          color: colors.onSurfaceVariant,
+          size: sizing.scale.iconMd,
+        );
       }),
     );
   }
@@ -437,7 +501,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       labelStyle: typo.labelLarge,
       unselectedLabelStyle: typo.labelLarge,
       dividerColor: colors.outlineVariant,
-      overlayColor: WidgetStateProperty.all(colors.primary.withValues(alpha: 0.12)),
+      overlayColor: WidgetStateProperty.all(
+        colors.primary.withValues(alpha: 0.12),
+      ),
       splashFactory: NoSplash.splashFactory,
     );
   }
@@ -469,33 +535,37 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
   DesignTokens lerp(ThemeExtension<DesignTokens>? other, double t) {
     if (other is! DesignTokens) return this;
     return DesignTokens(
-      colors: colors.lerp(other.colors, t) as ColorTokens,
-      spacing: spacing.lerp(other.spacing, t) as SpacingTokens,
-      radius: radius.lerp(other.radius, t) as RadiusTokens,
-      typography: typography.lerp(other.typography, t) as TypographyTokens,
-      elevation: elevation.lerp(other.elevation, t) as ElevationTokens,
-      sizing: sizing.lerp(other.sizing, t) as SizingTokens,
-      border: border.lerp(other.border, t) as BorderTokens,
-      breakpoints: breakpoints.lerp(other.breakpoints, t) as BreakpointTokens,
+      colors: colors.lerp(other.colors, t),
+      spacing: spacing.lerp(other.spacing, t),
+      radius: radius.lerp(other.radius, t),
+      typography: typography.lerp(other.typography, t),
+      elevation: elevation.lerp(other.elevation, t),
+      sizing: sizing.lerp(other.sizing, t),
+      border: border.lerp(other.border, t),
+      breakpoints: breakpoints.lerp(other.breakpoints, t),
     );
   }
 }
 
 /// Token provider for runtime access (alternative to ThemeExtension)
 class TokenProvider extends InheritedWidget {
-  const TokenProvider({
-    super.key,
-    required this.tokens,
-    required super.child,
-  });
+  const TokenProvider({required this.tokens, required super.child, super.key});
 
   final DesignTokens tokens;
 
   static DesignTokens of(BuildContext context) {
-    final provider = context.dependOnInheritedWidgetOfExactType<TokenProvider>();
+    final TokenProvider? provider = context
+        .dependOnInheritedWidgetOfExactType<TokenProvider>();
     return provider?.tokens ?? DesignTokens.light(brandPrimary: Colors.blue);
   }
 
   @override
-  bool updateShouldNotify(TokenProvider oldWidget) => tokens != oldWidget.tokens;
+  bool updateShouldNotify(TokenProvider oldWidget) =>
+      tokens != oldWidget.tokens;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<DesignTokens>('tokens', tokens));
+  }
 }

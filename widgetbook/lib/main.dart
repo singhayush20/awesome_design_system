@@ -29,8 +29,9 @@ class WidgetbookApp extends StatelessWidget {
   }
 }
 
-ThemeData get lightTheme =>
-    DesignTokens.light(brandPrimary: const Color(0xFF6750A4)).toLightThemeData();
+ThemeData get lightTheme => DesignTokens.light(
+  brandPrimary: const Color(0xFF6750A4),
+).toLightThemeData();
 
 ThemeData get darkTheme =>
     DesignTokens.dark(brandPrimary: const Color(0xFFD0BCFF)).toDarkThemeData();

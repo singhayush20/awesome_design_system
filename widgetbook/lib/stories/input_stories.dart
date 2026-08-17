@@ -23,8 +23,16 @@ Widget inputBasic(BuildContext context) {
       SectionLabel('Required'),
       DSInput(label: 'Username', isRequired: true),
       SectionLabel('Disabled & readonly'),
-      DSInput(label: 'Disabled field', initialValue: 'Jane Doe', isDisabled: true),
-      DSInput(label: 'Read only', initialValue: 'readonly value', isReadOnly: true),
+      DSInput(
+        label: 'Disabled field',
+        initialValue: 'Jane Doe',
+        isDisabled: true,
+      ),
+      DSInput(
+        label: 'Read only',
+        initialValue: 'readonly value',
+        isReadOnly: true,
+      ),
     ],
   );
 }

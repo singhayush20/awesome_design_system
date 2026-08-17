@@ -7,67 +7,34 @@ import 'package:flutter/material.dart';
 @immutable
 class LightColorTokens extends ColorScheme {
   const LightColorTokens({
-    required Color primary,
-    required Color onPrimary,
-    required Color primaryContainer,
-    required Color onPrimaryContainer,
-    required Color secondary,
-    required Color onSecondary,
-    required Color secondaryContainer,
-    required Color onSecondaryContainer,
-    required Color tertiary,
-    required Color onTertiary,
-    required Color tertiaryContainer,
-    required Color onTertiaryContainer,
-    required Color error,
-    required Color onError,
-    required Color errorContainer,
-    required Color onErrorContainer,
-    required Color background,
-    required Color onBackground,
-    required Color surface,
-    required Color onSurface,
-    required Color surfaceVariant,
-    required Color onSurfaceVariant,
-    required Color outline,
-    required Color outlineVariant,
-    required Color shadow,
-    required Color scrim,
-    required Color inverseSurface,
-    required Color inversePrimary,
-    required Color surfaceTint,
-  }) : super(
-    brightness: Brightness.light,
-    primary: primary,
-    onPrimary: onPrimary,
-    primaryContainer: primaryContainer,
-    onPrimaryContainer: onPrimaryContainer,
-    secondary: secondary,
-    onSecondary: onSecondary,
-    secondaryContainer: secondaryContainer,
-    onSecondaryContainer: onSecondaryContainer,
-    tertiary: tertiary,
-    onTertiary: onTertiary,
-    tertiaryContainer: tertiaryContainer,
-    onTertiaryContainer: onTertiaryContainer,
-    error: error,
-    onError: onError,
-    errorContainer: errorContainer,
-    onErrorContainer: onErrorContainer,
-    background: background,
-    onBackground: onBackground,
-    surface: surface,
-    onSurface: onSurface,
-    surfaceVariant: surfaceVariant,
-    onSurfaceVariant: onSurfaceVariant,
-    outline: outline,
-    outlineVariant: outlineVariant,
-    shadow: shadow,
-    scrim: scrim,
-    inverseSurface: inverseSurface,
-    inversePrimary: inversePrimary,
-    surfaceTint: surfaceTint,
-  );
+    required super.primary,
+    required super.onPrimary,
+    required Color super.primaryContainer,
+    required Color super.onPrimaryContainer,
+    required super.secondary,
+    required super.onSecondary,
+    required Color super.secondaryContainer,
+    required Color super.onSecondaryContainer,
+    required Color super.tertiary,
+    required Color super.onTertiary,
+    required Color super.tertiaryContainer,
+    required Color super.onTertiaryContainer,
+    required super.error,
+    required super.onError,
+    required Color super.errorContainer,
+    required Color super.onErrorContainer,
+    required super.surface,
+    required super.onSurface,
+    required Color super.surfaceContainerHighest,
+    required Color super.onSurfaceVariant,
+    required Color super.outline,
+    required Color super.outlineVariant,
+    required Color super.shadow,
+    required Color super.scrim,
+    required Color super.inverseSurface,
+    required Color super.inversePrimary,
+    required Color super.surfaceTint,
+  }) : super(brightness: Brightness.light);
 
   factory LightColorTokens.fromBrand({
     required Color brandPrimary,
@@ -76,10 +43,16 @@ class LightColorTokens extends ColorScheme {
     Color? brandError,
   }) {
     // Generate M3 tonal palette from brand colors
-    final primaryPalette = _generateTonalPalette(brandPrimary);
-    final secondaryPalette = _generateTonalPalette(brandSecondary ?? brandPrimary.withBlue(200));
-    final tertiaryPalette = _generateTonalPalette(brandTertiary ?? brandPrimary.withGreen(150));
-    final errorPalette = _generateTonalPalette(brandError ?? const Color(0xFFBA1A1A));
+    final Map<int, Color> primaryPalette = _generateTonalPalette(brandPrimary);
+    final Map<int, Color> secondaryPalette = _generateTonalPalette(
+      brandSecondary ?? brandPrimary.withBlue(200),
+    );
+    final Map<int, Color> tertiaryPalette = _generateTonalPalette(
+      brandTertiary ?? brandPrimary.withGreen(150),
+    );
+    final Map<int, Color> errorPalette = _generateTonalPalette(
+      brandError ?? const Color(0xFFBA1A1A),
+    );
 
     return LightColorTokens(
       primary: primaryPalette[40]!,
@@ -98,11 +71,9 @@ class LightColorTokens extends ColorScheme {
       onError: errorPalette[100]!,
       errorContainer: errorPalette[90]!,
       onErrorContainer: errorPalette[10]!,
-      background: const Color(0xFFFFFBFE),
-      onBackground: const Color(0xFF1C1B1F),
       surface: const Color(0xFFFFFBFE),
       onSurface: const Color(0xFF1C1B1F),
-      surfaceVariant: const Color(0xFFE7E0EC),
+      surfaceContainerHighest: const Color(0xFFE7E0EC),
       onSurfaceVariant: const Color(0xFF49454F),
       outline: const Color(0xFF79747E),
       outlineVariant: const Color(0xFFCAC4D0),
@@ -115,8 +86,8 @@ class LightColorTokens extends ColorScheme {
   }
 
   static Map<int, Color> _generateTonalPalette(Color color) {
-    final hsl = HSLColor.fromColor(color);
-    final map = <int, Color>{};
+    final HSLColor hsl = HSLColor.fromColor(color);
+    final Map<int, Color> map = <int, Color>{};
     for (int i = 0; i <= 100; i += 10) {
       map[i] = hsl.withLightness(i / 100).toColor();
     }
@@ -128,67 +99,34 @@ class LightColorTokens extends ColorScheme {
 @immutable
 class DarkColorTokens extends ColorScheme {
   const DarkColorTokens({
-    required Color primary,
-    required Color onPrimary,
-    required Color primaryContainer,
-    required Color onPrimaryContainer,
-    required Color secondary,
-    required Color onSecondary,
-    required Color secondaryContainer,
-    required Color onSecondaryContainer,
-    required Color tertiary,
-    required Color onTertiary,
-    required Color tertiaryContainer,
-    required Color onTertiaryContainer,
-    required Color error,
-    required Color onError,
-    required Color errorContainer,
-    required Color onErrorContainer,
-    required Color background,
-    required Color onBackground,
-    required Color surface,
-    required Color onSurface,
-    required Color surfaceVariant,
-    required Color onSurfaceVariant,
-    required Color outline,
-    required Color outlineVariant,
-    required Color shadow,
-    required Color scrim,
-    required Color inverseSurface,
-    required Color inversePrimary,
-    required Color surfaceTint,
-  }) : super(
-    brightness: Brightness.dark,
-    primary: primary,
-    onPrimary: onPrimary,
-    primaryContainer: primaryContainer,
-    onPrimaryContainer: onPrimaryContainer,
-    secondary: secondary,
-    onSecondary: onSecondary,
-    secondaryContainer: secondaryContainer,
-    onSecondaryContainer: onSecondaryContainer,
-    tertiary: tertiary,
-    onTertiary: onTertiary,
-    tertiaryContainer: tertiaryContainer,
-    onTertiaryContainer: onTertiaryContainer,
-    error: error,
-    onError: onError,
-    errorContainer: errorContainer,
-    onErrorContainer: onErrorContainer,
-    background: background,
-    onBackground: onBackground,
-    surface: surface,
-    onSurface: onSurface,
-    surfaceVariant: surfaceVariant,
-    onSurfaceVariant: onSurfaceVariant,
-    outline: outline,
-    outlineVariant: outlineVariant,
-    shadow: shadow,
-    scrim: scrim,
-    inverseSurface: inverseSurface,
-    inversePrimary: inversePrimary,
-    surfaceTint: surfaceTint,
-  );
+    required super.primary,
+    required super.onPrimary,
+    required Color super.primaryContainer,
+    required Color super.onPrimaryContainer,
+    required super.secondary,
+    required super.onSecondary,
+    required Color super.secondaryContainer,
+    required Color super.onSecondaryContainer,
+    required Color super.tertiary,
+    required Color super.onTertiary,
+    required Color super.tertiaryContainer,
+    required Color super.onTertiaryContainer,
+    required super.error,
+    required super.onError,
+    required Color super.errorContainer,
+    required Color super.onErrorContainer,
+    required super.surface,
+    required super.onSurface,
+    required Color super.surfaceContainerHighest,
+    required Color super.onSurfaceVariant,
+    required Color super.outline,
+    required Color super.outlineVariant,
+    required Color super.shadow,
+    required Color super.scrim,
+    required Color super.inverseSurface,
+    required Color super.inversePrimary,
+    required Color super.surfaceTint,
+  }) : super(brightness: Brightness.dark);
 
   factory DarkColorTokens.fromBrand({
     required Color brandPrimary,
@@ -196,10 +134,19 @@ class DarkColorTokens extends ColorScheme {
     Color? brandTertiary,
     Color? brandError,
   }) {
-    final primaryPalette = LightColorTokens._generateTonalPalette(brandPrimary);
-    final secondaryPalette = LightColorTokens._generateTonalPalette(brandSecondary ?? brandPrimary.withBlue(200));
-    final tertiaryPalette = LightColorTokens._generateTonalPalette(brandTertiary ?? brandPrimary.withGreen(150));
-    final errorPalette = LightColorTokens._generateTonalPalette(brandError ?? const Color(0xFFBA1A1A));
+    final Map<int, Color> primaryPalette =
+        LightColorTokens._generateTonalPalette(brandPrimary);
+    final Map<int, Color> secondaryPalette =
+        LightColorTokens._generateTonalPalette(
+          brandSecondary ?? brandPrimary.withBlue(200),
+        );
+    final Map<int, Color> tertiaryPalette =
+        LightColorTokens._generateTonalPalette(
+          brandTertiary ?? brandPrimary.withGreen(150),
+        );
+    final Map<int, Color> errorPalette = LightColorTokens._generateTonalPalette(
+      brandError ?? const Color(0xFFBA1A1A),
+    );
 
     return DarkColorTokens(
       primary: primaryPalette[80]!,
@@ -218,11 +165,9 @@ class DarkColorTokens extends ColorScheme {
       onError: errorPalette[20]!,
       errorContainer: errorPalette[30]!,
       onErrorContainer: errorPalette[90]!,
-      background: const Color(0xFF1C1B1F),
-      onBackground: const Color(0xFFE6E1E5),
       surface: const Color(0xFF1C1B1F),
       onSurface: const Color(0xFFE6E1E5),
-      surfaceVariant: const Color(0xFF49454F),
+      surfaceContainerHighest: const Color(0xFF49454F),
       onSurfaceVariant: const Color(0xFFCAC4D0),
       outline: const Color(0xFF938F99),
       outlineVariant: const Color(0xFF49454F),
@@ -238,9 +183,6 @@ class DarkColorTokens extends ColorScheme {
 /// Unified color tokens that implements ThemeExtension
 @immutable
 class ColorTokens extends ThemeExtension<ColorTokens> {
-  final ColorScheme light;
-  final ColorScheme dark;
-
   const ColorTokens({required this.light, required this.dark});
 
   factory ColorTokens.light({
@@ -264,23 +206,23 @@ class ColorTokens extends ThemeExtension<ColorTokens> {
       ),
     );
   }
+  final ColorScheme light;
+  final ColorScheme dark;
 
-  ColorScheme resolve(Brightness brightness) => brightness == Brightness.light ? light : dark;
+  ColorScheme resolve(Brightness brightness) =>
+      brightness == Brightness.light ? light : dark;
 
   @override
   ColorTokens copyWith({ColorScheme? light, ColorScheme? dark}) {
-    return ColorTokens(
-      light: light ?? this.light,
-      dark: dark ?? this.dark,
-    );
+    return ColorTokens(light: light ?? this.light, dark: dark ?? this.dark);
   }
 
   @override
   ColorTokens lerp(ThemeExtension<ColorTokens>? other, double t) {
     if (other is! ColorTokens) return this;
     return ColorTokens(
-      light: ColorScheme.lerp(light, other.light, t)!,
-      dark: ColorScheme.lerp(dark, other.dark, t)!,
+      light: ColorScheme.lerp(light, other.light, t),
+      dark: ColorScheme.lerp(dark, other.dark, t),
     );
   }
 }

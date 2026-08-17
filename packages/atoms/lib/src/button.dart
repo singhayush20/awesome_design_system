@@ -1,5 +1,6 @@
 // Button atom with multiple variants
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 
@@ -12,9 +13,9 @@ enum ButtonSize { small, medium, large }
 /// A versatile button component supporting multiple variants and states
 class DSButton extends StatelessWidget {
   const DSButton({
-    super.key,
     required this.onPressed,
     required this.child,
+    super.key,
     this.variant = ButtonVariant.filled,
     this.size = ButtonSize.medium,
     this.leadingIcon,
@@ -69,16 +70,19 @@ class DSButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final spacing = tokens?.spacing.scale ?? SpacingScale.defaultScale;
-    final radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
-    final typography = tokens?.typography.scale ?? TypographyScale.defaultScale();
-    final colors = Theme.of(context).colorScheme;
-    final brightness = Theme.of(context).brightness;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final SpacingScale spacing =
+        tokens?.spacing.scale ?? SpacingScale.defaultScale;
+    final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
+    final TypographyScale typography =
+        tokens?.typography.scale ?? TypographyScale.defaultScale();
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final effectiveOnPressed = (isDisabled || isLoading) ? null : onPressed;
-    final effectiveOnLongPress = isDisabled ? null : onLongPress;
+    final VoidCallback? effectiveOnPressed = (isDisabled || isLoading)
+        ? null
+        : onPressed;
+    final VoidCallback? effectiveOnLongPress = isDisabled ? null : onLongPress;
 
     // Build button content
     Widget buttonContent = _buildContent(context, typography, sizing, spacing);
@@ -99,42 +103,51 @@ class DSButton extends StatelessWidget {
     }
 
     // Get button style based on variant
-    final buttonStyle = _resolveStyle(context, variant, size, sizing, spacing, radius, typography, colors);
+    final ButtonStyle buttonStyle = _resolveStyle(
+      context,
+      variant,
+      size,
+      sizing,
+      spacing,
+      radius,
+      typography,
+      colors,
+    );
 
     // Apply custom style override
-    final finalStyle = style?.merge(buttonStyle) ?? buttonStyle;
+    final ButtonStyle finalStyle = style?.merge(buttonStyle) ?? buttonStyle;
 
     Widget button = switch (variant) {
       ButtonVariant.elevated => ElevatedButton(
-          onPressed: effectiveOnPressed,
-          onLongPress: effectiveOnLongPress,
-          style: finalStyle,
-          child: buttonContent,
-        ),
+        onPressed: effectiveOnPressed,
+        onLongPress: effectiveOnLongPress,
+        style: finalStyle,
+        child: buttonContent,
+      ),
       ButtonVariant.filled => FilledButton(
-          onPressed: effectiveOnPressed,
-          onLongPress: effectiveOnLongPress,
-          style: finalStyle,
-          child: buttonContent,
-        ),
+        onPressed: effectiveOnPressed,
+        onLongPress: effectiveOnLongPress,
+        style: finalStyle,
+        child: buttonContent,
+      ),
       ButtonVariant.tonal => FilledButton.tonal(
-          onPressed: effectiveOnPressed,
-          onLongPress: effectiveOnLongPress,
-          style: finalStyle,
-          child: buttonContent,
-        ),
+        onPressed: effectiveOnPressed,
+        onLongPress: effectiveOnLongPress,
+        style: finalStyle,
+        child: buttonContent,
+      ),
       ButtonVariant.outlined => OutlinedButton(
-          onPressed: effectiveOnPressed,
-          onLongPress: effectiveOnLongPress,
-          style: finalStyle,
-          child: buttonContent,
-        ),
+        onPressed: effectiveOnPressed,
+        onLongPress: effectiveOnLongPress,
+        style: finalStyle,
+        child: buttonContent,
+      ),
       ButtonVariant.text => TextButton(
-          onPressed: effectiveOnPressed,
-          onLongPress: effectiveOnLongPress,
-          style: finalStyle,
-          child: buttonContent,
-        ),
+        onPressed: effectiveOnPressed,
+        onLongPress: effectiveOnLongPress,
+        style: finalStyle,
+        child: buttonContent,
+      ),
     };
 
     if (fullWidth) {
@@ -150,15 +163,21 @@ class DSButton extends StatelessWidget {
     SizingScale sizing,
     SpacingScale spacing,
   ) {
-    final isSmall = size == ButtonSize.small;
-    final isLarge = size == ButtonSize.large;
-    final iconSize = isSmall ? sizing.iconXs : isLarge ? sizing.iconLg : sizing.iconMd;
-    final gap = isSmall ? spacing.xxs : spacing.xs;
+    final bool isSmall = size == ButtonSize.small;
+    final bool isLarge = size == ButtonSize.large;
+    final double iconSize = isSmall
+        ? sizing.iconXs
+        : isLarge
+        ? sizing.iconLg
+        : sizing.iconMd;
+    final double gap = isSmall ? spacing.xxs : spacing.xs;
 
-    final children = <Widget>[];
+    final List<Widget> children = <Widget>[];
 
     if (leadingIcon != null) {
-      children.add(SizedBox(width: iconSize, height: iconSize, child: leadingIcon!));
+      children.add(
+        SizedBox(width: iconSize, height: iconSize, child: leadingIcon!),
+      );
       children.add(SizedBox(width: gap));
     }
 
@@ -166,7 +185,9 @@ class DSButton extends StatelessWidget {
 
     if (trailingIcon != null) {
       children.add(SizedBox(width: gap));
-      children.add(SizedBox(width: iconSize, height: iconSize, child: trailingIcon!));
+      children.add(
+        SizedBox(width: iconSize, height: iconSize, child: trailingIcon!),
+      );
     }
 
     if (isLoading) {
@@ -175,7 +196,7 @@ class DSButton extends StatelessWidget {
         height: iconSize,
         child: CircularProgressIndicator(
           strokeWidth: 2,
-          valueColor: AlwaysStoppedAnimation(
+          valueColor: AlwaysStoppedAnimation<Color>(
             variant == ButtonVariant.text || variant == ButtonVariant.outlined
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.onPrimary,
@@ -201,25 +222,25 @@ class DSButton extends StatelessWidget {
     TypographyScale typography,
     ColorScheme colors,
   ) {
-    final height = switch (size) {
+    final double height = switch (size) {
       ButtonSize.small => sizing.buttonHeightSm,
       ButtonSize.medium => sizing.buttonHeightMd,
       ButtonSize.large => sizing.buttonHeightLg,
     };
 
-    final horizontalPadding = switch (size) {
+    final double horizontalPadding = switch (size) {
       ButtonSize.small => spacing.sm,
       ButtonSize.medium => spacing.md,
       ButtonSize.large => spacing.lg,
     };
 
-    final textStyle = switch (size) {
+    final TextStyle textStyle = switch (size) {
       ButtonSize.small => typography.labelSmall,
       ButtonSize.medium => typography.labelLarge,
       ButtonSize.large => typography.titleSmall,
     };
 
-    final borderRadius = radius.mdRadius;
+    final BorderRadius borderRadius = radius.mdRadius;
 
     switch (variant) {
       case ButtonVariant.elevated:
@@ -229,18 +250,22 @@ class DSButton extends StatelessWidget {
           elevation: 1,
           shadowColor: colors.shadow,
           surfaceTintColor: colors.surfaceTint,
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           minimumSize: Size(64, height),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           textStyle: textStyle,
         ).copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
+          backgroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
-              return colors.surfaceVariant;
+              return colors.surfaceContainerHighest;
             }
             return colors.primary;
           }),
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
               return colors.onSurfaceVariant;
             }
@@ -251,18 +276,22 @@ class DSButton extends StatelessWidget {
         return FilledButton.styleFrom(
           backgroundColor: colors.primary,
           foregroundColor: colors.onPrimary,
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           minimumSize: Size(64, height),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           textStyle: textStyle,
         ).copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
+          backgroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
-              return colors.surfaceVariant;
+              return colors.surfaceContainerHighest;
             }
             return colors.primary;
           }),
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
               return colors.onSurfaceVariant;
             }
@@ -273,18 +302,22 @@ class DSButton extends StatelessWidget {
         return FilledButton.styleFrom(
           backgroundColor: colors.secondaryContainer,
           foregroundColor: colors.onSecondaryContainer,
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           minimumSize: Size(64, height),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           textStyle: textStyle,
         ).copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
+          backgroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
-              return colors.surfaceVariant;
+              return colors.surfaceContainerHighest;
             }
             return colors.secondaryContainer;
           }),
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
               return colors.onSurfaceVariant;
             }
@@ -294,34 +327,41 @@ class DSButton extends StatelessWidget {
       case ButtonVariant.outlined:
         return OutlinedButton.styleFrom(
           foregroundColor: colors.primary,
-          side: BorderSide(color: colors.outline, width: 1),
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 0),
+          side: BorderSide(color: colors.outline),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           minimumSize: Size(64, height),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           textStyle: textStyle,
         ).copyWith(
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
               return colors.onSurfaceVariant;
             }
             return colors.primary;
           }),
-          side: WidgetStateProperty.resolveWith((states) {
+          side: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
             if (states.contains(WidgetState.disabled)) {
-              return BorderSide(color: colors.outlineVariant, width: 1);
+              return BorderSide(color: colors.outlineVariant);
             }
-            return BorderSide(color: colors.outline, width: 1);
+            return BorderSide(color: colors.outline);
           }),
         );
       case ButtonVariant.text:
         return TextButton.styleFrom(
           foregroundColor: colors.primary,
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 0),
-          minimumSize: Size(48, size == ButtonSize.small ? sizing.buttonHeightSm : height),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          minimumSize: Size(
+            48,
+            size == ButtonSize.small ? sizing.buttonHeightSm : height,
+          ),
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           textStyle: textStyle,
         ).copyWith(
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
             if (states.contains(WidgetState.disabled)) {
               return colors.onSurfaceVariant;
             }
@@ -330,14 +370,33 @@ class DSButton extends StatelessWidget {
         );
     }
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed),
+    );
+    properties.add(EnumProperty<ButtonVariant>('variant', variant));
+    properties.add(EnumProperty<ButtonSize>('size', size));
+    properties.add(DiagnosticsProperty<bool>('isLoading', isLoading));
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(DiagnosticsProperty<bool>('fullWidth', fullWidth));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+    properties.add(StringProperty('tooltip', tooltip));
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onLongPress', onLongPress),
+    );
+    properties.add(DiagnosticsProperty<ButtonStyle?>('style', style));
+  }
 }
 
 /// Icon button variant
 class DSIconButton extends StatelessWidget {
   const DSIconButton({
-    super.key,
     required this.onPressed,
     required this.icon,
+    super.key,
     this.size = ButtonSize.medium,
     this.variant = ButtonVariant.text,
     this.isDisabled = false,
@@ -357,17 +416,17 @@ class DSIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<DesignTokens>();
-    final sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
-    final colors = Theme.of(context).colorScheme;
+    final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
+    final SizingScale sizing = tokens?.sizing.scale ?? SizingScale.defaultScale;
+    final ColorScheme colors = Theme.of(context).colorScheme;
 
-    final effectiveOnPressed = isDisabled ? null : onPressed;
-    final iconSize = switch (size) {
+    final VoidCallback? effectiveOnPressed = isDisabled ? null : onPressed;
+    final double iconSize = switch (size) {
       ButtonSize.small => sizing.iconXs,
       ButtonSize.medium => sizing.iconMd,
       ButtonSize.large => sizing.iconLg,
     };
-    final buttonSize = switch (size) {
+    final double buttonSize = switch (size) {
       ButtonSize.small => sizing.buttonHeightSm,
       ButtonSize.medium => sizing.buttonHeightMd,
       ButtonSize.large => sizing.buttonHeightLg,
@@ -377,9 +436,13 @@ class DSIconButton extends StatelessWidget {
       onPressed: effectiveOnPressed,
       icon: SizedBox(width: iconSize, height: iconSize, child: icon),
       style: IconButton.styleFrom(
-        backgroundColor: variant == ButtonVariant.filled ? colors.primaryContainer : null,
-        foregroundColor: variant == ButtonVariant.filled ? colors.onPrimaryContainer : colors.primary,
-        disabledBackgroundColor: colors.surfaceVariant,
+        backgroundColor: variant == ButtonVariant.filled
+            ? colors.primaryContainer
+            : null,
+        foregroundColor: variant == ButtonVariant.filled
+            ? colors.onPrimaryContainer
+            : colors.primary,
+        disabledBackgroundColor: colors.surfaceContainerHighest,
         disabledForegroundColor: colors.onSurfaceVariant,
         padding: padding ?? EdgeInsets.all((buttonSize - iconSize) / 2),
         minimumSize: Size(buttonSize, buttonSize),
@@ -397,5 +460,21 @@ class DSIconButton extends StatelessWidget {
     }
 
     return button;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed),
+    );
+    properties.add(EnumProperty<ButtonSize>('size', size));
+    properties.add(EnumProperty<ButtonVariant>('variant', variant));
+    properties.add(DiagnosticsProperty<bool>('isDisabled', isDisabled));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+    properties.add(StringProperty('tooltip', tooltip));
+    properties.add(
+      DiagnosticsProperty<EdgeInsetsGeometry?>('padding', padding),
+    );
   }
 }
