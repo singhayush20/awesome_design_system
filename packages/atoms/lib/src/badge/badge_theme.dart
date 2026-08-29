@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'badge_style.dart';
 
-/// ThemeExtension for [DSBadge] variant styling across the design system.
+/// ThemeExtension for DSBadge variant styling across the design system.
 @immutable
 class DSBadgeThemeData extends ThemeExtension<DSBadgeThemeData> {
   const DSBadgeThemeData({

@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Immutable style parameters for [DSBadge].
+/// Immutable style parameters for DSBadge.
 @immutable
 class DSBadgeStyle with Diagnosticable {
   const DSBadgeStyle({

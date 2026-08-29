@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Presentation widget for rendering avatar image with placeholder and error fallback.
@@ -66,5 +67,17 @@ class DSAvatarImage extends StatelessWidget {
                 ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ImageProvider>('imageProvider', imageProvider));
+    properties.add(DoubleProperty('dimension', dimension));
+    properties.add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius));
+    properties.add(EnumProperty<BoxFit>('fit', fit));
+    properties.add(DiagnosticsProperty<Widget?>('placeholder', placeholder));
+    properties.add(DiagnosticsProperty<Widget?>('errorWidget', errorWidget));
+    properties.add(DiagnosticsProperty<Widget?>('loadingWidget', loadingWidget));
   }
 }

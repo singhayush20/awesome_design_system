@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
-import 'text_enums.dart';
 
-/// ThemeExtension for [DSText] typography and text color styling.
+/// ThemeExtension for DSText typography and text color styling.
 @immutable
 class DSTextThemeData extends ThemeExtension<DSTextThemeData> {
   const DSTextThemeData({

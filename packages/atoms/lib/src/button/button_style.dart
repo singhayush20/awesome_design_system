@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Immutable style parameters for [DSButton].
+/// Immutable style parameters for DSButton.
 @immutable
 class DSButtonStyle with Diagnosticable {
   const DSButtonStyle({
@@ -129,6 +129,8 @@ class DSButtonStyle with Diagnosticable {
     super.debugFillProperties(properties);
     properties.add(ColorProperty('backgroundColor', backgroundColor));
     properties.add(ColorProperty('foregroundColor', foregroundColor));
+    properties.add(ColorProperty('overlayColor', overlayColor));
+    properties.add(ColorProperty('shadowColor', shadowColor));
     properties.add(
       ColorProperty('disabledBackgroundColor', disabledBackgroundColor),
     );

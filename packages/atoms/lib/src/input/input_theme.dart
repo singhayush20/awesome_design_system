@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'input_style.dart';
 
-/// ThemeExtension for [DSInput] styling across the design system.
+/// ThemeExtension for DSInput styling across the design system.
 @immutable
 class DSInputThemeData extends ThemeExtension<DSInputThemeData> {
   const DSInputThemeData({

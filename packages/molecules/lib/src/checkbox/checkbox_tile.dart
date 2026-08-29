@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_design_system_tokens/tokens.dart';
 import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// A list tile with a leading [DSCheckbox], using tokenized typography.

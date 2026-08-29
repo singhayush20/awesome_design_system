@@ -1,8 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Immutable style parameters for [DSInput].
+/// Immutable style parameters for DSInput.
 @immutable
 class DSInputStyle with Diagnosticable {
   const DSInputStyle({

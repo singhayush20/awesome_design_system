@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_design_system_tokens/tokens.dart';
 
 /// A single radio button atom following Material 3 conventions.
 class DSRadio<T> extends StatelessWidget {

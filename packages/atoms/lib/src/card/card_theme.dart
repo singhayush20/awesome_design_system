@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'card_style.dart';
 
-/// ThemeExtension for [DSCard] variant styling across the design system.
+/// ThemeExtension for DSCard variant styling across the design system.
 @immutable
 class DSCardThemeData extends ThemeExtension<DSCardThemeData> {
   const DSCardThemeData({

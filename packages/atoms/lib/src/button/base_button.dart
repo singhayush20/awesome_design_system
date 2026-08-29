@@ -1,7 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_design_system_tokens/tokens.dart';
 import 'button_enums.dart';
-import 'button_style.dart';
 
 /// Low-level presentation engine that builds the button tree with Material 3 buttons.
 class DSBaseButton extends StatelessWidget {
@@ -100,6 +99,24 @@ class DSBaseButton extends StatelessWidget {
 
     return button;
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onLongPress', onLongPress));
+    properties.add(EnumProperty<ButtonVariant>('variant', variant));
+    properties.add(DiagnosticsProperty<ButtonStyle>('buttonStyle', buttonStyle));
+    properties.add(DiagnosticsProperty<Widget>('child', child));
+    properties.add(DiagnosticsProperty<Widget?>('leadingIcon', leadingIcon));
+    properties.add(DiagnosticsProperty<Widget?>('trailingIcon', trailingIcon));
+    properties.add(FlagProperty('isLoading', value: isLoading, ifTrue: 'loading'));
+    properties.add(FlagProperty('fullWidth', value: fullWidth, ifTrue: 'full width'));
+    properties.add(StringProperty('semanticLabel', semanticLabel));
+    properties.add(StringProperty('tooltip', tooltip));
+    properties.add(DoubleProperty('iconSize', iconSize));
+    properties.add(DoubleProperty('gap', gap));
+  }
 }
 
 class _DSButtonContent extends StatelessWidget {
@@ -161,5 +178,17 @@ class _DSButtonContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: children,
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Widget>('child', child));
+    properties.add(DoubleProperty('iconSize', iconSize));
+    properties.add(DoubleProperty('gap', gap));
+    properties.add(FlagProperty('isLoading', value: isLoading, ifTrue: 'loading'));
+    properties.add(EnumProperty<ButtonVariant>('variant', variant));
+    properties.add(DiagnosticsProperty<Widget?>('leadingIcon', leadingIcon));
+    properties.add(DiagnosticsProperty<Widget?>('trailingIcon', trailingIcon));
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'button_style.dart';
 
-/// ThemeExtension for [DSButton] variant styling across the design system.
+/// ThemeExtension for DSButton variant styling across the design system.
 @immutable
 class DSButtonThemeData extends ThemeExtension<DSButtonThemeData> {
   const DSButtonThemeData({

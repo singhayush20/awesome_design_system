@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
 import 'text_enums.dart';
 
-/// Immutable style parameters for [DSText].
+/// Immutable style parameters for DSText.
 @immutable
 class DSTextStyle with Diagnosticable {
   const DSTextStyle({
