@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
-import '../text/index.dart';
-import '../button/index.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 import 'bottom_sheet_enums.dart';
 import 'bottom_sheet_action.dart';
 
@@ -225,7 +224,6 @@ class _DSBottomSheetHeader extends StatelessWidget {
                 SizedBox(height: spacing.xxs),
                 DSText(
                   description!,
-                  variant: TextVariant.bodyMedium,
                   colorRole: TextColorRole.secondary,
                 ),
               ],

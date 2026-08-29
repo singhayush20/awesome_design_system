@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../text/index.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// A dialog following Material 3 conventions with tokenized typography and styling.
 class DSDialog extends StatelessWidget {

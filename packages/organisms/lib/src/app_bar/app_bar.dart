@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
-import '../text/index.dart';
-import '../button/index.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 import 'app_bar_enums.dart';
 
 /// An app bar following Material 3 conventions with solid and lucid frosted-glass variants.

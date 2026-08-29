@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../button/index.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// Typed action button model for [DSBottomSheet].
 class DSBottomSheetAction {
