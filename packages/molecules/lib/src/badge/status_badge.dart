@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'badge_enums.dart';
-import 'badge.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// Status badge variant with semantic colors and icons.
 class DSStatusBadge extends StatelessWidget {

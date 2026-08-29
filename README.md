@@ -1,6 +1,6 @@
 # Awesome Design System
 
-Flutter design system monorepo (pub workspace). Layer hierarchy: **tokens → atoms → molecules → organisms**. Tokens and atoms are implemented; molecules/organisms are placeholder packages awaiting v1 scope.
+Flutter design system monorepo (pub workspace). Layer hierarchy: **tokens → atoms → molecules → organisms**.
 
 ## Packages
 
@@ -8,8 +8,8 @@ Flutter design system monorepo (pub workspace). Layer hierarchy: **tokens → at
 |---|---|---|
 | Tokens | `packages/tokens` | colors, typography, spacing, radius, elevation, breakpoints, sizing, borders |
 | Atoms | `packages/atoms` | Text, Button, Card, Input, Badge, Avatar + variants |
-| Molecules | `packages/molecules` | placeholder |
-| Organisms | `packages/organisms` | placeholder |
+| Molecules | `packages/molecules` | composite tiles, avatars, cards, select, snackbar |
+| Organisms | `packages/organisms` | bottom sheet, dialog, app bar |
 | Docs app | `widgetbook/` | live component browser (web) |
 
 ## Consuming from a Flutter app

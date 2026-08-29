@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
-import '../text/index.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// Card header sub-component combining title, subtitle, leading and trailing widgets.
 class DSCardHeader extends StatelessWidget {

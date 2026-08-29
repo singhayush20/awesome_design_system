@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_tokens/tokens.dart';
-import 'avatar_enums.dart';
-import 'avatar.dart';
+import 'package:awesome_design_system_atoms/atoms.dart';
 
 /// Avatar with presence indicator component.
 class DSAvatarWithPresence extends StatelessWidget {
