@@ -92,7 +92,6 @@ class DSRadioListTile extends StatelessWidget {
                     SizedBox(height: spacing.xxs),
                     DSText(
                       subtitle!,
-                      variant: TextVariant.bodyMedium,
                       colorRole: TextColorRole.secondary,
                     ),
                   ],

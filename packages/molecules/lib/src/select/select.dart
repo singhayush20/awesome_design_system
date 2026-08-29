@@ -109,7 +109,6 @@ class _DSSelectState<T> extends State<DSSelect<T>> {
       hint: widget.hint != null
           ? DSText(
               widget.hint!,
-              variant: TextVariant.bodyMedium,
               colorRole: TextColorRole.secondary,
             )
           : null,
@@ -147,7 +146,6 @@ class _DSSelectState<T> extends State<DSSelect<T>> {
           value: item,
           child: DSText(
             item.toString(),
-            variant: TextVariant.bodyMedium,
           ),
         );
       }).toList(),

@@ -57,7 +57,6 @@ class DSSnackbar extends StatelessWidget {
           Expanded(
             child: DSText(
               content,
-              variant: TextVariant.bodyMedium,
               colorRole: TextColorRole.inverse,
             ),
           ),

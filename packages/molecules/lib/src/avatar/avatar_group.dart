@@ -134,4 +134,12 @@ class _DSRemainingBadge extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('count', count));
+    properties.add(DoubleProperty('dimension', dimension));
+    properties.add(DiagnosticsProperty<ColorScheme>('colors', colors));
+  }
 }

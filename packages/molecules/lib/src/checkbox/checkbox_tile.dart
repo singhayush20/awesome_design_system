@@ -43,7 +43,6 @@ class DSCheckboxListTile extends StatelessWidget {
       subtitle: subtitle != null
           ? DSText(
               subtitle!,
-              variant: TextVariant.bodyMedium,
               colorRole: TextColorRole.secondary,
             )
           : null,
