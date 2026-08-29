@@ -12,3 +12,4 @@ export 'package:awesome_design_system_atoms/src/input/required_indicator.dart';
 export 'src/badge/status_badge.dart';
 export 'src/select/index.dart';
 export 'src/snackbar/index.dart';
+export 'src/list_tile/index.dart';
