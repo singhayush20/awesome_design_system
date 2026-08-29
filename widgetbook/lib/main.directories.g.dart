@@ -38,6 +38,8 @@ import 'package:awesome_design_system_widgetbook/stories/list_tile_stories.dart'
     as _awesome_design_system_widgetbook_stories_list_tile_stories;
 import 'package:awesome_design_system_widgetbook/stories/interactive_stories.dart'
     as _awesome_design_system_widgetbook_stories_interactive_stories;
+import 'package:awesome_design_system_widgetbook/stories/image_stories.dart'
+    as _awesome_design_system_widgetbook_stories_image_stories;
 import 'package:awesome_design_system_widgetbook/stories/radio_stories.dart'
     as _awesome_design_system_widgetbook_stories_radio_stories;
 import 'package:awesome_design_system_widgetbook/stories/snackbar_stories.dart'
@@ -49,6 +51,21 @@ import 'package:awesome_design_system_widgetbook/stories/text_stories.dart'
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'image',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSImage',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Sources',
+            builder: _awesome_design_system_widgetbook_stories_image_stories
+                .imageSources,
+          ),
+        ],
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'interactive',
     children: [

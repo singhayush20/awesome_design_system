@@ -12,8 +12,10 @@ resolution: workspace
 dependencies:
   awesome_design_system_tokens:
     path: ../tokens
+  cached_network_image: ^3.4.1
   flutter:
     sdk: flutter
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^4.0.0

@@ -13,3 +13,4 @@ export 'src/tag.dart';
 export 'src/switch.dart';
 export 'src/slider.dart';
 export 'src/progress.dart';
+export 'src/image.dart';
