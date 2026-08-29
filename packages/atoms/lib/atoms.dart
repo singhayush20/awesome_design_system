@@ -8,3 +8,4 @@ export 'src/badge.dart';
 export 'src/avatar.dart';
 export 'src/radio.dart';
 export 'src/checkbox.dart';
+export 'src/divider.dart';

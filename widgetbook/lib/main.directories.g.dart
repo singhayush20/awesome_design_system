@@ -28,6 +28,8 @@ import 'package:awesome_design_system_widgetbook/stories/color_palette_stories.d
     as _awesome_design_system_widgetbook_stories_color_palette_stories;
 import 'package:awesome_design_system_widgetbook/stories/dialog_stories.dart'
     as _awesome_design_system_widgetbook_stories_dialog_stories;
+import 'package:awesome_design_system_widgetbook/stories/divider_stories.dart'
+    as _awesome_design_system_widgetbook_stories_divider_stories;
 import 'package:awesome_design_system_widgetbook/stories/input_stories.dart'
     as _awesome_design_system_widgetbook_stories_input_stories;
 import 'package:awesome_design_system_widgetbook/stories/radio_stories.dart'
@@ -39,6 +41,21 @@ import 'package:awesome_design_system_widgetbook/stories/text_stories.dart'
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'divider',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSDivider',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Variants',
+            builder: _awesome_design_system_widgetbook_stories_divider_stories
+                .dividerVariants,
+          ),
+        ],
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'avatar',
     children: [
@@ -262,8 +279,9 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Content and actions',
-            builder: _awesome_design_system_widgetbook_stories_bottom_sheet_stories
-                .bottomSheetStory,
+            builder:
+                _awesome_design_system_widgetbook_stories_bottom_sheet_stories
+                    .bottomSheetStory,
           ),
         ],
       ),
@@ -292,8 +310,9 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Semantic roles',
-            builder: _awesome_design_system_widgetbook_stories_color_palette_stories
-                .colorPalette,
+            builder:
+                _awesome_design_system_widgetbook_stories_color_palette_stories
+                    .colorPalette,
           ),
         ],
       ),
