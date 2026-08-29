@@ -6,8 +6,8 @@ import 'common.dart';
 @widgetbook.UseCase(name: 'Variants', type: DSTag)
 Widget tagVariants(BuildContext context) => const StoryScaffold(
   children: [
-    const SectionLabel('Tag variants'),
-    const Wrap(
+    SectionLabel('Tag variants'),
+    Wrap(
       spacing: 8,
       runSpacing: 8,
       children: <Widget>[
