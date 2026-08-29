@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_design_system_atoms/atoms.dart';
 
-/// Typed action button model for [DSBottomSheet].
+/// Typed action button model for the bottom sheet organism.
 class DSBottomSheetAction {
   const DSBottomSheetAction({
     required this.label,

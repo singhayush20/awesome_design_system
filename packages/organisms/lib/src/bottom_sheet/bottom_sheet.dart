@@ -141,6 +141,9 @@ class DSBottomSheet extends StatelessWidget {
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('description', description));
     properties.add(EnumProperty<BottomSheetType>('type', type));
+    properties.add(IterableProperty<Widget>('buttons', buttons));
+    properties.add(IterableProperty<DSBottomSheetAction>('actions', actions));
+    properties.add(DiagnosticsProperty<Widget?>('crossButton', crossButton));
     properties.add(
       ObjectFlagProperty<VoidCallback?>.has('onCrossPressed', onCrossPressed),
     );
@@ -190,6 +193,12 @@ class _DSDragHandle extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ColorProperty('color', color));
+  }
 }
 
 class _DSBottomSheetHeader extends StatelessWidget {
@@ -233,6 +242,15 @@ class _DSBottomSheetHeader extends StatelessWidget {
         if (crossButton != null) crossButton!,
       ],
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('title', title));
+    properties.add(StringProperty('description', description));
+    properties.add(DiagnosticsProperty<Widget?>('crossButton', crossButton));
+    properties.add(DiagnosticsProperty<SpacingScale>('spacing', spacing));
   }
 }
 
@@ -302,7 +320,6 @@ class _DSBottomSheetActions extends StatelessWidget {
       actionButtons.add(
         DSButton(
           onPressed: onPrimaryButtonPressed,
-          variant: ButtonVariant.filled,
           fullWidth: true,
           child: DSText(primaryButtonText),
         ),
@@ -345,5 +362,19 @@ class _DSBottomSheetActions extends StatelessWidget {
         );
       }).toList(),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<DSBottomSheetAction>('actions', actions));
+    properties.add(IterableProperty<Widget>('buttons', buttons));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onPrimaryButtonPressed', onPrimaryButtonPressed));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onSecondaryButtonPressed', onSecondaryButtonPressed));
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTertiaryButtonPressed', onTertiaryButtonPressed));
+    properties.add(StringProperty('primaryButtonText', primaryButtonText));
+    properties.add(StringProperty('secondaryButtonText', secondaryButtonText));
+    properties.add(StringProperty('tertiaryButtonText', tertiaryButtonText));
+    properties.add(DoubleProperty('spacing', spacing));
   }
 }
