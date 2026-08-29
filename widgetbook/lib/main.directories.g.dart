@@ -36,6 +36,8 @@ import 'package:awesome_design_system_widgetbook/stories/input_stories.dart'
     as _awesome_design_system_widgetbook_stories_input_stories;
 import 'package:awesome_design_system_widgetbook/stories/list_tile_stories.dart'
     as _awesome_design_system_widgetbook_stories_list_tile_stories;
+import 'package:awesome_design_system_widgetbook/stories/interactive_stories.dart'
+    as _awesome_design_system_widgetbook_stories_interactive_stories;
 import 'package:awesome_design_system_widgetbook/stories/radio_stories.dart'
     as _awesome_design_system_widgetbook_stories_radio_stories;
 import 'package:awesome_design_system_widgetbook/stories/snackbar_stories.dart'
@@ -47,6 +49,44 @@ import 'package:awesome_design_system_widgetbook/stories/text_stories.dart'
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'interactive',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSChoiceChips',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Selections',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .choiceChips,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'DSTabBar',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Tabs',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .tabBar,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'DSDropdownMenu',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Menu',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .dropdownMenu,
+          ),
+        ],
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'list tile',
     children: [
