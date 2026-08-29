@@ -38,6 +38,12 @@ class DSSnackbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return toSnackBar(context);
+  }
+
+  /// Resolves this configuration into the [SnackBar] expected by
+  /// [ScaffoldMessengerState.showSnackBar].
+  SnackBar toSnackBar(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
 
     Widget? effectiveAction = action;
