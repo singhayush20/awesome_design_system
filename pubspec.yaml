@@ -1,6 +1,6 @@
 name: awesome_design_system
 description: A comprehensive Flutter design system with atomic architecture
-version: 0.1.0
+version: 0.2.0
 publish_to: none
 
 environment:
