@@ -77,6 +77,8 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: effectiveActions,
       elevation: effectiveElevation,
       backgroundColor: backgroundColor,
+      surfaceTintColor: Colors.transparent,
+      forceMaterialTransparency: variant == AppBarVariant.lucid,
       titleSpacing: titleSpacing ?? spacing.xs,
       flexibleSpace: flexibleSpace,
     );

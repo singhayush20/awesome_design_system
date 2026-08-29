@@ -8,12 +8,33 @@ import 'common.dart';
 Widget appBarVariants(BuildContext context) {
   return const StoryScaffold(
     children: <Widget>[
-      DSAppBar(title: 'Solid app bar', automaticallyImplyLeading: false),
-      DSAppBar(
-        title: 'Lucid app bar',
-        variant: AppBarVariant.lucid,
-        automaticallyImplyLeading: false,
-        actions: <Widget>[Icon(Icons.more_vert)],
+      SectionLabel('Solid: opaque surface'),
+      SizedBox(
+        height: kToolbarHeight,
+        child: ColoredBox(
+          color: Color(0xFFEADDFF),
+          child: DSAppBar(
+            title: 'Solid app bar',
+            automaticallyImplyLeading: false,
+          ),
+        ),
+      ),
+      SectionLabel('Lucid: translucent over content'),
+      SizedBox(
+        height: kToolbarHeight,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[Color(0xFF6750A4), Color(0xFFD0BCFF)],
+            ),
+          ),
+          child: DSAppBar(
+            title: 'Lucid app bar',
+            variant: AppBarVariant.lucid,
+            automaticallyImplyLeading: false,
+            actions: <Widget>[Icon(Icons.more_vert)],
+          ),
+        ),
       ),
     ],
   );
