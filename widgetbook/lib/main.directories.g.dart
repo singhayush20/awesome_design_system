@@ -36,11 +36,28 @@ import 'package:awesome_design_system_widgetbook/stories/radio_stories.dart'
     as _awesome_design_system_widgetbook_stories_radio_stories;
 import 'package:awesome_design_system_widgetbook/stories/snackbar_stories.dart'
     as _awesome_design_system_widgetbook_stories_snackbar_stories;
+import 'package:awesome_design_system_widgetbook/stories/tag_stories.dart'
+    as _awesome_design_system_widgetbook_stories_tag_stories;
 import 'package:awesome_design_system_widgetbook/stories/text_stories.dart'
     as _awesome_design_system_widgetbook_stories_text_stories;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'tag',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSTag',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Variants',
+            builder: _awesome_design_system_widgetbook_stories_tag_stories
+                .tagVariants,
+          ),
+        ],
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'divider',
     children: [
