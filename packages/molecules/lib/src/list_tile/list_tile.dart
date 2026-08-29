@@ -34,7 +34,7 @@ class DSListTile extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: <Widget>[
-            if (leading != null) ...[leading!, const SizedBox(width: 12)],
+            if (leading != null) ...<Widget>[leading!, const SizedBox(width: 12)],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
