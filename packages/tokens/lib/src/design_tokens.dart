@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'color_tokens.dart';
+import 'ds_colors.dart';
 import 'spacing_tokens.dart';
 import 'radius_tokens.dart';
 import 'typography_tokens.dart';
@@ -140,6 +141,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
+        DsColors.fromColorScheme(lightColors),
         spacing,
         radius,
         typography,
@@ -189,6 +191,7 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
+        DsColors.fromColorScheme(darkColors),
         spacing,
         radius,
         typography,

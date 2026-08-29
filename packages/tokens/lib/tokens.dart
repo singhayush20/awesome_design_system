@@ -1,5 +1,7 @@
 // Barrel export for tokens package
 
+export 'src/base_colors.dart';
+export 'src/ds_colors.dart';
 export 'src/color_tokens.dart';
 export 'src/spacing_tokens.dart';
 export 'src/radius_tokens.dart';

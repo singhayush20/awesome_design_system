@@ -24,7 +24,7 @@ dependencies:
   awesome_design_system:
     git:
       url: https://github.com/<you>/awesome_design_system.git
-      ref: main
+      ref: master
 ```
 
 Then initialize the theme and use the widgets:
