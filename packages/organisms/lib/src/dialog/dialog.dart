@@ -1,48 +1,46 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_design_system_atoms/atoms.dart';
 
-/// A dialog following Material 3 conventions with tokenized typography and styling.
+import 'base_dialog.dart';
+
+/// Dialog facade. Use [show] to present it in Flutter's dialog route.
 class DSDialog extends StatelessWidget {
-  const DSDialog({
-    required this.title,
-    super.key,
-    this.content,
-    this.actions,
-    this.onDismiss,
-  });
+  const DSDialog({required this.title, super.key, this.content, this.actions});
 
-  /// Dialog title text
   final String title;
-
-  /// Optional dialog content
   final Widget? content;
-
-  /// Optional action buttons
   final List<Widget>? actions;
 
-  /// Called when dialog is dismissed
-  final VoidCallback? onDismiss;
+  /// Presents a Material dialog using Flutter's [showDialog].
+  static Future<T?> show<T>({
+    required BuildContext context,
+    required String title,
+    Widget? content,
+    List<Widget>? actions,
+    bool barrierDismissible = true,
+    bool useRootNavigator = true,
+    bool useSafeArea = true,
+    VoidCallback? onDismiss,
+  }) {
+    final Future<T?> result = showDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      useRootNavigator: useRootNavigator,
+      useSafeArea: useSafeArea,
+      builder: (BuildContext context) =>
+          DSDialog(title: title, content: content, actions: actions),
+    );
+    return onDismiss == null ? result : result.whenComplete(onDismiss);
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: DSText(
-        title,
-        variant: TextVariant.titleLarge,
-        fontWeight: FontWeight.w600,
-      ),
-      content: content,
-      actions: actions,
-    );
-  }
+  Widget build(BuildContext context) =>
+      DSBaseDialog(title: title, content: content, actions: actions);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('title', title));
-    properties.add(
-      ObjectFlagProperty<VoidCallback?>.has('onDismiss', onDismiss),
-    );
+    properties.add(IterableProperty<Widget>('actions', actions));
   }
 }

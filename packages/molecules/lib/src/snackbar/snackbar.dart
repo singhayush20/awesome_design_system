@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_design_system_atoms/atoms.dart';
 
-/// A snackbar following Material 3 conventions.
+import 'base_snackbar.dart';
+
+/// Snackbar facade. Use [show] to present it through a [ScaffoldMessenger].
 class DSSnackbar extends StatelessWidget {
   const DSSnackbar({
     required this.content,
@@ -15,76 +16,66 @@ class DSSnackbar extends StatelessWidget {
     this.actionColor,
   });
 
-  /// Snackbar content text
   final String content;
-
-  /// Optional action widget override
-  final Widget? action;
-
-  /// Optional action button label
+  final SnackBarAction? action;
   final String? actionLabel;
-
-  /// Callback when action button is pressed
   final VoidCallback? onActionPressed;
-
-  /// Duration before auto-dismiss
   final Duration? duration;
-
-  /// Background color override
   final Color? backgroundColor;
-
-  /// Action text color override
   final Color? actionColor;
 
-  @override
-  Widget build(BuildContext context) {
-    return toSnackBar(context);
-  }
+  /// Shows a snackbar through Flutter's [ScaffoldMessengerState].
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> show({
+    required BuildContext context,
+    required String content,
+    SnackBarAction? action,
+    String? actionLabel,
+    VoidCallback? onActionPressed,
+    Duration? duration,
+    Color? backgroundColor,
+    Color? actionColor,
+  }) => ScaffoldMessenger.of(context).showSnackBar(
+    DSSnackbar(
+      content: content,
+      action: action,
+      actionLabel: actionLabel,
+      onActionPressed: onActionPressed,
+      duration: duration,
+      backgroundColor: backgroundColor,
+      actionColor: actionColor,
+    ).toSnackBar(context),
+  );
 
-  /// Resolves this configuration into the [SnackBar] expected by
-  /// [ScaffoldMessengerState.showSnackBar].
+  /// Resolves this configuration into Flutter's [SnackBar].
   SnackBar toSnackBar(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
-
-    Widget? effectiveAction = action;
-    if (effectiveAction == null && actionLabel != null) {
-      effectiveAction = TextButton(
-        onPressed: onActionPressed ?? () {},
-        style: TextButton.styleFrom(
-          foregroundColor: actionColor ?? colors.inversePrimary,
-        ),
-        child: DSText(actionLabel!),
-      );
-    }
-
-    return SnackBar(
-      content: Row(
-        children: <Widget>[
-          Expanded(
-            child: DSText(
-              content,
-              colorRole: TextColorRole.inverse,
-            ),
-          ),
-          if (effectiveAction != null) effectiveAction,
-        ],
-      ),
+    return DSBaseSnackbar(
+      content: content,
+      action:
+          action ??
+          (actionLabel == null
+              ? null
+              : SnackBarAction(
+                  label: actionLabel!,
+                  onPressed: onActionPressed ?? () {},
+                  textColor: actionColor ?? colors.inversePrimary,
+                )),
       backgroundColor: backgroundColor ?? colors.inverseSurface,
       duration: duration ?? const Duration(milliseconds: 4000),
-      behavior: SnackBarBehavior.floating,
-    );
+    ).toSnackBar();
   }
+
+  @override
+  Widget build(BuildContext context) => toSnackBar(context);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('content', content));
+    properties.add(DiagnosticsProperty<SnackBarAction?>('action', action));
     properties.add(StringProperty('actionLabel', actionLabel));
     properties.add(
-      ObjectFlagProperty<VoidCallback?>.has(
-        'onActionPressed',
-        onActionPressed,
-      ),
+      ObjectFlagProperty<VoidCallback?>.has('onActionPressed', onActionPressed),
     );
     properties.add(DiagnosticsProperty<Duration?>('duration', duration));
     properties.add(ColorProperty('backgroundColor', backgroundColor));
