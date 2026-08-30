@@ -46,7 +46,9 @@ class DSIconButton extends StatelessWidget {
 
     Widget button = IconButton(
       onPressed: effectiveOnPressed,
-      icon: SizedBox(width: iconSize, height: iconSize, child: icon),
+      icon: icon,
+      iconSize: iconSize,
+      alignment: Alignment.center,
       style: IconButton.styleFrom(
         backgroundColor: variant == ButtonVariant.filled
             ? colors.primaryContainer

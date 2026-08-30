@@ -50,6 +50,8 @@ class DSBottomSheet extends StatelessWidget {
     BottomSheetType type = BottomSheetType.standard,
     List<Widget>? buttons,
     List<DSBottomSheetAction>? actions,
+    List<DSBottomSheetAction> Function(BuildContext sheetContext)?
+    actionsBuilder,
     Widget? crossButton,
     VoidCallback? onCrossPressed,
     VoidCallback? onPrimaryButtonPressed,
@@ -67,6 +69,10 @@ class DSBottomSheet extends StatelessWidget {
     bool useRootNavigator = false,
     bool useSafeArea = false,
   }) {
+    assert(
+      actions == null || actionsBuilder == null,
+      'Provide either actions or actionsBuilder, not both.',
+    );
     final DesignTokens? tokens = Theme.of(context).extension<DesignTokens>();
     final RadiusScale radius = tokens?.radius.scale ?? RadiusScale.defaultScale;
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -89,7 +95,7 @@ class DSBottomSheet extends StatelessWidget {
         description: description,
         type: type,
         buttons: buttons,
-        actions: actions,
+        actions: actionsBuilder?.call(sheetContext) ?? actions,
         crossButton: crossButton,
         onCrossPressed:
             onCrossPressed ?? () => Navigator.of(sheetContext).pop(),

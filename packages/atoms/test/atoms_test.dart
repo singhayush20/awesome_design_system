@@ -97,6 +97,30 @@ void main() {
     });
   });
 
+  group('DSIconButton', () {
+    testWidgets('centers the small icon in its ink response', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DSIconButton(
+              size: ButtonSize.small,
+              onPressed: () {},
+              icon: const Icon(Icons.close),
+            ),
+          ),
+        ),
+      );
+
+      final IconButton button = tester.widget<IconButton>(
+        find.byType(IconButton),
+      );
+      expect(button.iconSize, 16);
+      expect(button.alignment, Alignment.center);
+    });
+  });
+
   group('DSText', () {
     testWidgets('renders text with variant', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -378,5 +402,4 @@ void main() {
       expect(decoration.borderRadius, equals(BorderRadius.circular(9999)));
     });
   });
-
 }

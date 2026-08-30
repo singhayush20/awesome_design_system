@@ -13,13 +13,13 @@ Widget dialogStory(BuildContext context) => Scaffold(
           context: context,
           title: 'Delete project?',
           content: const DSText('This action cannot be undone.'),
-          actions: <Widget>[
+          actionsBuilder: (BuildContext dialogContext) => <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(dialogContext).pop(),
               child: const Text('Cancel'),
             ),
             FilledButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(dialogContext).pop(),
               child: const Text('Delete'),
             ),
           ],

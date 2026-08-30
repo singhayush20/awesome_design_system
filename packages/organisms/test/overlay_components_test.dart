@@ -14,6 +14,13 @@ void main() {
               onPressed: () => DSBottomSheet.show<void>(
                 context: context,
                 title: 'Sheet title',
+                actionsBuilder: (BuildContext sheetContext) =>
+                    <DSBottomSheetAction>[
+                      DSBottomSheetAction(
+                        label: 'Close',
+                        onPressed: () => Navigator.of(sheetContext).pop(),
+                      ),
+                    ],
               ),
               child: const Text('Open'),
             ),
@@ -27,9 +34,13 @@ void main() {
 
     expect(find.byType(BottomSheet), findsOneWidget);
     expect(find.text('Sheet title'), findsOneWidget);
+
+    await tester.tap(find.text('Close'));
+    await tester.pumpAndSettle();
+    expect(find.byType(BottomSheet), findsNothing);
   });
 
-  testWidgets('DSDialog.show presents an AlertDialog in a dialog route', (
+  testWidgets('DSDialog actionsBuilder closes with its route context', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
@@ -37,8 +48,16 @@ void main() {
         home: Scaffold(
           body: Builder(
             builder: (BuildContext context) => TextButton(
-              onPressed: () =>
-                  DSDialog.show<void>(context: context, title: 'Dialog title'),
+              onPressed: () => DSDialog.show<void>(
+                context: context,
+                title: 'Dialog title',
+                actionsBuilder: (BuildContext dialogContext) => <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: const Text('Close'),
+                  ),
+                ],
+              ),
               child: const Text('Open'),
             ),
           ),
@@ -51,5 +70,9 @@ void main() {
 
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text('Dialog title'), findsOneWidget);
+
+    await tester.tap(find.text('Close'));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsNothing);
   });
 }

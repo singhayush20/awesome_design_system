@@ -17,18 +17,26 @@ class DSDialog extends StatelessWidget {
     required String title,
     Widget? content,
     List<Widget>? actions,
+    List<Widget> Function(BuildContext dialogContext)? actionsBuilder,
     bool barrierDismissible = true,
     bool useRootNavigator = true,
     bool useSafeArea = true,
     VoidCallback? onDismiss,
   }) {
+    assert(
+      actions == null || actionsBuilder == null,
+      'Provide either actions or actionsBuilder, not both.',
+    );
     final Future<T?> result = showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
       useRootNavigator: useRootNavigator,
       useSafeArea: useSafeArea,
-      builder: (BuildContext context) =>
-          DSDialog(title: title, content: content, actions: actions),
+      builder: (BuildContext dialogContext) => DSDialog(
+        title: title,
+        content: content,
+        actions: actionsBuilder?.call(dialogContext) ?? actions,
+      ),
     );
     return onDismiss == null ? result : result.whenComplete(onDismiss);
   }
