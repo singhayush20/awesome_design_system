@@ -13,7 +13,8 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.variant = AppBarVariant.solid,
     this.elevation,
-    this.automaticallyImplyLeading = true,
+    this.backButtonRequired = false,
+    this.onBackPressed,
     this.titleSpacing,
   });
 
@@ -22,7 +23,8 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final AppBarVariant variant;
   final double? elevation;
-  final bool automaticallyImplyLeading;
+  final bool backButtonRequired;
+  final VoidCallback? onBackPressed;
   final double? titleSpacing;
 
   @override
@@ -37,20 +39,18 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     final ColorScheme colors = Theme.of(context).colorScheme;
     final double effectiveElevation = elevation ?? 0.0;
 
-    final Widget effectiveLeading = leading ??
-        (automaticallyImplyLeading
-            ? DSIconButton(
+    final Widget effectiveLeading = backButtonRequired
+        ? (leading ??
+              DSIconButton(
                 icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-                onPressed: () => Navigator.of(context).maybePop(),
-              )
-            : const SizedBox.shrink());
+                onPressed:
+                    onBackPressed ?? () => Navigator.of(context).maybePop(),
+              ))
+        : const SizedBox.shrink();
 
     final List<Widget> effectiveActions = actions ?? const <Widget>[];
 
-    final Widget titleWidget = DSText(
-      title,
-      variant: TextVariant.titleLarge,
-    );
+    final Widget titleWidget = DSText(title, variant: TextVariant.titleLarge);
 
     final Color backgroundColor = variant == AppBarVariant.lucid
         ? colors.surface.withValues(alpha: 0.7)
@@ -68,7 +68,6 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
         : null;
 
     return AppBar(
-      automaticallyImplyLeading: automaticallyImplyLeading,
       leading: effectiveLeading,
       title: Padding(
         padding: EdgeInsets.only(left: spacing.md),
@@ -90,11 +89,16 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     properties.add(StringProperty('title', title));
     properties.add(EnumProperty<AppBarVariant>('variant', variant));
     properties.add(DoubleProperty('elevation', elevation));
-    properties.add(FlagProperty(
-      'automaticallyImplyLeading',
-      value: automaticallyImplyLeading,
-      ifTrue: 'automaticallyImplyLeading',
-    ));
+    properties.add(
+      ObjectFlagProperty<VoidCallback?>.has('onBackPressed', onBackPressed),
+    );
+    properties.add(
+      FlagProperty(
+        'backButtonRequired',
+        value: backButtonRequired,
+        ifTrue: 'backButtonRequired',
+      ),
+    );
     properties.add(DoubleProperty('titleSpacing', titleSpacing));
   }
 }

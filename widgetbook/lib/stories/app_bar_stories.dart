@@ -13,10 +13,7 @@ Widget appBarVariants(BuildContext context) {
         height: kToolbarHeight,
         child: ColoredBox(
           color: Color(0xFFEADDFF),
-          child: DSAppBar(
-            title: 'Solid app bar',
-            automaticallyImplyLeading: false,
-          ),
+          child: DSAppBar(title: 'Solid app bar'),
         ),
       ),
       SectionLabel('Lucid: translucent over content'),
@@ -31,7 +28,6 @@ Widget appBarVariants(BuildContext context) {
           child: DSAppBar(
             title: 'Lucid app bar',
             variant: AppBarVariant.lucid,
-            automaticallyImplyLeading: false,
             actions: <Widget>[Icon(Icons.more_vert)],
           ),
         ),
