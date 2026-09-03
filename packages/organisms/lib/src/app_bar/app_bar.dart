@@ -39,14 +39,15 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     final ColorScheme colors = Theme.of(context).colorScheme;
     final double effectiveElevation = elevation ?? 0.0;
 
-    final Widget effectiveLeading = backButtonRequired
-        ? (leading ??
-              DSIconButton(
+    final Widget? effectiveLeading =
+        leading ??
+        (backButtonRequired
+            ? DSIconButton(
                 icon: const Icon(Icons.arrow_back_ios_new, size: 20),
                 onPressed:
                     onBackPressed ?? () => Navigator.of(context).maybePop(),
-              ))
-        : const SizedBox.shrink();
+              )
+            : null);
 
     final List<Widget> effectiveActions = actions ?? const <Widget>[];
 
@@ -70,7 +71,9 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: effectiveLeading,
       title: Padding(
-        padding: EdgeInsets.only(left: spacing.md),
+        padding: EdgeInsets.only(
+          left: effectiveLeading == null ? 0.0 : spacing.sm,
+        ),
         child: titleWidget,
       ),
       actions: effectiveActions,
