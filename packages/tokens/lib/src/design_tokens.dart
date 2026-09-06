@@ -3,7 +3,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'color_tokens.dart';
-import 'ds_colors.dart';
 import 'spacing_tokens.dart';
 import 'radius_tokens.dart';
 import 'typography_tokens.dart';
@@ -33,6 +32,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
     Color? brandSecondary,
     Color? brandTertiary,
     Color? brandError,
+    Color? brandSuccess,
+    Color? brandWarning,
+    Color? brandInfo,
     String fontFamily = 'Inter',
     SpacingScale? spacingScale,
     RadiusScale? radiusScale,
@@ -45,6 +47,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       brandSecondary: brandSecondary,
       brandTertiary: brandTertiary,
       brandError: brandError,
+      brandSuccess: brandSuccess,
+      brandWarning: brandWarning,
+      brandInfo: brandInfo,
     );
 
     return DesignTokens(
@@ -74,6 +79,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
     Color? brandSecondary,
     Color? brandTertiary,
     Color? brandError,
+    Color? brandSuccess,
+    Color? brandWarning,
+    Color? brandInfo,
     String fontFamily = 'Inter',
     SpacingScale? spacingScale,
     RadiusScale? radiusScale,
@@ -86,6 +94,9 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       brandSecondary: brandSecondary,
       brandTertiary: brandTertiary,
       brandError: brandError,
+      brandSuccess: brandSuccess,
+      brandWarning: brandWarning,
+      brandInfo: brandInfo,
     );
 
     return DesignTokens(
@@ -141,12 +152,6 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
-        DsColors.light(
-          primary: lightColors.primary,
-          secondary: lightColors.secondary,
-          tertiary: lightColors.tertiary,
-          error: lightColors.error,
-        ),
         spacing,
         radius,
         typography,
@@ -196,12 +201,6 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
-        DsColors.dark(
-          primary: darkColors.primary,
-          secondary: darkColors.secondary,
-          tertiary: darkColors.tertiary,
-          error: darkColors.error,
-        ),
         spacing,
         radius,
         typography,

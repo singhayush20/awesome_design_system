@@ -35,14 +35,14 @@ Refactor the design system's color architecture from a three-layer system (`Base
 
 ### Phase 2: Update DesignTokens Theme Generation
 
-- [ ] Task 11: Update DesignTokens.light() to use enhanced ColorTokens
-- [ ] Task 12: Update DesignTokens.dark() to use enhanced ColorTokens
-- [ ] Task 13: Ensure ThemeData includes ColorTokens as ThemeExtension
+- [x] Task 11: Update DesignTokens.light() to use enhanced ColorTokens
+- [x] Task 12: Update DesignTokens.dark() to use enhanced ColorTokens
+- [x] Task 13: Ensure ThemeData includes ColorTokens as ThemeExtension
 
 ### Checkpoint: Theme Generation Works
-- [ ] DesignTokens.light()/dark() produce valid ThemeData
-- [ ] ColorTokens accessible via Theme.of(context).extension<ColorTokens>()
-- [ ] Both light and dark themes render in widgetbook
+- [x] DesignTokens.light()/dark() produce valid ThemeData
+- [x] ColorTokens accessible via Theme.of(context).extension<ColorTokens>()
+- [x] Both light and dark themes render in widgetbook
 
 ### Phase 3: Migrate Atoms Package
 
