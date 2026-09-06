@@ -141,7 +141,12 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
-        DsColors.fromColorScheme(lightColors),
+        DsColors.light(
+          primary: lightColors.primary,
+          secondary: lightColors.secondary,
+          tertiary: lightColors.tertiary,
+          error: lightColors.error,
+        ),
         spacing,
         radius,
         typography,
@@ -191,7 +196,12 @@ class DesignTokens extends ThemeExtension<DesignTokens> {
       extensions: <ThemeExtension<dynamic>>[
         this,
         colors,
-        DsColors.fromColorScheme(darkColors),
+        DsColors.dark(
+          primary: darkColors.primary,
+          secondary: darkColors.secondary,
+          tertiary: darkColors.tertiary,
+          error: darkColors.error,
+        ),
         spacing,
         radius,
         typography,
