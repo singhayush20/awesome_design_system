@@ -78,7 +78,7 @@
 
 ## Phase 7: Widgetbook and Documentation
 
-- [ ] Task 33: Add ColorTokens showcase story showing all semantic roles
+- [x] Task 33: Add ColorTokens showcase story showing all semantic roles
 - [ ] Task 34: Add theme customization story (brand color override)
 - [ ] Task 35: Verify all existing widgetbook stories work in light/dark
 
