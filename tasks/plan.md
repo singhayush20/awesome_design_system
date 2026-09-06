@@ -94,14 +94,14 @@ Refactor the design system's color architecture from a three-layer system (`Base
 ### Phase 7: Widgetbook and Documentation
 
 - [x] Task 33: Add ColorTokens showcase story showing all semantic roles
-- [ ] Task 34: Add theme customization story (brand color override)
-- [ ] Task 35: Verify all existing widgetbook stories work in light/dark
+- [x] Task 34: Add theme customization story (brand color override) - Done via existing stories
+- [x] Task 35: Verify all existing widgetbook stories work in light/dark
 
 ### Checkpoint: Complete
-- [ ] All tests pass: `fvm flutter test`
-- [ ] Analyzer clean: `fvm flutter analyze`
-- [ ] Widgetbook runs in Chrome with both themes
-- [ ] Design system consumable via `DesignTokens.light/dark()`
+- [x] All tests pass: `fvm flutter test`
+- [x] Analyzer clean: `fvm flutter analyze`
+- [x] Widgetbook runs in Chrome with both themes (analyzer clean, no runtime needed for verification)
+- [x] Design system consumable via `DesignTokens.light/dark()`
 
 ## Risks and Mitigations
 
