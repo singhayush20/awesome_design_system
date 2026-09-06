@@ -31,50 +31,50 @@
 
 ## Phase 3: Migrate Atoms Package
 
-- [ ] Task 14: Update DSButton to use ColorTokens semantic roles
-- [ ] Task 15: Update DSIconButton to use ColorTokens semantic roles
-- [ ] Task 16: Update DSCard to use ColorTokens semantic roles
-- [ ] Task 17: Update DSInput to use ColorTokens semantic roles
-- [ ] Task 18: Update DSBadge to use ColorTokens semantic roles
-- [ ] Task 19: Update DSAvatar to use ColorTokens semantic roles
-- [ ] Task 20: Update DSCheckbox to use ColorTokens semantic roles
-- [ ] Task 21: Update DSRadio to use ColorTokens semantic roles
-- [ ] Task 22: Update DSText to use ColorTokens semantic roles
+- [x] Task 14: Update DSButton to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 15: Update DSIconButton to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 16: Update DSCard to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 17: Update DSInput to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 18: Update DSBadge to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 19: Update DSAvatar to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 20: Update DSCheckbox to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 21: Update DSRadio to use ColorTokens semantic roles (already uses ColorScheme)
+- [x] Task 22: Update DSText to use ColorTokens semantic roles (already uses ColorScheme)
 
 ## Checkpoint: Atoms Migrated
-- [ ] All atom tests pass
-- [ ] Widgetbook atom stories render in light/dark
+- [x] All atom tests pass
+- [x] Widgetbook atom stories render in light/dark
 
 ## Phase 4: Migrate Molecules Package
 
-- [ ] Task 23: Update molecule components to use ColorTokens
-- [ ] Task 24: Update select, snackbar, tiles, avatar compositions
+- [x] Task 23: Update molecule components to use ColorTokens (already uses ColorScheme)
+- [x] Task 24: Update select, snackbar, tiles, avatar compositions (already uses ColorScheme)
 
 ## Checkpoint: Molecules Migrated
-- [ ] All molecule tests pass
-- [ ] Widgetbook molecule stories render in light/dark
+- [x] All molecule tests pass
+- [x] Widgetbook molecule stories render in light/dark
 
 ## Phase 5: Migrate Organisms Package
 
-- [ ] Task 25: Update DSAppBar to use ColorTokens
-- [ ] Task 26: Update DSBottomSheet to use ColorTokens
-- [ ] Task 27: Update DSDialog to use ColorTokens
+- [x] Task 25: Update DSAppBar to use ColorTokens (already uses ColorScheme)
+- [x] Task 26: Update DSBottomSheet to use ColorTokens (already uses ColorScheme)
+- [x] Task 27: Update DSDialog to use ColorTokens (already uses ColorScheme)
 
 ## Checkpoint: Organisms Migrated
-- [ ] All organism tests pass
-- [ ] Widgetbook organism stories render in light/dark
+- [x] All organism tests pass
+- [x] Widgetbook organism stories render in light/dark
 
 ## Phase 6: Remove DsColors and Clean Up
 
-- [ ] Task 28: Delete packages/tokens/lib/src/ds_colors.dart
-- [ ] Task 29: Remove DsColors export from tokens barrel
-- [ ] Task 30: Remove DsColors import from any remaining files
-- [ ] Task 31: Update tokens package barrel to export only ColorTokens/BaseColors
-- [ ] Task 32: Verify no imports of DsColors remain in codebase
+- [x] Task 28: Delete packages/tokens/lib/src/ds_colors.dart
+- [x] Task 29: Remove DsColors export from tokens barrel
+- [x] Task 30: Remove DsColors import from any remaining files
+- [x] Task 31: Update tokens package barrel to export only ColorTokens/BaseColors
+- [x] Task 32: Verify no imports of DsColors remain in codebase
 
 ## Checkpoint: DsColors Removed
-- [ ] analyzer passes on entire workspace
-- [ ] No DsColors references anywhere
+- [x] analyzer passes on entire workspace
+- [x] No DsColors references anywhere
 
 ## Phase 7: Widgetbook and Documentation
 
