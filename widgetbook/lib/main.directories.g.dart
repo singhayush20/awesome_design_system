@@ -10,36 +10,36 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:awesome_design_system_widgetbook/stories/app_bar_stories.dart'
+    as _awesome_design_system_widgetbook_stories_app_bar_stories;
 import 'package:awesome_design_system_widgetbook/stories/avatar_stories.dart'
     as _awesome_design_system_widgetbook_stories_avatar_stories;
 import 'package:awesome_design_system_widgetbook/stories/badge_stories.dart'
     as _awesome_design_system_widgetbook_stories_badge_stories;
+import 'package:awesome_design_system_widgetbook/stories/bottom_sheet_stories.dart'
+    as _awesome_design_system_widgetbook_stories_bottom_sheet_stories;
 import 'package:awesome_design_system_widgetbook/stories/button_stories.dart'
     as _awesome_design_system_widgetbook_stories_button_stories;
 import 'package:awesome_design_system_widgetbook/stories/card_stories.dart'
     as _awesome_design_system_widgetbook_stories_card_stories;
-import 'package:awesome_design_system_widgetbook/stories/app_bar_stories.dart'
-    as _awesome_design_system_widgetbook_stories_app_bar_stories;
-import 'package:awesome_design_system_widgetbook/stories/bottom_sheet_stories.dart'
-    as _awesome_design_system_widgetbook_stories_bottom_sheet_stories;
 import 'package:awesome_design_system_widgetbook/stories/checkbox_stories.dart'
     as _awesome_design_system_widgetbook_stories_checkbox_stories;
 import 'package:awesome_design_system_widgetbook/stories/color_palette_stories.dart'
     as _awesome_design_system_widgetbook_stories_color_palette_stories;
+import 'package:awesome_design_system_widgetbook/stories/controls_stories.dart'
+    as _awesome_design_system_widgetbook_stories_controls_stories;
 import 'package:awesome_design_system_widgetbook/stories/dialog_stories.dart'
     as _awesome_design_system_widgetbook_stories_dialog_stories;
 import 'package:awesome_design_system_widgetbook/stories/divider_stories.dart'
     as _awesome_design_system_widgetbook_stories_divider_stories;
-import 'package:awesome_design_system_widgetbook/stories/controls_stories.dart'
-    as _awesome_design_system_widgetbook_stories_controls_stories;
-import 'package:awesome_design_system_widgetbook/stories/input_stories.dart'
-    as _awesome_design_system_widgetbook_stories_input_stories;
-import 'package:awesome_design_system_widgetbook/stories/list_tile_stories.dart'
-    as _awesome_design_system_widgetbook_stories_list_tile_stories;
-import 'package:awesome_design_system_widgetbook/stories/interactive_stories.dart'
-    as _awesome_design_system_widgetbook_stories_interactive_stories;
 import 'package:awesome_design_system_widgetbook/stories/image_stories.dart'
     as _awesome_design_system_widgetbook_stories_image_stories;
+import 'package:awesome_design_system_widgetbook/stories/input_stories.dart'
+    as _awesome_design_system_widgetbook_stories_input_stories;
+import 'package:awesome_design_system_widgetbook/stories/interactive_stories.dart'
+    as _awesome_design_system_widgetbook_stories_interactive_stories;
+import 'package:awesome_design_system_widgetbook/stories/list_tile_stories.dart'
+    as _awesome_design_system_widgetbook_stories_list_tile_stories;
 import 'package:awesome_design_system_widgetbook/stories/radio_stories.dart'
     as _awesome_design_system_widgetbook_stories_radio_stories;
 import 'package:awesome_design_system_widgetbook/stories/snackbar_stories.dart'
@@ -52,133 +52,15 @@ import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
-    name: 'image',
+    name: 'app_bar',
     children: [
       _widgetbook.WidgetbookComponent(
-        name: 'DSImage',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Sources',
-            builder: _awesome_design_system_widgetbook_stories_image_stories
-                .imageSources,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'interactive',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'DSChoiceChips',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Selections',
-            builder:
-                _awesome_design_system_widgetbook_stories_interactive_stories
-                    .choiceChips,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'DSTabBar',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Tabs',
-            builder:
-                _awesome_design_system_widgetbook_stories_interactive_stories
-                    .tabBar,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'DSDropdownMenu',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Menu',
-            builder:
-                _awesome_design_system_widgetbook_stories_interactive_stories
-                    .dropdownMenu,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'list tile',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'DSListTile',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Content',
-            builder: _awesome_design_system_widgetbook_stories_list_tile_stories
-                .listTileContent,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'controls',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'DSSwitch',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'States',
-            builder: _awesome_design_system_widgetbook_stories_controls_stories
-                .switchStates,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'DSSlider',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Configuration',
-            builder: _awesome_design_system_widgetbook_stories_controls_stories
-                .sliderConfiguration,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'DSProgressIndicators',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Indicators',
-            builder: _awesome_design_system_widgetbook_stories_controls_stories
-                .progressIndicators,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'tag',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'DSTag',
+        name: 'DSAppBar',
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Variants',
-            builder: _awesome_design_system_widgetbook_stories_tag_stories
-                .tagVariants,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'divider',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'DSDivider',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Variants',
-            builder: _awesome_design_system_widgetbook_stories_divider_stories
-                .dividerVariants,
+            builder: _awesome_design_system_widgetbook_stories_app_bar_stories
+                .appBarVariants,
           ),
         ],
       ),
@@ -229,6 +111,22 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Status',
             builder: _awesome_design_system_widgetbook_stories_badge_stories
                 .badgeStatusUseCase,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'bottom_sheet',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSBottomSheet',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Content and actions',
+            builder:
+                _awesome_design_system_widgetbook_stories_bottom_sheet_stories
+                    .bottomSheetStory,
           ),
         ],
       ),
@@ -300,6 +198,91 @@ final directories = <_widgetbook.WidgetbookNode>[
     ],
   ),
   _widgetbook.WidgetbookFolder(
+    name: 'checkbox',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSCheckbox',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'States',
+            builder: _awesome_design_system_widgetbook_stories_checkbox_stories
+                .checkboxStates,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'DSCheckboxListTile',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'List tile',
+            builder: _awesome_design_system_widgetbook_stories_checkbox_stories
+                .checkboxTile,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'dialog',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSDialog',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Confirmation',
+            builder: _awesome_design_system_widgetbook_stories_dialog_stories
+                .dialogStory,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'divider',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSDivider',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Variants',
+            builder: _awesome_design_system_widgetbook_stories_divider_stories
+                .dividerVariants,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'image',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSImage',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Asset Image',
+            builder: _awesome_design_system_widgetbook_stories_image_stories
+                .imageAsset,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Asset SVG',
+            builder: _awesome_design_system_widgetbook_stories_image_stories
+                .imageSvgAsset,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Network Image',
+            builder: _awesome_design_system_widgetbook_stories_image_stories
+                .imageNetwork,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Network SVG',
+            builder: _awesome_design_system_widgetbook_stories_image_stories
+                .imageSvgNetwork,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
     name: 'input',
     children: [
       _widgetbook.WidgetbookComponent(
@@ -330,25 +313,84 @@ final directories = <_widgetbook.WidgetbookNode>[
     ],
   ),
   _widgetbook.WidgetbookFolder(
-    name: 'checkbox',
+    name: 'interactive',
     children: [
       _widgetbook.WidgetbookComponent(
-        name: 'DSCheckbox',
+        name: 'DSChoiceChips',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'States',
-            builder: _awesome_design_system_widgetbook_stories_checkbox_stories
-                .checkboxStates,
+            name: 'Selections',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .choiceChips,
           ),
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'DSCheckboxListTile',
+        name: 'DSDropdownMenu',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'List tile',
-            builder: _awesome_design_system_widgetbook_stories_checkbox_stories
-                .checkboxTile,
+            name: 'Menu',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .dropdownMenu,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'DSTabBar',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Tabs',
+            builder:
+                _awesome_design_system_widgetbook_stories_interactive_stories
+                    .tabBar,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'list_tile',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSListTile',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Content',
+            builder: _awesome_design_system_widgetbook_stories_list_tile_stories
+                .listTileContent,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'material',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'ColorScheme',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Semantic roles',
+            builder:
+                _awesome_design_system_widgetbook_stories_color_palette_stories
+                    .colorPalette,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'progress',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSCircularLoadingIndicator',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Indicators',
+            builder: _awesome_design_system_widgetbook_stories_controls_stories
+                .progressIndicators,
           ),
         ],
       ),
@@ -380,7 +422,22 @@ final directories = <_widgetbook.WidgetbookNode>[
     ],
   ),
   _widgetbook.WidgetbookFolder(
-    name: 'feedback',
+    name: 'slider',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DSSlider',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Configuration',
+            builder: _awesome_design_system_widgetbook_stories_controls_stories
+                .sliderConfiguration,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'snackbar',
     children: [
       _widgetbook.WidgetbookComponent(
         name: 'DSSnackbar',
@@ -392,55 +449,33 @@ final directories = <_widgetbook.WidgetbookNode>[
           ),
         ],
       ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'switch',
+    children: [
       _widgetbook.WidgetbookComponent(
-        name: 'DSDialog',
+        name: 'DSSwitch',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Confirmation',
-            builder: _awesome_design_system_widgetbook_stories_dialog_stories
-                .dialogStory,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'DSBottomSheet',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Content and actions',
-            builder:
-                _awesome_design_system_widgetbook_stories_bottom_sheet_stories
-                    .bottomSheetStory,
+            name: 'States',
+            builder: _awesome_design_system_widgetbook_stories_controls_stories
+                .switchStates,
           ),
         ],
       ),
     ],
   ),
   _widgetbook.WidgetbookFolder(
-    name: 'app bar',
+    name: 'tag',
     children: [
       _widgetbook.WidgetbookComponent(
-        name: 'DSAppBar',
+        name: 'DSTag',
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Variants',
-            builder: _awesome_design_system_widgetbook_stories_app_bar_stories
-                .appBarVariants,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
-    name: 'tokens',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'ColorScheme',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Semantic roles',
-            builder:
-                _awesome_design_system_widgetbook_stories_color_palette_stories
-                    .colorPalette,
+            builder: _awesome_design_system_widgetbook_stories_tag_stories
+                .tagVariants,
           ),
         ],
       ),
