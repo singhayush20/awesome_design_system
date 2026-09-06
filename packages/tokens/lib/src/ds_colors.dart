@@ -83,10 +83,6 @@ class DsColors extends ThemeExtension<DsColors> {
     required this.backgroundError,
     required this.backgroundInfo,
     required this.backgroundDisabled,
-    required this.chatBubbleErrorBackground,
-    required this.userChatBubbleBackground,
-    required this.assistantChatBubbleBackgroundPrimary,
-    required this.assistantChatBubbleBackground,
     // Border Colors
     required this.borderDefault,
     required this.borderDefaultSecondary,
@@ -241,10 +237,6 @@ class DsColors extends ThemeExtension<DsColors> {
       backgroundError: BaseColors.red700,
       backgroundInfo: BaseColors.purple100,
       backgroundDisabled: BaseColors.neutral200,
-      chatBubbleErrorBackground: BaseColors.red200,
-      userChatBubbleBackground: BaseColors.neutral200,
-      assistantChatBubbleBackgroundPrimary: BaseColors.white,
-      assistantChatBubbleBackground: BaseColors.blue100,
       // Border Colors
       borderDefault: BaseColors.neutral700,
       borderDefaultSecondary: BaseColors.neutral400,
@@ -399,10 +391,6 @@ class DsColors extends ThemeExtension<DsColors> {
       backgroundError: BaseColors.red600,
       backgroundInfo: BaseColors.purple800,
       backgroundDisabled: BaseColors.neutral700,
-      chatBubbleErrorBackground: BaseColors.red800,
-      userChatBubbleBackground: BaseColors.neutral700,
-      assistantChatBubbleBackgroundPrimary: BaseColors.neutral800,
-      assistantChatBubbleBackground: BaseColors.blue800,
       // Border Colors
       borderDefault: BaseColors.neutral400,
       borderDefaultSecondary: BaseColors.neutral600,
@@ -556,10 +544,6 @@ class DsColors extends ThemeExtension<DsColors> {
   final Color backgroundError;
   final Color backgroundInfo;
   final Color backgroundDisabled;
-  final Color chatBubbleErrorBackground;
-  final Color userChatBubbleBackground;
-  final Color assistantChatBubbleBackgroundPrimary;
-  final Color assistantChatBubbleBackground;
 
   // Border Colors
   final Color borderDefault;
@@ -832,10 +816,6 @@ class DsColors extends ThemeExtension<DsColors> {
       backgroundError: backgroundError ?? this.backgroundError,
       backgroundInfo: backgroundInfo ?? this.backgroundInfo,
       backgroundDisabled: backgroundDisabled ?? this.backgroundDisabled,
-      chatBubbleErrorBackground: chatBubbleErrorBackground ?? this.chatBubbleErrorBackground,
-      userChatBubbleBackground: userChatBubbleBackground ?? this.userChatBubbleBackground,
-      assistantChatBubbleBackgroundPrimary: assistantChatBubbleBackgroundPrimary ?? this.assistantChatBubbleBackgroundPrimary,
-      assistantChatBubbleBackground: assistantChatBubbleBackground ?? this.assistantChatBubbleBackground,
       borderDefault: borderDefault ?? this.borderDefault,
       borderDefaultSecondary: borderDefaultSecondary ?? this.borderDefaultSecondary,
       borderSubtle: borderSubtle ?? this.borderSubtle,
@@ -966,10 +946,6 @@ class DsColors extends ThemeExtension<DsColors> {
       backgroundError: Color.lerp(backgroundError, other.backgroundError, t)!,
       backgroundInfo: Color.lerp(backgroundInfo, other.backgroundInfo, t)!,
       backgroundDisabled: Color.lerp(backgroundDisabled, other.backgroundDisabled, t)!,
-      chatBubbleErrorBackground: Color.lerp(chatBubbleErrorBackground, other.chatBubbleErrorBackground, t)!,
-      userChatBubbleBackground: Color.lerp(userChatBubbleBackground, other.userChatBubbleBackground, t)!,
-      assistantChatBubbleBackgroundPrimary: Color.lerp(assistantChatBubbleBackgroundPrimary, other.assistantChatBubbleBackgroundPrimary, t)!,
-      assistantChatBubbleBackground: Color.lerp(assistantChatBubbleBackground, other.assistantChatBubbleBackground, t)!,
       borderDefault: Color.lerp(borderDefault, other.borderDefault, t)!,
       borderDefaultSecondary: Color.lerp(borderDefaultSecondary, other.borderDefaultSecondary, t)!,
       borderSubtle: Color.lerp(borderSubtle, other.borderSubtle, t)!,
