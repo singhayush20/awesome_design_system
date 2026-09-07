@@ -45,11 +45,7 @@ Widget colorPalette(BuildContext context) {
 
 @widgetbook.UseCase(name: 'ColorTokens semantic roles', type: ColorTokens)
 Widget colorTokensPalette(BuildContext context) {
-  final ColorTokens? tokens = Theme.of(context).extension<ColorTokens>();
-  final LightColorTokens lightColors = tokens?.resolveLight() ?? LightColorTokens.fromBrand(brandPrimary: Colors.blue);
-  final DarkColorTokens darkColors = tokens?.resolveDark() ?? DarkColorTokens.fromBrand(brandPrimary: Colors.blue);
-  final bool isDark = Theme.of(context).brightness == Brightness.dark;
-  final dynamic colors = isDark ? darkColors : lightColors;
+  final AppColorTokens colors = context.colors;
 
   final List<(String, Color)> semanticRoles = <(String, Color)>[
     // Status
@@ -111,7 +107,7 @@ Widget colorTokensPalette(BuildContext context) {
 
   return StoryScaffold(
     children: <Widget>[
-      SectionLabel('${isDark ? 'Dark' : 'Light'} theme - ColorTokens semantic roles'),
+      SectionLabel('${Theme.of(context).brightness.name} theme - ColorTokens semantic roles'),
       Wrap(
         spacing: 12,
         runSpacing: 12,

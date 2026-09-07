@@ -2,39 +2,45 @@
 // Supports light/dark themes with brand color customization
 // Extended with comprehensive semantic colors for components
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Material 3 color roles for light theme - extended with semantic colors
+/// Default brand color constant used as fallback
+const Color defaultBrandPurple = Color(0xFF6750A4);
+
+/// Common semantic + Material 3 color contract shared by
+/// [LightColorTokens] and [DarkColorTokens].
 @immutable
-class LightColorTokens extends ColorScheme {
-  const LightColorTokens({
+abstract class AppColorTokens extends ColorScheme {
+  const AppColorTokens({
+    required super.brightness,
     required super.primary,
     required super.onPrimary,
-    required Color super.primaryContainer,
-    required Color super.onPrimaryContainer,
+    required super.primaryContainer,
+    required super.onPrimaryContainer,
     required super.secondary,
     required super.onSecondary,
-    required Color super.secondaryContainer,
-    required Color super.onSecondaryContainer,
-    required Color super.tertiary,
-    required Color super.onTertiary,
-    required Color super.tertiaryContainer,
-    required Color super.onTertiaryContainer,
+    required super.secondaryContainer,
+    required super.onSecondaryContainer,
+    required super.tertiary,
+    required super.onTertiary,
+    required super.tertiaryContainer,
+    required super.onTertiaryContainer,
     required super.error,
     required super.onError,
-    required Color super.errorContainer,
-    required Color super.onErrorContainer,
+    required super.errorContainer,
+    required super.onErrorContainer,
     required super.surface,
     required super.onSurface,
-    required Color super.surfaceContainerHighest,
-    required Color super.onSurfaceVariant,
-    required Color super.outline,
-    required Color super.outlineVariant,
-    required Color super.shadow,
-    required Color super.scrim,
-    required Color super.inverseSurface,
-    required Color super.inversePrimary,
-    required Color super.surfaceTint,
+    required super.surfaceContainerHighest,
+    required super.onSurfaceVariant,
+    required super.outline,
+    required super.outlineVariant,
+    required super.shadow,
+    required super.scrim,
+    required super.inverseSurface,
+    required super.inversePrimary,
+    required super.surfaceTint,
     // Status Colors
     required this.success,
     required this.onSuccess,
@@ -133,7 +139,7 @@ class LightColorTokens extends ColorScheme {
     required this.dividerColor,
     required this.dividerColorSecondary,
     required this.transparent,
-  }) : super(brightness: Brightness.light);
+  }) : super();
 
   // Status Colors
   final Color success;
@@ -241,6 +247,242 @@ class LightColorTokens extends ColorScheme {
   final Color dividerColorSecondary;
   final Color transparent;
 
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      // Status Colors
+      ..add(ColorProperty('success', success))
+      ..add(ColorProperty('onSuccess', onSuccess))
+      ..add(ColorProperty('successContainer', successContainer))
+      ..add(ColorProperty('onSuccessContainer', onSuccessContainer))
+      ..add(ColorProperty('warning', warning))
+      ..add(ColorProperty('onWarning', onWarning))
+      ..add(ColorProperty('warningContainer', warningContainer))
+      ..add(ColorProperty('onWarningContainer', onWarningContainer))
+      ..add(ColorProperty('info', info))
+      ..add(ColorProperty('onInfo', onInfo))
+      ..add(ColorProperty('infoContainer', infoContainer))
+      ..add(ColorProperty('onInfoContainer', onInfoContainer))
+      // Text Colors
+      ..add(ColorProperty('textPrimary', textPrimary))
+      ..add(ColorProperty('textSecondary', textSecondary))
+      ..add(ColorProperty('textTertiary', textTertiary))
+      ..add(ColorProperty('textDisabled', textDisabled))
+      ..add(ColorProperty('textOnDark', textOnDark))
+      ..add(ColorProperty('textLink', textLink))
+      ..add(ColorProperty('textSuccess', textSuccess))
+      ..add(ColorProperty('textWarning', textWarning))
+      ..add(ColorProperty('textError', textError))
+      ..add(ColorProperty('textAccent', textAccent))
+      // Background Colors
+      ..add(ColorProperty('backgroundPrimary', backgroundPrimary))
+      ..add(ColorProperty('backgroundSurface', backgroundSurface))
+      ..add(ColorProperty('backgroundSubtle', backgroundSubtle))
+      ..add(ColorProperty('backgroundSuccess', backgroundSuccess))
+      ..add(ColorProperty('backgroundEnabled', backgroundEnabled))
+      ..add(ColorProperty('backgroundWarning', backgroundWarning))
+      ..add(ColorProperty('backgroundError', backgroundError))
+      ..add(ColorProperty('backgroundInfo', backgroundInfo))
+      ..add(ColorProperty('backgroundDisabled', backgroundDisabled))
+      // Border Colors
+      ..add(ColorProperty('borderDefault', borderDefault))
+      ..add(ColorProperty('borderDefaultSecondary', borderDefaultSecondary))
+      ..add(ColorProperty('borderSubtle', borderSubtle))
+      ..add(ColorProperty('borderDisabled', borderDisabled))
+      ..add(ColorProperty('borderPrimary', borderPrimary))
+      ..add(ColorProperty('borderSuccess', borderSuccess))
+      ..add(ColorProperty('borderWarning', borderWarning))
+      ..add(ColorProperty('borderError', borderError))
+      ..add(ColorProperty('borderInfo', borderInfo))
+      // Button Colors
+      ..add(ColorProperty('buttonPrimary', buttonPrimary))
+      ..add(ColorProperty('buttonPrimaryHover', buttonPrimaryHover))
+      ..add(ColorProperty('buttonPrimaryDisabled', buttonPrimaryDisabled))
+      ..add(ColorProperty('buttonPrimaryText', buttonPrimaryText))
+      ..add(ColorProperty('buttonPrimaryTextDisabled', buttonPrimaryTextDisabled))
+      ..add(ColorProperty('buttonPrimaryPressed', buttonPrimaryPressed))
+      ..add(ColorProperty('buttonSecondary', buttonSecondary))
+      ..add(ColorProperty('buttonSecondaryBorder', buttonSecondaryBorder))
+      ..add(ColorProperty('buttonSecondaryText', buttonSecondaryText))
+      ..add(ColorProperty('buttonSecondaryHover', buttonSecondaryHover))
+      ..add(ColorProperty('buttonSecondaryDisabled', buttonSecondaryDisabled))
+      ..add(ColorProperty('buttonSecondaryPressed', buttonSecondaryPressed))
+      ..add(ColorProperty('buttonSecondaryBorderDisabled', buttonSecondaryBorderDisabled))
+      ..add(ColorProperty('buttonTertiaryText', buttonTertiaryText))
+      ..add(ColorProperty('buttonTertiaryHover', buttonTertiaryHover))
+      ..add(ColorProperty('buttonDestructive', buttonDestructive))
+      ..add(ColorProperty('buttonDestructiveHover', buttonDestructiveHover))
+      ..add(ColorProperty('buttonDestructiveDisabled', buttonDestructiveDisabled))
+      ..add(ColorProperty('buttonDestructiveText', buttonDestructiveText))
+      // Text Field Colors
+      ..add(ColorProperty('textFieldBackground', textFieldBackground))
+      ..add(ColorProperty('textFieldText', textFieldText))
+      ..add(ColorProperty('textFieldBorder', textFieldBorder))
+      ..add(ColorProperty('textFieldBorderFocused', textFieldBorderFocused))
+      ..add(ColorProperty('textFieldBorderHover', textFieldBorderHover))
+      ..add(ColorProperty('textFieldBorderDisabled', textFieldBorderDisabled))
+      ..add(ColorProperty('textFieldBorderError', textFieldBorderError))
+      ..add(ColorProperty('textFieldBorderSuccess', textFieldBorderSuccess))
+      ..add(ColorProperty('textFieldBackgroundDisabled', textFieldBackgroundDisabled))
+      ..add(ColorProperty('textFieldTextDisabled', textFieldTextDisabled))
+      ..add(ColorProperty('textFieldHint', textFieldHint))
+      ..add(ColorProperty('textFieldCursor', textFieldCursor))
+      ..add(ColorProperty('textFieldCursorError', textFieldCursorError))
+      ..add(ColorProperty('textFieldLabel', textFieldLabel))
+      ..add(ColorProperty('textFieldLabelFocused', textFieldLabelFocused))
+      ..add(ColorProperty('textFieldHelper', textFieldHelper))
+      ..add(ColorProperty('textFieldErrorText', textFieldErrorText))
+      ..add(ColorProperty('textFieldSuccessText', textFieldSuccessText))
+      // Icon Colors
+      ..add(ColorProperty('iconPrimary', iconPrimary))
+      ..add(ColorProperty('iconSecondary', iconSecondary))
+      ..add(ColorProperty('iconDisabled', iconDisabled))
+      ..add(ColorProperty('iconOnPrimary', iconOnPrimary))
+      ..add(ColorProperty('iconSuccess', iconSuccess))
+      ..add(ColorProperty('iconWarning', iconWarning))
+      ..add(ColorProperty('iconError', iconError))
+      ..add(ColorProperty('iconInfo', iconInfo))
+      // Utility Colors
+      ..add(ColorProperty('navigationBarShadow', navigationBarShadow))
+      ..add(ColorProperty('overlayColor', overlayColor))
+      ..add(ColorProperty('dividerColor', dividerColor))
+      ..add(ColorProperty('dividerColorSecondary', dividerColorSecondary))
+      ..add(ColorProperty('transparent', transparent));
+  }
+}
+
+/// Material 3 color roles for light theme - extended with semantic colors
+@immutable
+class LightColorTokens extends AppColorTokens {
+  const LightColorTokens({
+    required super.primary,
+    required super.onPrimary,
+    required super.primaryContainer,
+    required super.onPrimaryContainer,
+    required super.secondary,
+    required super.onSecondary,
+    required super.secondaryContainer,
+    required super.onSecondaryContainer,
+    required super.tertiary,
+    required super.onTertiary,
+    required super.tertiaryContainer,
+    required super.onTertiaryContainer,
+    required super.error,
+    required super.onError,
+    required super.errorContainer,
+    required super.onErrorContainer,
+    required super.surface,
+    required super.onSurface,
+    required super.surfaceContainerHighest,
+    required super.onSurfaceVariant,
+    required super.outline,
+    required super.outlineVariant,
+    required super.shadow,
+    required super.scrim,
+    required super.inverseSurface,
+    required super.inversePrimary,
+    required super.surfaceTint,
+    // Status Colors
+    required super.success,
+    required super.onSuccess,
+    required super.successContainer,
+    required super.onSuccessContainer,
+    required super.warning,
+    required super.onWarning,
+    required super.warningContainer,
+    required super.onWarningContainer,
+    required super.info,
+    required super.onInfo,
+    required super.infoContainer,
+    required super.onInfoContainer,
+    // Text Colors
+    required super.textPrimary,
+    required super.textSecondary,
+    required super.textTertiary,
+    required super.textDisabled,
+    required super.textOnDark,
+    required super.textLink,
+    required super.textSuccess,
+    required super.textWarning,
+    required super.textError,
+    required super.textAccent,
+    // Background Colors
+    required super.backgroundPrimary,
+    required super.backgroundSurface,
+    required super.backgroundSubtle,
+    required super.backgroundSuccess,
+    required super.backgroundEnabled,
+    required super.backgroundWarning,
+    required super.backgroundError,
+    required super.backgroundInfo,
+    required super.backgroundDisabled,
+    // Border Colors
+    required super.borderDefault,
+    required super.borderDefaultSecondary,
+    required super.borderSubtle,
+    required super.borderDisabled,
+    required super.borderPrimary,
+    required super.borderSuccess,
+    required super.borderWarning,
+    required super.borderError,
+    required super.borderInfo,
+    // Button Colors
+    required super.buttonPrimary,
+    required super.buttonPrimaryHover,
+    required super.buttonPrimaryDisabled,
+    required super.buttonPrimaryText,
+    required super.buttonPrimaryTextDisabled,
+    required super.buttonPrimaryPressed,
+    required super.buttonSecondary,
+    required super.buttonSecondaryBorder,
+    required super.buttonSecondaryText,
+    required super.buttonSecondaryHover,
+    required super.buttonSecondaryDisabled,
+    required super.buttonSecondaryPressed,
+    required super.buttonSecondaryBorderDisabled,
+    required super.buttonTertiaryText,
+    required super.buttonTertiaryHover,
+    required super.buttonDestructive,
+    required super.buttonDestructiveHover,
+    required super.buttonDestructiveDisabled,
+    required super.buttonDestructiveText,
+    // Text Field Colors
+    required super.textFieldBackground,
+    required super.textFieldText,
+    required super.textFieldBorder,
+    required super.textFieldBorderFocused,
+    required super.textFieldBorderHover,
+    required super.textFieldBorderDisabled,
+    required super.textFieldBorderError,
+    required super.textFieldBorderSuccess,
+    required super.textFieldBackgroundDisabled,
+    required super.textFieldTextDisabled,
+    required super.textFieldHint,
+    required super.textFieldCursor,
+    required super.textFieldCursorError,
+    required super.textFieldLabel,
+    required super.textFieldLabelFocused,
+    required super.textFieldHelper,
+    required super.textFieldErrorText,
+    required super.textFieldSuccessText,
+    // Icon Colors
+    required super.iconPrimary,
+    required super.iconSecondary,
+    required super.iconDisabled,
+    required super.iconOnPrimary,
+    required super.iconSuccess,
+    required super.iconWarning,
+    required super.iconError,
+    required super.iconInfo,
+    // Utility Colors
+    required super.navigationBarShadow,
+    required super.overlayColor,
+    required super.dividerColor,
+    required super.dividerColorSecondary,
+    required super.transparent,
+  }) : super(brightness: Brightness.light);
+
   factory LightColorTokens.fromBrand({
     required Color brandPrimary,
     Color? brandSecondary,
@@ -250,7 +492,6 @@ class LightColorTokens extends ColorScheme {
     Color? brandWarning,
     Color? brandInfo,
   }) {
-    // Generate M3 tonal palettes from brand colors
     final Map<int, Color> primaryPalette = _generateTonalPalette(brandPrimary);
     final Map<int, Color> secondaryPalette = _generateTonalPalette(
       brandSecondary ?? brandPrimary.withBlue(200),
@@ -411,7 +652,7 @@ class LightColorTokens extends ColorScheme {
   }
 
   static LightColorTokens lerp(LightColorTokens? a, LightColorTokens? b, double t) {
-    if (a == null && b == null) return LightColorTokens.fromBrand(brandPrimary: const Color(0xFF6750A4));
+    if (a == null && b == null) return LightColorTokens.fromBrand(brandPrimary: defaultBrandPurple);
     if (a == null) return b!;
     if (b == null) return a;
     return LightColorTokens(
@@ -538,240 +779,134 @@ class LightColorTokens extends ColorScheme {
 
 /// Material 3 color roles for dark theme - extended with semantic colors
 @immutable
-class DarkColorTokens extends ColorScheme {
+class DarkColorTokens extends AppColorTokens {
   const DarkColorTokens({
     required super.primary,
     required super.onPrimary,
-    required Color super.primaryContainer,
-    required Color super.onPrimaryContainer,
+    required super.primaryContainer,
+    required super.onPrimaryContainer,
     required super.secondary,
     required super.onSecondary,
-    required Color super.secondaryContainer,
-    required Color super.onSecondaryContainer,
-    required Color super.tertiary,
-    required Color super.onTertiary,
-    required Color super.tertiaryContainer,
-    required Color super.onTertiaryContainer,
+    required super.secondaryContainer,
+    required super.onSecondaryContainer,
+    required super.tertiary,
+    required super.onTertiary,
+    required super.tertiaryContainer,
+    required super.onTertiaryContainer,
     required super.error,
     required super.onError,
-    required Color super.errorContainer,
-    required Color super.onErrorContainer,
+    required super.errorContainer,
+    required super.onErrorContainer,
     required super.surface,
     required super.onSurface,
-    required Color super.surfaceContainerHighest,
-    required Color super.onSurfaceVariant,
-    required Color super.outline,
-    required Color super.outlineVariant,
-    required Color super.shadow,
-    required Color super.scrim,
-    required Color super.inverseSurface,
-    required Color super.inversePrimary,
-    required Color super.surfaceTint,
+    required super.surfaceContainerHighest,
+    required super.onSurfaceVariant,
+    required super.outline,
+    required super.outlineVariant,
+    required super.shadow,
+    required super.scrim,
+    required super.inverseSurface,
+    required super.inversePrimary,
+    required super.surfaceTint,
     // Status Colors
-    required this.success,
-    required this.onSuccess,
-    required this.successContainer,
-    required this.onSuccessContainer,
-    required this.warning,
-    required this.onWarning,
-    required this.warningContainer,
-    required this.onWarningContainer,
-    required this.info,
-    required this.onInfo,
-    required this.infoContainer,
-    required this.onInfoContainer,
+    required super.success,
+    required super.onSuccess,
+    required super.successContainer,
+    required super.onSuccessContainer,
+    required super.warning,
+    required super.onWarning,
+    required super.warningContainer,
+    required super.onWarningContainer,
+    required super.info,
+    required super.onInfo,
+    required super.infoContainer,
+    required super.onInfoContainer,
     // Text Colors
-    required this.textPrimary,
-    required this.textSecondary,
-    required this.textTertiary,
-    required this.textDisabled,
-    required this.textOnDark,
-    required this.textLink,
-    required this.textSuccess,
-    required this.textWarning,
-    required this.textError,
-    required this.textAccent,
+    required super.textPrimary,
+    required super.textSecondary,
+    required super.textTertiary,
+    required super.textDisabled,
+    required super.textOnDark,
+    required super.textLink,
+    required super.textSuccess,
+    required super.textWarning,
+    required super.textError,
+    required super.textAccent,
     // Background Colors
-    required this.backgroundPrimary,
-    required this.backgroundSurface,
-    required this.backgroundSubtle,
-    required this.backgroundSuccess,
-    required this.backgroundEnabled,
-    required this.backgroundWarning,
-    required this.backgroundError,
-    required this.backgroundInfo,
-    required this.backgroundDisabled,
+    required super.backgroundPrimary,
+    required super.backgroundSurface,
+    required super.backgroundSubtle,
+    required super.backgroundSuccess,
+    required super.backgroundEnabled,
+    required super.backgroundWarning,
+    required super.backgroundError,
+    required super.backgroundInfo,
+    required super.backgroundDisabled,
     // Border Colors
-    required this.borderDefault,
-    required this.borderDefaultSecondary,
-    required this.borderSubtle,
-    required this.borderDisabled,
-    required this.borderPrimary,
-    required this.borderSuccess,
-    required this.borderWarning,
-    required this.borderError,
-    required this.borderInfo,
+    required super.borderDefault,
+    required super.borderDefaultSecondary,
+    required super.borderSubtle,
+    required super.borderDisabled,
+    required super.borderPrimary,
+    required super.borderSuccess,
+    required super.borderWarning,
+    required super.borderError,
+    required super.borderInfo,
     // Button Colors
-    required this.buttonPrimary,
-    required this.buttonPrimaryHover,
-    required this.buttonPrimaryDisabled,
-    required this.buttonPrimaryText,
-    required this.buttonPrimaryTextDisabled,
-    required this.buttonPrimaryPressed,
-    required this.buttonSecondary,
-    required this.buttonSecondaryBorder,
-    required this.buttonSecondaryText,
-    required this.buttonSecondaryHover,
-    required this.buttonSecondaryDisabled,
-    required this.buttonSecondaryPressed,
-    required this.buttonSecondaryBorderDisabled,
-    required this.buttonTertiaryText,
-    required this.buttonTertiaryHover,
-    required this.buttonDestructive,
-    required this.buttonDestructiveHover,
-    required this.buttonDestructiveDisabled,
-    required this.buttonDestructiveText,
+    required super.buttonPrimary,
+    required super.buttonPrimaryHover,
+    required super.buttonPrimaryDisabled,
+    required super.buttonPrimaryText,
+    required super.buttonPrimaryTextDisabled,
+    required super.buttonPrimaryPressed,
+    required super.buttonSecondary,
+    required super.buttonSecondaryBorder,
+    required super.buttonSecondaryText,
+    required super.buttonSecondaryHover,
+    required super.buttonSecondaryDisabled,
+    required super.buttonSecondaryPressed,
+    required super.buttonSecondaryBorderDisabled,
+    required super.buttonTertiaryText,
+    required super.buttonTertiaryHover,
+    required super.buttonDestructive,
+    required super.buttonDestructiveHover,
+    required super.buttonDestructiveDisabled,
+    required super.buttonDestructiveText,
     // Text Field Colors
-    required this.textFieldBackground,
-    required this.textFieldText,
-    required this.textFieldBorder,
-    required this.textFieldBorderFocused,
-    required this.textFieldBorderHover,
-    required this.textFieldBorderDisabled,
-    required this.textFieldBorderError,
-    required this.textFieldBorderSuccess,
-    required this.textFieldBackgroundDisabled,
-    required this.textFieldTextDisabled,
-    required this.textFieldHint,
-    required this.textFieldCursor,
-    required this.textFieldCursorError,
-    required this.textFieldLabel,
-    required this.textFieldLabelFocused,
-    required this.textFieldHelper,
-    required this.textFieldErrorText,
-    required this.textFieldSuccessText,
+    required super.textFieldBackground,
+    required super.textFieldText,
+    required super.textFieldBorder,
+    required super.textFieldBorderFocused,
+    required super.textFieldBorderHover,
+    required super.textFieldBorderDisabled,
+    required super.textFieldBorderError,
+    required super.textFieldBorderSuccess,
+    required super.textFieldBackgroundDisabled,
+    required super.textFieldTextDisabled,
+    required super.textFieldHint,
+    required super.textFieldCursor,
+    required super.textFieldCursorError,
+    required super.textFieldLabel,
+    required super.textFieldLabelFocused,
+    required super.textFieldHelper,
+    required super.textFieldErrorText,
+    required super.textFieldSuccessText,
     // Icon Colors
-    required this.iconPrimary,
-    required this.iconSecondary,
-    required this.iconDisabled,
-    required this.iconOnPrimary,
-    required this.iconSuccess,
-    required this.iconWarning,
-    required this.iconError,
-    required this.iconInfo,
+    required super.iconPrimary,
+    required super.iconSecondary,
+    required super.iconDisabled,
+    required super.iconOnPrimary,
+    required super.iconSuccess,
+    required super.iconWarning,
+    required super.iconError,
+    required super.iconInfo,
     // Utility Colors
-    required this.navigationBarShadow,
-    required this.overlayColor,
-    required this.dividerColor,
-    required this.dividerColorSecondary,
-    required this.transparent,
+    required super.navigationBarShadow,
+    required super.overlayColor,
+    required super.dividerColor,
+    required super.dividerColorSecondary,
+    required super.transparent,
   }) : super(brightness: Brightness.dark);
-
-  // Status Colors
-  final Color success;
-  final Color onSuccess;
-  final Color successContainer;
-  final Color onSuccessContainer;
-  final Color warning;
-  final Color onWarning;
-  final Color warningContainer;
-  final Color onWarningContainer;
-  final Color info;
-  final Color onInfo;
-  final Color infoContainer;
-  final Color onInfoContainer;
-
-  // Text Colors
-  final Color textPrimary;
-  final Color textSecondary;
-  final Color textTertiary;
-  final Color textDisabled;
-  final Color textOnDark;
-  final Color textLink;
-  final Color textSuccess;
-  final Color textWarning;
-  final Color textError;
-  final Color textAccent;
-
-  // Background Colors
-  final Color backgroundPrimary;
-  final Color backgroundSurface;
-  final Color backgroundSubtle;
-  final Color backgroundSuccess;
-  final Color backgroundEnabled;
-  final Color backgroundWarning;
-  final Color backgroundError;
-  final Color backgroundInfo;
-  final Color backgroundDisabled;
-
-  // Border Colors
-  final Color borderDefault;
-  final Color borderDefaultSecondary;
-  final Color borderSubtle;
-  final Color borderDisabled;
-  final Color borderPrimary;
-  final Color borderSuccess;
-  final Color borderWarning;
-  final Color borderError;
-  final Color borderInfo;
-
-  // Button Colors
-  final Color buttonPrimary;
-  final Color buttonPrimaryHover;
-  final Color buttonPrimaryDisabled;
-  final Color buttonPrimaryText;
-  final Color buttonPrimaryTextDisabled;
-  final Color buttonPrimaryPressed;
-  final Color buttonSecondary;
-  final Color buttonSecondaryBorder;
-  final Color buttonSecondaryText;
-  final Color buttonSecondaryHover;
-  final Color buttonSecondaryDisabled;
-  final Color buttonSecondaryPressed;
-  final Color buttonSecondaryBorderDisabled;
-  final Color buttonTertiaryText;
-  final Color buttonTertiaryHover;
-  final Color buttonDestructive;
-  final Color buttonDestructiveHover;
-  final Color buttonDestructiveDisabled;
-  final Color buttonDestructiveText;
-
-  // Text Field Colors
-  final Color textFieldBackground;
-  final Color textFieldText;
-  final Color textFieldBorder;
-  final Color textFieldBorderFocused;
-  final Color textFieldBorderHover;
-  final Color textFieldBorderDisabled;
-  final Color textFieldBorderError;
-  final Color textFieldBorderSuccess;
-  final Color textFieldBackgroundDisabled;
-  final Color textFieldTextDisabled;
-  final Color textFieldHint;
-  final Color textFieldCursor;
-  final Color textFieldCursorError;
-  final Color textFieldLabel;
-  final Color textFieldLabelFocused;
-  final Color textFieldHelper;
-  final Color textFieldErrorText;
-  final Color textFieldSuccessText;
-
-  // Icon Colors
-  final Color iconPrimary;
-  final Color iconSecondary;
-  final Color iconDisabled;
-  final Color iconOnPrimary;
-  final Color iconSuccess;
-  final Color iconWarning;
-  final Color iconError;
-  final Color iconInfo;
-
-  // Utility Colors
-  final Color navigationBarShadow;
-  final Color overlayColor;
-  final Color dividerColor;
-  final Color dividerColorSecondary;
-  final Color transparent;
 
   factory DarkColorTokens.fromBrand({
     required Color brandPrimary,
@@ -782,16 +917,13 @@ class DarkColorTokens extends ColorScheme {
     Color? brandWarning,
     Color? brandInfo,
   }) {
-    final Map<int, Color> primaryPalette =
-        LightColorTokens._generateTonalPalette(brandPrimary);
-    final Map<int, Color> secondaryPalette =
-        LightColorTokens._generateTonalPalette(
-          brandSecondary ?? brandPrimary.withBlue(200),
-        );
-    final Map<int, Color> tertiaryPalette =
-        LightColorTokens._generateTonalPalette(
-          brandTertiary ?? brandPrimary.withGreen(150),
-        );
+    final Map<int, Color> primaryPalette = LightColorTokens._generateTonalPalette(brandPrimary);
+    final Map<int, Color> secondaryPalette = LightColorTokens._generateTonalPalette(
+      brandSecondary ?? brandPrimary.withBlue(200),
+    );
+    final Map<int, Color> tertiaryPalette = LightColorTokens._generateTonalPalette(
+      brandTertiary ?? brandPrimary.withGreen(150),
+    );
     final Map<int, Color> errorPalette = LightColorTokens._generateTonalPalette(
       brandError ?? const Color(0xFFBA1A1A),
     );
@@ -936,7 +1068,7 @@ class DarkColorTokens extends ColorScheme {
   }
 
   static DarkColorTokens lerp(DarkColorTokens? a, DarkColorTokens? b, double t) {
-    if (a == null && b == null) return DarkColorTokens.fromBrand(brandPrimary: const Color(0xFF6750A4));
+    if (a == null && b == null) return DarkColorTokens.fromBrand(brandPrimary: defaultBrandPurple);
     if (a == null) return b!;
     if (b == null) return a;
     return DarkColorTokens(
@@ -1099,16 +1231,14 @@ class ColorTokens extends ThemeExtension<ColorTokens> {
   final LightColorTokens light;
   final DarkColorTokens dark;
 
-  /// Resolve the full LightColorTokens or DarkColorTokens with all semantic fields
+  /// Resolve the full LightColorTokens with all semantic fields
   LightColorTokens resolveLight() => light;
-  DarkColorTokens resolveDark() => dark;
   
-  /// Resolve based on brightness - returns ColorScheme for compatibility
-  ColorScheme resolve(Brightness brightness) =>
-      brightness == Brightness.light ? light : dark;
-
-  /// Resolve with full semantic fields for the given brightness
-  dynamic resolveTokens(Brightness brightness) =>
+  /// Resolve the full DarkColorTokens with all semantic fields
+  DarkColorTokens resolveDark() => dark;
+   
+  /// Resolve based on brightness - returns typed AppColorTokens with all semantic fields
+  AppColorTokens resolveTokens(Brightness brightness) =>
       brightness == Brightness.light ? light : dark;
 
   @override
@@ -1120,8 +1250,38 @@ class ColorTokens extends ThemeExtension<ColorTokens> {
   ColorTokens lerp(ThemeExtension<ColorTokens>? other, double t) {
     if (other is! ColorTokens) return this;
     return ColorTokens(
-      light: LightColorTokens.lerp(light, other.light, t) as LightColorTokens,
-      dark: DarkColorTokens.lerp(dark, other.dark, t) as DarkColorTokens,
+      light: LightColorTokens.lerp(light, other.light, t),
+      dark: DarkColorTokens.lerp(dark, other.dark, t),
     );
   }
+
+  /// Resolve based on brightness - returns ColorScheme for backward compatibility
+  ///
+  /// Use resolveTokens() for typed access to semantic fields.
+  @Deprecated('Use resolveTokens() for typed access to semantic fields')
+  ColorScheme resolve(Brightness brightness) =>
+      brightness == Brightness.light ? light : dark;
+}
+
+/// Extension on BuildContext for safe, typed access to color tokens.
+///
+/// Usage:
+/// ```dart
+/// final colors = context.colors; // AppColorTokens - fully typed
+/// Container(color: colors.backgroundSurface, child: Text('Hi', style: TextStyle(color: colors.textPrimary)));
+/// ```
+extension ColorTokensX on BuildContext {
+  ColorTokens get _tokens {
+    final ColorTokens? ext = Theme.of(this).extension<ColorTokens>();
+    assert(
+      ext != null,
+      'ColorTokens not found. Add it via '
+      'ThemeData(extensions: [ColorTokens.light(brandPrimary: ...)]).',
+    );
+    // Safe fallback avoids crashing release builds if misconfigured.
+    return ext ?? ColorTokens.light(brandPrimary: defaultBrandPurple);
+  }
+
+  /// Single entry point for consuming semantic + M3 colors.
+  AppColorTokens get colors => _tokens.resolveTokens(Theme.of(this).brightness);
 }

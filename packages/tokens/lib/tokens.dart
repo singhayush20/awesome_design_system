@@ -18,3 +18,6 @@ export 'src/typography_tokens.dart' show TypographyScale;
 export 'src/sizing_tokens.dart' show SizingScale;
 export 'src/border_tokens.dart' show BorderScale;
 export 'src/breakpoint_tokens.dart' show BreakpointScale;
+
+// Re-export color token types
+export 'src/color_tokens.dart' show AppColorTokens, ColorTokens, DarkColorTokens, LightColorTokens, defaultBrandPurple;
